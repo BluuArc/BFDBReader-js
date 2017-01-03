@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="">
+
+		<title>BFDB Reader (js)</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="home.css" rel="stylesheet"> 
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="js/bacc-page.js"></script>
+
+		<script type="text/javascript" src="db-reader.js"></script>
+	</head>
+	<body>
+		<script>
+			printHeader("Projects");
+		</script>
+
+		<div class="container">
+			<div class="content">
+				<div class="boxed-content-main">
+	 				<!-- Source for FileReader example: http://stackoverflow.com/questions/3582671/how-to-open-a-local-disk-file-with-javascript -->
+					<h1 style="text-align: left;">BFDBReader-js</h1>
+
+				 	<input type="file" id="file-input" />
+				 	<input type="file" id="sp-input" />
+				 	<button id="file-button" disabled="disable">Parse File(s)</button>
+					<br>
+
+				 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Put desired info.json in top/left most file element and <br>(optional) put desired feskills.json in remaining file element.
+				 	</pre>
+
+					<input type="text" id="search-box" onkeyup="searchList()">
+					<select id="unit-names">4
+						<option>Please pick a JSON file to use.</option>
+					</select>
+
+					<button id="print-button">Print Info</button>
+
+					<br>
+
+					<h3>Unit Info:</h3>
+					<textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
+					<textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
+
+					<h3>Contents of the file:</h3>
+					<textarea readonly rows="10" cols="100" id="file-content">Info input from file will be output here.</textarea>
+					<textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
+					<script type="text/javascript">
+						document.getElementById('file-input').addEventListener('change', readInfoFile, false);
+						document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
+
+						document.getElementById("print-button").addEventListener('click', printUnitClick);
+						document.getElementById("file-button").addEventListener('click', displayContents);
+
+						document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
+						document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
+					</script>
+					<br>
+				</div>
+			</div>
+		</div><!-- /.container -->
+
+		<script>
+			printFooter();
+		</script>
+	</body>
+</html>
