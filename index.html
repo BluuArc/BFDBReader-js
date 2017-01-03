@@ -46,6 +46,8 @@
 				 	<input type="file" id="file-input" />
 				 	<input type="file" id="sp-input" />
 				 	<button id="file-button" disabled="disable">Parse File(s)</button>
+				 	<br>
+				 	<a href="https://github.com/Deathmax/bravefrontier_data/">Don't have any files? Choose an info.json and feskills.json here.</a>
 					<br>
 
 				 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Put desired info.json in top/left most file element and <br>(optional) put desired feskills.json in remaining file element.
@@ -58,25 +60,62 @@
 
 					<button id="print-button">Print Info</button>
 
-					<br>
+					<br><br>
 
-					<h3>Unit Info:</h3>
-					<textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
-					<textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
+					<!--Unit area-->
+					<div class="boxed-content-sub">
+						<h3>Unit Info:</h3>
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#markdown">Markdown</a></li>
+							<li><a data-toggle="tab" href="#json">JSON</a></li>
+							<li><a data-toggle="tab" href="#unit-links">Related Links</a></li>
+						</ul>
 
-					<h3>Contents of the file:</h3>
-					<textarea readonly rows="10" cols="100" id="file-content">Info input from file will be output here.</textarea>
-					<textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
-					<script type="text/javascript">
-						document.getElementById('file-input').addEventListener('change', readInfoFile, false);
-						document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
+						<div class="tab-content">
+							<div id="markdown" class="tab-pane fade in active">
+						    	<textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
+							</div>
+						    <div id="json" class="tab-pane fade">
+								<textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
+						    </div>
+						    <dir id="unit-links" class="tab-pane fade">
+						    	<div class="boxed-content-sub2">
+						    		<a href="https://markdowntohtml.com/#converter">Markdown to HTML Converter</a><br>
+						    		<a href="https://jsonformatter.curiousconcept.com/">JSON formatter</a>
+						    	</div>
+						    </dir>
+					  	</div>		
+				  	</div>
 
-						document.getElementById("print-button").addEventListener('click', printUnitClick);
-						document.getElementById("file-button").addEventListener('click', displayContents);
+				  	<br>
+					
+					<!--file area-->
+				  	<div class="boxed-content-sub">
+						<h3>Contents of the file:</h3>
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#info-tab">Info JSON</a></li>
+							<li><a data-toggle="tab" href="#feskills-tab">SP JSON</a></li>
+						</ul>
 
-						document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
-						document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
-					</script>
+						<div class="tab-content">
+							<div id="info-tab" class="tab-pane fade in active">
+								<textarea readonly rows="10" cols="100" id="file-content">Info input from file will be output here.</textarea>
+							</div>
+							<div id="feskills-tab" class="tab-pane fade">
+								<textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
+							</div>
+						</div>
+						<script type="text/javascript">
+							document.getElementById('file-input').addEventListener('change', readInfoFile, false);
+							document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
+
+							document.getElementById("print-button").addEventListener('click', printUnitClick);
+							document.getElementById("file-button").addEventListener('click', displayContents);
+
+							document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
+							document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
+						</script>
+					</div>
 					<br>
 				</div>
 			</div>
