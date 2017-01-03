@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DB Reader</title>
+</head>
+<body>
+ 	<!-- Source for FileReader example: http://stackoverflow.com/questions/3582671/how-to-open-a-local-disk-file-with-javascript -->
+
+ 	<input type="file" id="file-input" />
+	<h3>Contents of the file:</h3>
+	<!--<pre id="file-content"></pre>-->
+	<textarea rows="10" cols="100" id="file-content">File input will be output here.</textarea>
+	<br>
+	<textarea rows="10" cols="100" id="notes">Notes will be output here.</textarea>
+
+	<script type="text/javascript">
+		function readSingleFile(e) {
+			var file = e.target.files[0];
+			if (!file) {
+			  return;
+			}
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			  var contents = e.target.result;
+			  displayContents(contents);
+			};
+			reader.readAsText(file);
+		}
+
+		function displayContents(contents) {
+			var output = document.getElementById('file-content');
+			output.innerHTML = ""; //clear out current input
+			var notes = document.getElementById('notes');
+			var json_obj = JSON.parse(contents);
+			//console.log(json_obj.constructor.toString());
+			//analyzeUnits(json_obj, output, notes);
+			printUnits(json_obj, output, notes);
+		}
+
+		function printUnits(json_obj,output,notes){
+			for(unitID in json_obj){//for every unit
+				console.log(unitID);
+				var unit = json_obj[unitID];
+				//console.log(unit.constructor.toString());
+				output.innerHTML += "### " + unit["guide_id"] + ": " + unit["name"] + " (" + unit["id"]+")  \n";
+
+				//print rarity, element, and cost
+				output.innerHTML += "**Rarity/Element/Cost:** " ;
+				if(unit["rarity"] == 8) output.innerHTML += "OE/";
+				else					output.innerHTML += unit["rarity"] + "\\*/";
+				output.innerHTML += unit["element"] + "/";
+				output.innerHTML += unit["cost"] + "  \n";
+
+				output.innerHTML += "**Gender:** " + unit["gender"] + "  \n";
+				
+				//print hitcount info
+				output.innerHTML += "**Hit Count:** "; 
+				output.innerHTML += printHitCounts(unit["damage frames"]["hits"], unit["damage frames"]["frame times"], unit["drop check count"]);
+
+				output.innerHTML += "**Move Speed Type for attack/skill:** " + unit["movement"]["attack"]["move speed type"] + "/" + 
+					unit["movement"]["skill"]["move speed type"]+ "  \n";
+
+				//output.innerHTML += "**Attack Pattern:** `[" + unit["damage frames"]["frame times"] + "]`  \n";
+				//output.innerHTML += "**Damage Distribution:** `[" + unit["damage frames"]["hit dmg% distribution"] + "]`  \n";
+				output.innerHTML += printAtkPattern(unit["damage frames"]["frame times"],unit["damage frames"]["hit dmg% distribution"]);
+
+				output.innerHTML += "**Merit Type:** " + unit["getting type"] + "  \n";
+
+				//print stat info
+				output.innerHTML += "**Lord Stats:**\n\n";
+				output.innerHTML += "    HP: " + unit["stats"]["_lord"]["hp"] + " (" + unit["imp"]["max hp"] + ")\n";
+				output.innerHTML += "    ATK: " + unit["stats"]["_lord"]["atk"] + " (" + unit["imp"]["max atk"] + ")\n";
+				output.innerHTML += "    DEF: " + unit["stats"]["_lord"]["def"] + " (" + unit["imp"]["max def"] + ")\n";
+				output.innerHTML += "    REC: " + unit["stats"]["_lord"]["rec"] + " (" + unit["imp"]["max rec"] + ")\n";
+
+				output.innerHTML += "\n";
+				
+				//print leader skill info
+				try{
+					var text = "**LS:** ";
+					var leader_skill = unit["leader skill"];
+					text += leader_skill["name"] + " - " + leader_skill["desc"] + "\n\n";
+					for(e in leader_skill["effects"]){
+						text += printEffects(leader_skill["effects"][e]);
+					}
+					output.innerHTML += text;
+				}catch(err){
+					output.innerHTML += "**LS:** None\n";
+					console.log(err);
+				}
+
+				output.innerHTML += "  \n";
+
+				//print ES info
+				if(unit["rarity"] > 6){
+					try{
+						var text = "**ES:** ";
+						var extra_skill = unit["extra skill"];
+						text += extra_skill["name"] + " - " + extra_skill["desc"] + "\n\n";
+						text += " * target: " + extra_skill["target"] + "\n";
+						for(e in extra_skill["effects"]){
+							text += printEffects(extra_skill["effects"][e]);
+						}
+						output.innerHTML += text;
+					}catch(err){
+						output.innerHTML += "**ES:** None\n";
+						console.log(err);
+					}
+					output.innerHTML += "  \n";
+				}
+
+				//print bb info
+				try{
+					var text = "**BB:** ";
+					var bb = unit["bb"];
+					text += printBurst(bb);
+					output.innerHTML += text;
+				}catch(err){
+					output.innerHTML += "**BB:** None\n";
+					console.log(err);
+				}
+
+				output.innerHTML += "  \n";
+
+				//print sbb info
+				try{
+					var text = "**SBB:** ";
+					var sbb = unit["sbb"];
+					text += printBurst(sbb);
+					output.innerHTML += text;
+				}catch(err){
+					if(unit["rarity"] > 5){ 
+						output.innerHTML += "**SBB:** None\n";
+						console.log(err);
+					}
+				}
+
+				if(unit["rarity"] > 5){
+					output.innerHTML += "  \n";
+				}
+
+				//print ubb info
+				try{
+					var text = "**UBB:** ";
+					var ubb = unit["ubb"];
+					text += printBurst(ubb);
+					output.innerHTML += text;
+				}catch(err){
+					if(unit["rarity"] > 6) {
+						output.innerHTML += "**SBB:** None\n";
+						console.log(err);
+					}
+				}
+
+				if(unit["rarity"] > 6){
+					output.innerHTML += "  \n";
+				}
+
+
+				output.innerHTML += "---\n";
+
+			}
+		}
+
+		//recursively print an array into a string
+		function printArray(arr){
+			var text = "[";
+			for(i in arr){
+				if(arr[i] instanceof Array) text += printArray(arr[i]);
+				else if(arr[i] instanceof Object) text += JSON.stringify(arr[i]); //most likely a JSON object
+				else text += arr[i];
+
+				if(i + 1 < arr.length) text += ",";
+			}
+
+			text += "]";
+			return text;
+		}
+
+		//print the effects into a string
+		function printEffects(effects){
+			var text = " * ";
+			var effectArr = [];
+			for(param in effects){
+				if(param != "passive id"){
+					var tempText = effects[param];
+					if(effects[param] instanceof Array) tempText = printArray(effects[param]);
+					else if(effects[param] instanceof Object) tempText = JSON.stringify(effects[param]);
+					effectArr.push(param + ": " + tempText);
+				}
+			}
+
+			var i = 0;
+			for(i = 0; i < effectArr.length; ++i){
+				text += effectArr[i];
+				if(i + 1 != effectArr.length) text += " / ";
+			}
+			text += "\n";
+			return text;
+		}
+
+		//print the attack pattern info as a table in a string
+		function printAtkPattern(timeArr,distrArr){
+			//print hit number
+			var text = "\n| Hit | ";
+			var len = timeArr.length;
+			var i = 0;
+			for(i = 1; i <= len; ++i){
+				text += i + " | ";
+			}
+			text +="\n| :---: | ";
+
+			for(t in timeArr){
+				text += ":---: | ";
+			}
+
+			text += "\n| Frame Time | ";
+			for(t in timeArr){
+				text += timeArr[t] + " | ";
+			}
+			text += "\n| Damage% Distribution | ";
+			for(d in distrArr){
+				text += distrArr[d] + " | ";
+			}
+			text += "  \n";
+			return text;
+		}
+
+		//print all info related to a brave burst
+		function printBurst(burst){
+			var endBBLevel = burst["levels"][burst["levels"].length - 1];
+			var text = burst["name"] + " - (BC cost: " + endBBLevel["bc cost"] + ") " + burst["desc"] + "\n\n";
+			text += " * " + printHitCounts(burst["damage frames"][0]["hits"], burst["damage frames"][0]["frame times"],
+				burst["drop check count"]);
+			for(e in endBBLevel["effects"]){
+				text += printEffects(endBBLevel["effects"][e]);
+			}
+			text += printAtkPattern(burst["damage frames"][0]["frame times"],burst["damage frames"][0]["hit dmg% distribution"]);
+			return text;
+		}
+
+		//print info about hit counts
+		function printHitCounts(numHits, frameArr, dropChecks){
+			var text = numHits + " hits (" + dropChecks + 
+				" BC/hit, max " + (dropChecks * numHits) + " BC generated) in " + 
+				frameArr[frameArr.length - 1] + " frames  \n";
+			return text;
+		}
+
+		function analyzeUnits(json_obj,output,notes) {
+			var max =[
+				{unitID:[0], len:0, params:[" none"]}, //1
+				{unitID:[0], len:0, params:[" none"]}, //2
+				{unitID:[0], len:0, params:[" none"]}, //3
+				{unitID:[0], len:0, params:[" none"]}, //4
+				{unitID:[0], len:0, params:[" none"]}, //5
+				{unitID:[0], len:0, params:[" none"]}, //6
+				{unitID:[0], len:0, params:[" none"]}, //7
+				{unitID:[0], len:0, params:[" none"]} //8
+			];
+
+			var min =[
+				{unitID:[0], len:999, params:[" none"]}, //1
+				{unitID:[0], len:999, params:[" none"]}, //2
+				{unitID:[0], len:999, params:[" none"]}, //3
+				{unitID:[0], len:999, params:[" none"]}, //4
+				{unitID:[0], len:999, params:[" none"]}, //5
+				{unitID:[0], len:999, params:[" none"]}, //6
+				{unitID:[0], len:999, params:[" none"]}, //7
+				{unitID:[0], len:999, params:[" none"]} //8
+			];
+			for(unitID in json_obj){//for every unit
+				console.log(unitID);
+				var unit = json_obj[unitID];
+				output.innerHTML += unitID + "," + unit["rarity"]; //print unit ID
+
+				//print every part
+				var currLen = 0;
+				var params = "";
+				for(part in unit){
+					++currLen;
+					params += "," + part;// + ":{" + unit[part].toString() + "}"; //print everything
+				// if(part == "bb"){
+				// 	var bb = unit["bb"];
+				// 	output.innerHTML += "," + bb["desc"];
+				// }
+				}
+				output.innerHTML += params;
+
+				output.innerHTML += "," + currLen + "\n"; //end line
+
+				//add to max/min stats
+				var index = unit["rarity"] - 1;
+				var i = 0;
+				if(currLen >= max[index].len){
+					if(currLen != max[index].len){
+						var arrLen = max[index].unitID.length;
+						for(i = 0; i < arrLen; ++i){
+							max[index].params.pop();
+							max[index].unitID.pop();
+						}
+						max[index].unitID.push(unit["id"]);
+						max[index].len = currLen;							
+						max[index].params.push(params);
+					}else if (params != max[index].params[0]){//same length, but diff params, so add it to params array
+						max[index].unitID.push(unit["id"]);
+						max[index].params.push(params);
+					}
+				}
+				if(currLen <= min[index].len){
+					if(currLen != min[index].len){
+						var arrLen = min[index].unitID.length;
+						for(i = 0; i < arrLen; ++i){
+							min[index].params.pop();
+							min[index].unitID.pop();
+						}
+						min[index].unitID.push(unit["id"]);
+						min[index].len = currLen;
+						min[index].params.push(params);
+					}else if (params != min[index].params[0]){//same length, but diff params, so add it to params array
+						min[index].unitID.push(unit["id"]);
+						min[index].params.push(params);
+					}
+				}
+			}
+			//output.innerHTML = contents;
+
+			//print statistics
+			notes.innerHTML = "rarity,len,[index]{unitID,params}\n";
+			var s = 0;
+			for(i = 0; i < 8; ++i){
+				var arrLen = max[i].unitID.length;
+				notes.innerHTML += (i+1) + "," + max[i].len;
+				for(s = 0; s < arrLen; ++s){
+					notes.innerHTML += ",[" + (s+1) + "\\" + arrLen + "]{" + max[i].unitID[s];
+					notes.innerHTML += "," + max[i].params[s].slice(1) + "}";
+				}
+				notes.innerHTML += "\n";
+			}
+			for(i = 0; i < 8; ++i){
+				arrLen = min[i].unitID.length;
+				notes.innerHTML += (i+1) + "," + min[i].len;
+				for(s = 0; s < arrLen; ++s){
+					notes.innerHTML += ",[" + (s+1) + "\\" + arrLen + "]{" + min[i].unitID[s];
+					notes.innerHTML += "," + min[i].params[s].slice(1) + "}";
+				}
+				notes.innerHTML += "\n";
+			}
+			notes.innerHTML += "\n";
+		}
+
+		document.getElementById('file-input')
+		.addEventListener('change', readSingleFile, false);
+	</script>
+</body>
+</html>

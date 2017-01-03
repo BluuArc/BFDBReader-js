@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DB Reader</title>
+
+	<script type="text/javascript" src="db-reader.js"></script>
+</head>
+<body>
+ 	<!-- Source for FileReader example: http://stackoverflow.com/questions/3582671/how-to-open-a-local-disk-file-with-javascript -->
+
+ 	<input type="file" id="file-input" />
+ 	<input type="file" id="sp-input" />
+ 	<button id="file-button" disabled="disable">Parse File(s)</button>
+	<br>
+
+ 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Put desired info.json in top/left most file element and <br>(optional) put desired feskills.json in remaining file element.
+ 	</pre>
+
+	<input type="text" id="search-box" onkeyup="searchList()">
+	<select id="unit-names">4
+		<option>Please pick a JSON file to use.</option>
+	</select>
+
+	<button id="print-button">Print Info</button>
+
+	<br>
+
+	<h3>Unit Info:</h3>
+	<textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
+	<textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
+
+	<h3>Contents of the file:</h3>
+	<textarea readonly rows="10" cols="100" id="file-content">Info input from file will be output here.</textarea>
+	<textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
+	
+	<script type="text/javascript">
+		document.getElementById('file-input').addEventListener('change', readInfoFile, false);
+		document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
+
+		document.getElementById("print-button").addEventListener('click', printUnitClick);
+		document.getElementById("file-button").addEventListener('click', displayContents);
+
+		document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
+		document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
+	</script>
+</body>
+</html>

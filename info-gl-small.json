@@ -1,0 +1,3575 @@
+{
+    "10011": {
+        "ai": [
+            {
+                "action": "skill", 
+                "chance%": 60.0, 
+                "target conditions": "hp_50pr_under", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "skill", 
+                "chance%": 30.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 70.0, 
+                "target conditions": "hp_max", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 50.0, 
+                "target conditions": "hp_min", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 100.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }
+        ], 
+        "animations": {
+            "attack": {
+                "total number of frames": 131
+            }, 
+            "idle": {
+                "total number of frames": 51
+            }, 
+            "move": {
+                "total number of frames": 1
+            }
+        }, 
+        "bb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [26, 47, 68, 89, 110], 
+                    "hit dmg% distribution": [20, 20, 20, 20, 20], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 5, 
+                    "proc id": "1"
+                }
+            ], 
+            "desc": "5 combo Fire elemental attack on all enemies", 
+            "drop check count": 1, 
+            "id": "10011", 
+            "levels": [
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 35, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 40, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 45, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 55, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 65, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 70, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 75, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Flare Ride"
+        }, 
+        "category": 10010, 
+        "cost": 2, 
+        "damage frames": {
+            "frame times": [26, 44, 62], 
+            "hit dmg% distribution": [50, 30, 20], 
+            "hit dmg% distribution (total)": 100, 
+            "hits": 3
+        }, 
+        "drop check count": 2, 
+        "element": "fire", 
+        "exp_pattern": 10, 
+        "gender": "male", 
+        "getting type": "not eligible for achievement", 
+        "guide_id": 1, 
+        "id": 10011, 
+        "imp": {
+            "max atk": "160", 
+            "max def": "80", 
+            "max hp": "400", 
+            "max rec": "80"
+        }, 
+        "kind": "normal", 
+        "leader skill": {
+            "desc": "25% boost to Atk Power of Fire Types", 
+            "effects": [
+                {
+                    "atk% buff": 25, 
+                    "elements buffed": [
+                        "fire"
+                    ], 
+                    "passive id": "2"
+                }
+            ], 
+            "id": "100", 
+            "name": "Fire Spirit's Power"
+        }, 
+        "lord damage range": "651~728", 
+        "movement": {
+            "attack": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }, 
+            "skill": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }
+        }, 
+        "name": "Fencer Vargas", 
+        "rarity": 2, 
+        "sell caution": false, 
+        "stats": {
+            "_base": {
+                "atk": 500, 
+                "def": 410, 
+                "hp": 1030, 
+                "rec": 320
+            }, 
+            "_lord": {
+                "atk": 700, 
+                "def": 574, 
+                "hp": 1948, 
+                "rec": 448
+            }, 
+            "anima": {
+                "atk": 700, 
+                "def": 574, 
+                "hp max": 2058, 
+                "hp min": 2003, 
+                "rec max": 437, 
+                "rec min": 415
+            }, 
+            "breaker": {
+                "atk max": 733, 
+                "atk min": 711, 
+                "def max": 563, 
+                "def min": 541, 
+                "hp": 1948, 
+                "rec": 448
+            }, 
+            "guardian": {
+                "atk": 700, 
+                "def max": 607, 
+                "def min": 585, 
+                "hp": 1948, 
+                "rec max": 448, 
+                "rec min": 426
+            }, 
+            "oracle": {
+                "atk": 700, 
+                "def max": 574, 
+                "def min": 552, 
+                "hp": 1948, 
+                "rec max": 492, 
+                "rec min": 470
+            }
+        }
+    }, 
+    "10012": {
+        "ai": [
+            {
+                "action": "skill", 
+                "chance%": 60.0, 
+                "target conditions": "hp_50pr_under", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "skill", 
+                "chance%": 30.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 70.0, 
+                "target conditions": "hp_max", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 50.0, 
+                "target conditions": "hp_min", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 100.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }
+        ], 
+        "animations": {
+            "attack": {
+                "total number of frames": 128
+            }, 
+            "idle": {
+                "total number of frames": 52
+            }, 
+            "move": {
+                "total number of frames": 13
+            }
+        }, 
+        "bb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [26, 47, 68, 89, 110], 
+                    "hit dmg% distribution": [20, 20, 20, 20, 20], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 5, 
+                    "proc id": "1"
+                }
+            ], 
+            "desc": "5 combo Fire elemental attack on all enemies", 
+            "drop check count": 1, 
+            "id": "10012", 
+            "levels": [
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 40, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 45, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 50, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 55, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 60, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 65, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 70, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 75, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 80, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 15, 
+                    "effects": [
+                        {
+                            "bb atk%": 85, 
+                            "bb flat atk": 30, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Flare Ride Plus"
+        }, 
+        "category": 10010, 
+        "cost": 4, 
+        "damage frames": {
+            "frame times": [26, 44, 62], 
+            "hit dmg% distribution": [50, 30, 20], 
+            "hit dmg% distribution (total)": 100, 
+            "hits": 3
+        }, 
+        "drop check count": 2, 
+        "element": "fire", 
+        "exp_pattern": 10, 
+        "gender": "male", 
+        "getting type": "farmable", 
+        "guide_id": 2, 
+        "id": 10012, 
+        "imp": {
+            "max atk": "200", 
+            "max def": "120", 
+            "max hp": "500", 
+            "max rec": "120"
+        }, 
+        "kind": "normal", 
+        "leader skill": {
+            "desc": "25% boost to Atk Power of Fire Types", 
+            "effects": [
+                {
+                    "atk% buff": 25, 
+                    "elements buffed": [
+                        "fire"
+                    ], 
+                    "passive id": "2"
+                }
+            ], 
+            "id": "100", 
+            "name": "Fire Spirit's Power"
+        }, 
+        "lord damage range": "853~953", 
+        "movement": {
+            "attack": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }, 
+            "skill": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }
+        }, 
+        "name": "Burning Vargas", 
+        "rarity": 3, 
+        "sell caution": false, 
+        "stats": {
+            "_base": {
+                "atk": 630, 
+                "def": 517, 
+                "hp": 1484, 
+                "rec": 404
+            }, 
+            "_lord": {
+                "atk": 917, 
+                "def": 806, 
+                "hp": 2517, 
+                "rec": 702
+            }, 
+            "anima": {
+                "atk": 917, 
+                "def": 806, 
+                "hp max": 2907, 
+                "hp min": 2712, 
+                "rec max": 663, 
+                "rec min": 585
+            }, 
+            "breaker": {
+                "atk max": 1034, 
+                "atk min": 956, 
+                "def max": 767, 
+                "def min": 689, 
+                "hp": 2517, 
+                "rec": 702
+            }, 
+            "guardian": {
+                "atk": 917, 
+                "def max": 923, 
+                "def min": 845, 
+                "hp": 2517, 
+                "rec max": 702, 
+                "rec min": 624
+            }, 
+            "oracle": {
+                "atk": 917, 
+                "def max": 806, 
+                "def min": 728, 
+                "hp": 2517, 
+                "rec max": 858, 
+                "rec min": 780
+            }
+        }
+    }, 
+    "10013": {
+        "ai": [
+            {
+                "action": "skill", 
+                "chance%": 60.0, 
+                "target conditions": "hp_50pr_under", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "skill", 
+                "chance%": 30.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 70.0, 
+                "target conditions": "hp_max", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 50.0, 
+                "target conditions": "hp_min", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 100.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }
+        ], 
+        "animations": {
+            "attack": {
+                "total number of frames": 128
+            }, 
+            "idle": {
+                "total number of frames": 52
+            }, 
+            "move": {
+                "total number of frames": 13
+            }
+        }, 
+        "bb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [26, 47, 68, 90, 100, 110], 
+                    "hit dmg% distribution": [13, 14, 15, 18, 19, 21], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 6, 
+                    "proc id": "1"
+                }
+            ], 
+            "desc": "6 combo Fire elemental power attack on all enemies", 
+            "drop check count": 1, 
+            "id": "10013", 
+            "levels": [
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 50, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 60, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 70, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 80, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 90, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 100, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 110, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 120, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 130, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 140, 
+                            "bb flat atk": 50, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Infinity Burst"
+        }, 
+        "category": 10010, 
+        "cost": 8, 
+        "damage frames": {
+            "frame times": [14, 36, 54, 72], 
+            "hit dmg% distribution": [50, 30, 10, 10], 
+            "hit dmg% distribution (total)": 100, 
+            "hits": 4
+        }, 
+        "drop check count": 2, 
+        "element": "fire", 
+        "exp_pattern": 10, 
+        "gender": "male", 
+        "getting type": "farmable", 
+        "guide_id": 3, 
+        "id": 10013, 
+        "imp": {
+            "max atk": "240", 
+            "max def": "140", 
+            "max hp": "700", 
+            "max rec": "140"
+        }, 
+        "kind": "normal", 
+        "leader skill": {
+            "desc": "50% boost to Atk Power of Fire Types", 
+            "effects": [
+                {
+                    "atk% buff": 50, 
+                    "elements buffed": [
+                        "fire"
+                    ], 
+                    "passive id": "2"
+                }
+            ], 
+            "id": "101", 
+            "name": "Fire God's Power"
+        }, 
+        "lord damage range": "1035~1157", 
+        "movement": {
+            "attack": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }, 
+            "skill": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }
+        }, 
+        "name": "Fire King Vargas", 
+        "rarity": 4, 
+        "sell caution": false, 
+        "stats": {
+            "_base": {
+                "atk": 826, 
+                "def": 725, 
+                "hp": 1995, 
+                "rec": 632
+            }, 
+            "_lord": {
+                "atk": 1113, 
+                "def": 989, 
+                "hp": 3201, 
+                "rec": 845
+            }, 
+            "anima": {
+                "atk": 1113, 
+                "def": 989, 
+                "hp max": 3791, 
+                "hp min": 3496, 
+                "rec max": 786, 
+                "rec min": 668
+            }, 
+            "breaker": {
+                "atk max": 1290, 
+                "atk min": 1172, 
+                "def max": 930, 
+                "def min": 812, 
+                "hp": 3201, 
+                "rec": 845
+            }, 
+            "guardian": {
+                "atk": 1113, 
+                "def max": 1166, 
+                "def min": 1048, 
+                "hp": 3201, 
+                "rec max": 845, 
+                "rec min": 727
+            }, 
+            "oracle": {
+                "atk": 1113, 
+                "def max": 989, 
+                "def min": 871, 
+                "hp": 3201, 
+                "rec max": 1081, 
+                "rec min": 963
+            }
+        }
+    }, 
+    "10014": {
+        "ai": [
+            {
+                "action": "skill", 
+                "chance%": 60.0, 
+                "target conditions": "hp_50pr_under", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "skill", 
+                "chance%": 30.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 70.0, 
+                "target conditions": "hp_max", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 50.0, 
+                "target conditions": "hp_min", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 100.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }
+        ], 
+        "animations": {
+            "attack": {
+                "total number of frames": 128
+            }, 
+            "idle": {
+                "total number of frames": 52
+            }, 
+            "move": {
+                "total number of frames": 13
+            }
+        }, 
+        "bb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [26, 47, 68, 90, 100, 110], 
+                    "hit dmg% distribution": [13, 14, 15, 18, 19, 21], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 6, 
+                    "proc id": "1"
+                }
+            ], 
+            "desc": "6 combo Fire elemental power attack on all enemies", 
+            "drop check count": 1, 
+            "id": "10014", 
+            "levels": [
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 70, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 80, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 90, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 100, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 110, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 120, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 130, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 140, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 150, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 160, 
+                            "bb flat atk": 60, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Infinity Nova"
+        }, 
+        "category": 10010, 
+        "cost": 10, 
+        "damage frames": {
+            "frame times": [14, 36, 54, 72, 76, 80], 
+            "hit dmg% distribution": [10, 40, 20, 15, 10, 5], 
+            "hit dmg% distribution (total)": 100, 
+            "hits": 6
+        }, 
+        "drop check count": 3, 
+        "element": "fire", 
+        "exp_pattern": 10, 
+        "gender": "male", 
+        "getting type": "farmable", 
+        "guide_id": 4, 
+        "id": 10014, 
+        "imp": {
+            "max atk": "360", 
+            "max def": "200", 
+            "max hp": "900", 
+            "max rec": "200"
+        }, 
+        "kind": "normal", 
+        "leader skill": {
+            "desc": "50% boost to Atk Power of Fire Types", 
+            "effects": [
+                {
+                    "atk% buff": 50, 
+                    "elements buffed": [
+                        "fire"
+                    ], 
+                    "passive id": "2"
+                }
+            ], 
+            "id": "101", 
+            "name": "Fire God's Power"
+        }, 
+        "lord damage range": "1269~1418", 
+        "movement": {
+            "attack": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }, 
+            "skill": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }
+        }, 
+        "name": "Fire God Vargas", 
+        "rarity": 5, 
+        "sell caution": false, 
+        "stats": {
+            "_base": {
+                "atk": 946, 
+                "def": 841, 
+                "hp": 2466, 
+                "rec": 718
+            }, 
+            "_lord": {
+                "atk": 1364, 
+                "def": 1230, 
+                "hp": 3917, 
+                "rec": 1082
+            }, 
+            "anima": {
+                "atk": 1364, 
+                "def": 1230, 
+                "hp max": 4707, 
+                "hp min": 4312, 
+                "rec max": 1003, 
+                "rec min": 845
+            }, 
+            "breaker": {
+                "atk max": 1601, 
+                "atk min": 1443, 
+                "def max": 1151, 
+                "def min": 993, 
+                "hp": 3917, 
+                "rec": 1082
+            }, 
+            "guardian": {
+                "atk": 1364, 
+                "def max": 1467, 
+                "def min": 1309, 
+                "hp": 3917, 
+                "rec max": 1082, 
+                "rec min": 924
+            }, 
+            "oracle": {
+                "atk": 1364, 
+                "def max": 1230, 
+                "def min": 1072, 
+                "hp": 3917, 
+                "rec max": 1398, 
+                "rec min": 1240
+            }
+        }
+    }, 
+    "10015": {
+        "ai": [
+            {
+                "action": "skill", 
+                "chance%": 60.0, 
+                "target conditions": "hp_50pr_under", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "skill", 
+                "chance%": 30.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 70.0, 
+                "target conditions": "hp_max", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 50.0, 
+                "target conditions": "hp_min", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 100.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }
+        ], 
+        "animations": {
+            "attack": {
+                "total number of frames": 128
+            }, 
+            "idle": {
+                "total number of frames": 52
+            }, 
+            "move": {
+                "total number of frames": 13
+            }
+        }, 
+        "bb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [26, 47, 68, 90, 100, 110, 120, 130], 
+                    "hit dmg% distribution": [10, 10, 11, 12, 13, 14, 15, 15], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 8, 
+                    "proc id": "1"
+                }
+            ], 
+            "desc": "8 combo powerful Fire attack on all enemies", 
+            "drop check count": 1, 
+            "id": "10015", 
+            "levels": [
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 100, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 110, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 120, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 130, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 140, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 150, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 160, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 170, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 180, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 200, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Final Burst"
+        }, 
+        "category": 10010, 
+        "cost": 20, 
+        "damage frames": {
+            "frame times": [16, 36, 54, 72, 76, 80, 106], 
+            "hit dmg% distribution": [10, 35, 20, 10, 10, 5, 10], 
+            "hit dmg% distribution (total)": 100, 
+            "hits": 7
+        }, 
+        "drop check count": 3, 
+        "element": "fire", 
+        "exp_pattern": 10, 
+        "gender": "male", 
+        "getting type": "farmable", 
+        "guide_id": 338, 
+        "id": 10015, 
+        "imp": {
+            "max atk": "480", 
+            "max def": "260", 
+            "max hp": "1200", 
+            "max rec": "260"
+        }, 
+        "kind": "normal", 
+        "leader skill": {
+            "desc": "50% boost to Atk power and 10% increase in HP of Fire types", 
+            "effects": [
+                {
+                    "atk% buff": 50, 
+                    "elements buffed": [
+                        "fire"
+                    ], 
+                    "hp% buff": 10, 
+                    "passive id": "2"
+                }
+            ], 
+            "id": "102", 
+            "name": "Fire Creator's Power"
+        }, 
+        "lord damage range": "1545~1726", 
+        "movement": {
+            "attack": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }, 
+            "skill": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }
+        }, 
+        "name": "Holy Flame Vargas", 
+        "rarity": 6, 
+        "sbb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "16.7/1", 
+                    "frame times": [25, 46, 67, 89, 99, 109, 119, 125, 129, 133], 
+                    "hit dmg% distribution": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 10, 
+                    "proc id": "1"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [144], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "5"
+                }
+            ], 
+            "desc": "10 combo powerful Fire attack on all enemies & great boost to all allies' Atk for 3 turns", 
+            "drop check count": 1, 
+            "id": "110015", 
+            "levels": [
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 350, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 30, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 360, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 33, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 370, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 36, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 380, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 39, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 390, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 42, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 400, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 45, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 410, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 48, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 420, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 51, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 430, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 54, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 450, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 60, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Sacred Sunshine"
+        }, 
+        "sell caution": false, 
+        "stats": {
+            "_base": {
+                "atk": 1227, 
+                "def": 1106, 
+                "hp": 3254, 
+                "rec": 973
+            }, 
+            "_lord": {
+                "atk": 1660, 
+                "def": 1456, 
+                "hp": 5313, 
+                "rec": 1376
+            }, 
+            "anima": {
+                "atk": 1660, 
+                "def": 1456, 
+                "hp max": 6303, 
+                "hp min": 5808, 
+                "rec max": 1277, 
+                "rec min": 1079
+            }, 
+            "breaker": {
+                "atk max": 1957, 
+                "atk min": 1759, 
+                "def max": 1357, 
+                "def min": 1159, 
+                "hp": 5313, 
+                "rec": 1376
+            }, 
+            "guardian": {
+                "atk": 1660, 
+                "def max": 1753, 
+                "def min": 1555, 
+                "hp": 5313, 
+                "rec max": 1376, 
+                "rec min": 1178
+            }, 
+            "oracle": {
+                "atk": 1660, 
+                "def max": 1456, 
+                "def min": 1258, 
+                "hp": 5313, 
+                "rec max": 1772, 
+                "rec min": 1574
+            }
+        }
+    }, 
+    "10016": {
+        "ai": [
+            {
+                "action": "skill", 
+                "chance%": 60.0, 
+                "target conditions": "hp_50pr_under", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "skill", 
+                "chance%": 30.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 70.0, 
+                "target conditions": "hp_max", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 50.0, 
+                "target conditions": "hp_min", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 100.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }
+        ], 
+        "animations": {
+            "attack": {
+                "total number of frames": 191
+            }, 
+            "idle": {
+                "total number of frames": 52
+            }, 
+            "move": {
+                "total number of frames": 13
+            }
+        }, 
+        "bb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [16, 36, 54, 72, 80, 88, 96, 104, 124, 128, 132, 136], 
+                    "hit dmg% distribution": [10, 15, 12, 8, 7, 6, 4, 4, 13, 7, 7, 7], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 12, 
+                    "proc id": "1"
+                }
+            ], 
+            "desc": "12 combo powerful Fire attack on all enemies", 
+            "drop check count": 1, 
+            "id": "10016", 
+            "levels": [
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 150, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 160, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 170, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 180, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 190, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 200, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 210, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 220, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 230, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 250, 
+                            "bb flat atk": 80, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Flare Ride Climax"
+        }, 
+        "category": 10010, 
+        "cost": 38, 
+        "damage frames": {
+            "frame times": [16, 36, 54, 72, 90, 108, 124, 128, 132, 136], 
+            "hit dmg% distribution": [10, 20, 14, 10, 6, 6, 13, 7, 7, 7], 
+            "hit dmg% distribution (total)": 100, 
+            "hits": 10
+        }, 
+        "drop check count": 3, 
+        "element": "fire", 
+        "exp_pattern": 10, 
+        "extra skill": {
+            "desc": "20% boost to all parameters in battle & boost to damage dealt to weaker elements when Dandelga is equipped.", 
+            "effects": [
+                {
+                    "atk% buff": 20, 
+                    "conditions": [
+                        {
+                            "item required": [
+                                "37600"
+                            ]
+                        }
+                    ], 
+                    "def% buff": 20, 
+                    "hp% buff": 20, 
+                    "passive id": "1", 
+                    "passive target": "self", 
+                    "rec% buff": 20
+                }, 
+                {
+                    "conditions": [
+                        {
+                            "item required": [
+                                "37600"
+                            ]
+                        }
+                    ], 
+                    "elemental weakness multiplier%": 50.0, 
+                    "fire units do extra elemental weakness dmg": true, 
+                    "passive id": "50", 
+                    "passive target": "self"
+                }
+            ], 
+            "id": "100", 
+            "name": "Spark of Future Flames", 
+            "target": "self"
+        }, 
+        "gender": "male", 
+        "getting type": "farmable", 
+        "guide_id": 801, 
+        "id": 10016, 
+        "imp": {
+            "max atk": "680", 
+            "max def": "360", 
+            "max hp": "1700", 
+            "max rec": "360"
+        }, 
+        "kind": "normal", 
+        "leader skill": {
+            "desc": "100% boost to Atk power and 30% increase in HP of Fire types", 
+            "effects": [
+                {
+                    "atk% buff": 100, 
+                    "elements buffed": [
+                        "fire"
+                    ], 
+                    "hp% buff": 30, 
+                    "passive id": "2"
+                }
+            ], 
+            "id": "106", 
+            "name": "Fire of Lore"
+        }, 
+        "lord damage range": "2235~2496", 
+        "movement": {
+            "attack": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }, 
+            "skill": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }
+        }, 
+        "name": "Flame Legend Vargas", 
+        "overdrive stats": {
+            "atk%": 100, 
+            "def%": 100, 
+            "rec%": 100
+        }, 
+        "rarity": 7, 
+        "sbb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "16.7/1", 
+                    "frame times": [16, 36, 54, 72, 80, 88, 96, 104, 124, 128, 132, 136, 140, 144], 
+                    "hit dmg% distribution": [8, 15, 10, 8, 7, 6, 4, 4, 10, 7, 7, 7, 4, 3], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 14, 
+                    "proc id": "1"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [160], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "5"
+                }
+            ], 
+            "desc": "14 combo powerful Fire attack on all enemies & greatly boosts Atk for all allies for 3 turns", 
+            "drop check count": 1, 
+            "id": "110016", 
+            "levels": [
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 400, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 60, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 410, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 65, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 420, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 70, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 430, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 75, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 440, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 80, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 450, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 85, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 460, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 90, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 470, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 95, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 480, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 100, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 500, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 110, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Brave Savior"
+        }, 
+        "sell caution": false, 
+        "stats": {
+            "_base": {
+                "atk": 1330, 
+                "def": 1165, 
+                "hp": 4250, 
+                "rec": 1100
+            }, 
+            "_lord": {
+                "atk": 2400, 
+                "def": 2100, 
+                "hp": 6600, 
+                "rec": 2000
+            }, 
+            "anima": {
+                "atk": 2400, 
+                "def": 2100, 
+                "hp max": 7790, 
+                "hp min": 7195, 
+                "rec max": 1881, 
+                "rec min": 1643
+            }, 
+            "breaker": {
+                "atk max": 2757, 
+                "atk min": 2519, 
+                "def max": 1981, 
+                "def min": 1743, 
+                "hp": 6600, 
+                "rec": 2000
+            }, 
+            "guardian": {
+                "atk": 2400, 
+                "def max": 2457, 
+                "def min": 2219, 
+                "hp": 6600, 
+                "rec max": 2000, 
+                "rec min": 1762
+            }, 
+            "oracle": {
+                "atk": 2400, 
+                "def max": 2100, 
+                "def min": 1862, 
+                "hp": 6600, 
+                "rec max": 2476, 
+                "rec min": 2238
+            }
+        }, 
+        "ubb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "33.3/2", 
+                    "frame times": [16, 26, 36, 44, 54, 62, 70, 76, 82, 88, 92, 96, 100, 104, 124, 127, 130, 133, 136, 139, 142, 145, 148, 151], 
+                    "hit dmg% distribution": [6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 24, 
+                    "proc id": "1"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "16.7/1", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "9"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [160], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "5"
+                }
+            ], 
+            "desc": "24 combo massive Fire attack on all foes, massive Atk reduction for 2 turns & greatly boosts Atk for 3 turns", 
+            "drop check count": 1, 
+            "id": "210016", 
+            "levels": [
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 1000, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -80, 
+                                "proc chance%": 100.0
+                            }, 
+                            "buff turns": 2, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 150, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Ignis Weiser"
+        }
+    }, 
+    "10017": {
+        "ai": [
+            {
+                "action": "skill", 
+                "chance%": 60.0, 
+                "target conditions": "hp_50pr_under", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "skill", 
+                "chance%": 30.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 70.0, 
+                "target conditions": "hp_max", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 50.0, 
+                "target conditions": "hp_min", 
+                "target type": "enemy"
+            }, 
+            {
+                "action": "attack", 
+                "chance%": 100.0, 
+                "target conditions": "random", 
+                "target type": "enemy"
+            }
+        ], 
+        "animations": {
+            "attack": {
+                "total number of frames": 179
+            }, 
+            "idle": {
+                "total number of frames": 52
+            }, 
+            "move": {
+                "total number of frames": 13
+            }
+        }, 
+        "bb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "33.3/2", 
+                    "frame times": [15, 33, 51, 55, 59, 63, 67, 71, 93, 98, 103, 108, 113, 118, 123], 
+                    "hit dmg% distribution": [9, 12, 11, 8, 6, 5, 6, 5, 10, 7, 5, 4, 4, 4, 4], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 15, 
+                    "proc id": "1"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "16.7/1", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "5"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "45"
+                }
+            ], 
+            "desc": "15 combo Fire attack on all foes, hugely boosts Atk for 3 turns & hugely boosts BB Atk for 3 turns", 
+            "drop check count": 1, 
+            "id": "10017", 
+            "levels": [
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 250, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 50, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 250, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 250, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 250
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 260, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 60, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 255, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 255, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 255
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 270, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 70, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 260, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 260, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 260
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 280, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 80, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 265, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 265, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 265
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 290, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 90, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 270, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 270, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 270
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 300, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 100, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 275, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 275, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 275
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 310, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 110, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 280, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 280, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 280
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 320, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 120, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 285, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 285, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 285
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 330, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 130, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 290, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 290, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 290
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 25, 
+                    "effects": [
+                        {
+                            "bb atk%": 350, 
+                            "bb flat atk": 100, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 150, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 300, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 300, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 300
+                        }
+                    ]
+                }
+            ], 
+            "name": "Ragna Break"
+        }, 
+        "category": 10010, 
+        "cost": 45, 
+        "damage frames": {
+            "frame times": [15, 33, 51, 55, 60, 65, 70, 93, 99, 105, 110, 115, 119], 
+            "hit dmg% distribution": [9, 13, 11, 10, 6, 6, 6, 10, 8, 6, 5, 5, 5], 
+            "hit dmg% distribution (total)": 100, 
+            "hits": 13
+        }, 
+        "drop check count": 4, 
+        "element": "fire", 
+        "exp_pattern": 10, 
+        "extra skill": {
+            "desc": "30% boost to all parameters, hugely boosts elemental damage & boosts damage relative to remaining HP when Dandelga is equipped ", 
+            "effects": [
+                {
+                    "atk% buff": 30, 
+                    "conditions": [
+                        {
+                            "item required": [
+                                "37600"
+                            ]
+                        }
+                    ], 
+                    "def% buff": 30, 
+                    "hp% buff": 30, 
+                    "passive id": "1", 
+                    "passive target": "self", 
+                    "rec% buff": 30
+                }, 
+                {
+                    "conditions": [
+                        {
+                            "item required": [
+                                "37600"
+                            ]
+                        }
+                    ], 
+                    "elemental weakness multiplier%": 100.0, 
+                    "fire units do extra elemental weakness dmg": true, 
+                    "passive id": "50", 
+                    "passive target": "self"
+                }, 
+                {
+                    "atk% base buff": 0, 
+                    "atk% extra buff based on hp": 50, 
+                    "buff proportional to hp": "remaining", 
+                    "conditions": [
+                        {
+                            "item required": [
+                                "37600"
+                            ]
+                        }
+                    ], 
+                    "passive id": "46", 
+                    "passive target": "self"
+                }
+            ], 
+            "id": "110", 
+            "name": "Heartfelt Flame", 
+            "target": "self"
+        }, 
+        "gender": "male", 
+        "getting type": "farmable", 
+        "guide_id": 1302, 
+        "id": 10017, 
+        "imp": {
+            "max atk": "880", 
+            "max def": "460", 
+            "max hp": "2200", 
+            "max rec": "460"
+        }, 
+        "kind": "normal", 
+        "leader skill": {
+            "desc": "50% boost to Atk and 30% boost to max HP for Fire types, 100% boost to Atk, 30% boost to max HP, considerably boosts BB Atk & hugely boosts BB gauge each turn", 
+            "effects": [
+                {
+                    "atk% buff": 100, 
+                    "hp% buff": 30, 
+                    "passive id": "1"
+                }, 
+                {
+                    "atk% buff": 50, 
+                    "elements buffed": [
+                        "fire"
+                    ], 
+                    "hp% buff": 30, 
+                    "passive id": "2"
+                }, 
+                {
+                    "bb atk% buff": 120, 
+                    "passive id": "64", 
+                    "sbb atk% buff": 120, 
+                    "ubb atk% buff": 120
+                }, 
+                {
+                    "bc fill per turn": 6, 
+                    "passive id": "9"
+                }
+            ], 
+            "id": "160", 
+            "name": "Eidolon Ignis Resolve"
+        }, 
+        "lord damage range": "2645~2955", 
+        "movement": {
+            "attack": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }, 
+            "skill": {
+                "move speed": 0.0033, 
+                "move speed type": "3", 
+                "move type": "1"
+            }
+        }, 
+        "name": "Ignis Halcyon Vargas", 
+        "overdrive stats": {
+            "atk%": 100, 
+            "def%": 100, 
+            "rec%": 100
+        }, 
+        "rarity": 8, 
+        "sbb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "66.7/4", 
+                    "frame times": [15, 33, 51, 55, 59, 63, 66, 69, 72, 75, 93, 97, 101, 105, 109, 113, 117, 121, 125, 129], 
+                    "hit dmg% distribution": [7, 11, 9, 6, 5, 4, 4, 3, 3, 3, 10, 7, 5, 4, 4, 3, 3, 3, 3, 3], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 20, 
+                    "proc id": "1"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "50.0/3", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "5"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "16.7/1", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "45"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "33.3/2", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "9"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "55"
+                }
+            ], 
+            "desc": "20 combo powerful Fire attack on all foes, probable huge 1 turn Atk reduction, hugely boosts Atk and BB Atk for 3 turns & considerably boosts Fire elemental damage for 3 turns", 
+            "drop check count": 1, 
+            "id": "110017", 
+            "levels": [
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 460, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 100, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 250, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 250, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 250
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 470, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 105, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 255, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 255, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 255
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 480, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 110, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 260, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 260, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 260
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 490, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 115, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 265, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 265, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 265
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 500, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 120, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 270, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 270, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 270
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 510, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 125, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 275, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 275, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 275
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 520, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 130, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 280, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 280, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 280
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 530, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 135, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 285, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 285, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 285
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 540, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 140, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 290, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 290, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 290
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }, 
+                {
+                    "bc cost": 20, 
+                    "effects": [
+                        {
+                            "bb atk%": 560, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "66.7/4", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 150, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 300, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 300, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 300
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -50, 
+                                "proc chance%": 30.0
+                            }, 
+                            "buff turns": 1, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "elemental weakness buff turns": 3, 
+                            "elemental weakness multiplier%": 75.0, 
+                            "fire units do extra elemental weakness dmg": true, 
+                            "proc id": "55", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }
+                    ]
+                }
+            ], 
+            "name": "Helios Vanguard"
+        }, 
+        "sell caution": false, 
+        "stats": {
+            "_base": {
+                "atk": 2040, 
+                "def": 1785, 
+                "hp": 5610, 
+                "rec": 1700
+            }, 
+            "_lord": {
+                "atk": 2842, 
+                "def": 2470, 
+                "hp": 7454, 
+                "rec": 2244
+            }, 
+            "anima": {
+                "atk": 2842, 
+                "def": 2470, 
+                "hp max": 8944, 
+                "hp min": 8199, 
+                "rec max": 2095, 
+                "rec min": 1797
+            }, 
+            "breaker": {
+                "atk max": 3289, 
+                "atk min": 2991, 
+                "def max": 2321, 
+                "def min": 2023, 
+                "hp": 7454, 
+                "rec": 2244
+            }, 
+            "guardian": {
+                "atk": 2842, 
+                "def max": 2917, 
+                "def min": 2619, 
+                "hp": 7454, 
+                "rec max": 2244, 
+                "rec min": 1946
+            }, 
+            "oracle": {
+                "atk": 2842, 
+                "def max": 2470, 
+                "def min": 2172, 
+                "hp": 7454, 
+                "rec max": 2840, 
+                "rec min": 2542
+            }
+        }, 
+        "ubb": {
+            "damage frames": [
+                {
+                    "effect delay time(ms)/frame": "50.0/3", 
+                    "frame times": [15, 18, 33, 36, 51, 55, 59, 62, 65, 68, 71, 74, 77, 93, 97, 101, 105, 109, 112, 115, 118, 121, 124, 127, 130, 133], 
+                    "hit dmg% distribution": [6, 3, 9, 3, 7, 4, 4, 3, 3, 3, 3, 3, 3, 9, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 26, 
+                    "proc id": "1"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "33.3/2", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "9"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "0.0/0", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "5"
+                }, 
+                {
+                    "effect delay time(ms)/frame": "16.7/1", 
+                    "frame times": [0], 
+                    "hit dmg% distribution": [100], 
+                    "hit dmg% distribution (total)": 100, 
+                    "hits": 1, 
+                    "proc id": "45"
+                }
+            ], 
+            "desc": "26 combo massive Fire attack on all foes, enormous 2 turn Atk reduction & enormously boosts Atk and BB Atk for 3 turns", 
+            "drop check count": 1, 
+            "id": "210017", 
+            "levels": [
+                {
+                    "bc cost": 35, 
+                    "effects": [
+                        {
+                            "bb atk%": 1500, 
+                            "bb flat atk": 200, 
+                            "effect delay time(ms)/frame": "50.0/3", 
+                            "proc id": "1", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "buff #1": {
+                                "atk% buff (2)": -80, 
+                                "proc chance%": 100.0
+                            }, 
+                            "buff turns": 2, 
+                            "effect delay time(ms)/frame": "33.3/2", 
+                            "element buffed": "all", 
+                            "proc id": "9", 
+                            "target area": "aoe", 
+                            "target type": "enemy"
+                        }, 
+                        {
+                            "atk% buff (1)": 250, 
+                            "buff turns": 3, 
+                            "effect delay time(ms)/frame": "0.0/0", 
+                            "element buffed": "all", 
+                            "proc id": "5", 
+                            "target area": "aoe", 
+                            "target type": "party"
+                        }, 
+                        {
+                            "bb atk% buff": 600, 
+                            "buff turns (72)": 3, 
+                            "effect delay time(ms)/frame": "16.7/1", 
+                            "proc id": "45", 
+                            "sbb atk% buff": 600, 
+                            "target area": "aoe", 
+                            "target type": "party", 
+                            "ubb atk% buff": 600
+                        }
+                    ]
+                }
+            ], 
+            "name": "Ardent Flare Ride"
+        }
+    } 
+}

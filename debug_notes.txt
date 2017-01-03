@@ -1,0 +1,104 @@
+Overall
+try on category, bb, leader skill, sbb, extra skill, and ubb
+common params
+	ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+
+-[General Params Notes]-
+Global
+1,22,10040,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+	try on bb and leader skill (range from 20 to 22 elems)
+2,22,10011,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+	try on bb and leader skill (range from 20 to 22 elems)
+3,23,810212,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sbb,sell caution,stats
+	try on bb, leader skill, and sbb (range from 20 to 23 elems)
+4,22,10013,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+	try on bb and leader skill (range from 20 to 22 elems)
+5,22,10014,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+	try on bb and leader skill (range from 20 to 22 elems)
+6,26,60946,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats,ubb
+	try on extra skill, overdrive stats, and ubb (range from 23 to 26 elems)
+7,26,10016,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats,ubb
+	range is only 26 elems
+8,26,10017,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats,ubb
+	range is only 26 elems
+1,20,10130,ai,animations,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+2,20,10131,ai,animations,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+3,20,10132,ai,animations,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+4,20,10133,ai,animations,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+5,20,10204,ai,animations,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+6,23,10015,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sbb,sell caution,stats
+7,26,10016,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats,ubb
+8,26,10017,ai,animations,bb,category,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats,ubb
+
+JP - same as GL
+
+EU - same as GL, sans category parameter
+1,21,10040,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+2,21,10011,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+3,21,10012,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+4,21,10013,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+5,21,10014,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sell caution,stats
+6,23,710195,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats
+7,25,10016,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats,ubb
+8,25,10017,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,overdrive stats,rarity,sbb,sell caution,stats,ubb
+1,19,10130,ai,animations,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+2,19,10131,ai,animations,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+3,19,10132,ai,animations,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+4,19,10133,ai,animations,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+5,19,10204,ai,animations,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+6,19,720005,ai,animations,cost,damage frames,drop check count,element,exp_pattern,gender,getting type,guide_id,id,imp,kind,lord damage range,movement,name,rarity,sell caution,stats
+7,24,710016,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sbb,sell caution,stats,ubb
+8,24,750167,ai,animations,bb,cost,damage frames,drop check count,element,exp_pattern,extra skill,gender,getting type,guide_id,id,imp,kind,leader skill,lord damage range,movement,name,rarity,sbb,sell caution,stats,ubb
+
+-[Spacific Params Notes]-
+ai
+	4 fields: action, chance, target type, target conditions
+animations
+
+*bb
+
+category
+
+*cost
+
+*damage frames
+
+*drop check count
+
+*element
+
+exp_pattern
+
+*extra skill
+
+*gender
+
+*getting type
+
+*guide_id
+
+*id
+
+*imp
+
+kind?
+
+*leader skill
+
+lord damage range
+
+*movement
+
+*name
+
+overdrive stats
+
+*rarity
+
+sbb
+
+sell caution
+
+*stats
+
+ubb
