@@ -34,7 +34,6 @@
 
 		<script src="marked.js"></script>
 
-		</script>
 	</head>
 	<body>
 		<script>
@@ -73,13 +72,14 @@
 							<li class="active"><a data-toggle="tab" href="#formatted-md">Formatted</a></li>
 							<li><a data-toggle="tab" href="#markdown">Markdown</a></li>
 							<li><a data-toggle="tab" href="#json">JSON</a></li>
+							<li><a data-toggle="tab" href="#unit-art">Unit Art</a></li>
 							<li><a data-toggle="tab" href="#unit-links">Related Links</a></li>
 						</ul>
 
 						<div class="tab-content">
 							<div id="formatted-md" class="tab-pane fade in active">
 								<div class="boxed-content-sub2">
-									<xmp id="unit-info-formatted" style="display:none;">
+									<xmp id="unit-info-formatted">
 Formatted unit info will be output here.
 									</xmp>
 								</div>
@@ -91,12 +91,18 @@ Formatted unit info will be output here.
 						    <div id="json" class="tab-pane fade">
 								<textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
 						    </div>
-						    <dir id="unit-links" class="tab-pane fade">
+						    <div id="unit-art" class="tab-pane fade">
+						    	<div class="boxed-content-sub2">
+						    		<img src="" alt="unit-full-img" id="unit-full-img" style="display: block; margin: auto; text-align: center; max-height: 100%; max-width: 100%;">
+						    		<p style="text-align: center;">All Brave Frontier images are owned by Gumi.</p>
+						    	</div>
+						    </div>
+						    <div id="unit-links" class="tab-pane fade">
 						    	<div class="boxed-content-sub2">
 						    		<a href="https://markdowntohtml.com/#converter">Markdown to HTML Converter</a><br>
 						    		<a href="https://jsonformatter.curiousconcept.com/">JSON formatter</a>
 						    	</div>
-						    </dir>
+						    </div>
 					  	</div>		
 				  	</div>
 

@@ -104,14 +104,15 @@ function searchList(){
 function printUnitClick(){
 	try{
 		updateStatus("Getting unit info. Please wait.")
+		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif";
 		var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
 		var index = document.getElementById("unit-names").selectedIndex;
 		var output = document.getElementById("unit-info");
 		var rawOutput = document.getElementById("unit-info-raw");
-		printUnit(json_obj,index,output,rawOutput);
-
+		var unitID = printUnit(json_obj,index,output,rawOutput);
 		//print unit to formmated element
 		//document.getElementById("unit-info-formatted").innerHTML =  document.getElementById("unit-info").innerHTML;
+		loadUnitArt(unitID);
 	}catch(err){
 		alert("Error has occured. \n" + err);
 		console.log(err);
@@ -272,7 +273,7 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 
 
 	formattedOutput.innerHTML += "---\n";
-
+	return unit["id"];
 }
 
 //recursively print an array into a string
@@ -412,4 +413,35 @@ function getSPCategory(num){
 		case "11":	return "Special";
 		default:	return "Undefined";
 	}
+}
+
+function loadUnitArt(unitID){
+	var urls = [
+		"http://dlc.bfglobal.gumi.sg/content/unit/img/",
+		"http://cdn.android.brave.a-lim.jp/unit/img/",
+		"http://static-bravefrontier.gumi-europe.net/content/unit/img/"
+	];
+
+	var currURL = "";
+	for(u in urls){
+		currURL = urls[u] + "unit_ills_full_" + unitID + ".png";
+		if(checkImage(currURL) == true){
+			break;
+		}
+	}
+
+	document.getElementById("unit-full-img").src = currURL;
+}
+
+//source: http://stackoverflow.com/questions/5678899/change-image-source-if-file-exists
+function checkImage(src) {
+	var img = new Image();
+	img.onload = function() {
+		return true;
+	};
+	img.onerror = function() {
+		return false;
+ 	};
+
+ 	img.src = src; // fires off loading of image
 }
