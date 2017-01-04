@@ -6,7 +6,7 @@ function readSkillsFile(e){
 	 	return;
 	}
 	//console.log("reading contents");
-	updateStatus("Reading file contents of feskills database. Please wait until this message changes before doing anything else on the page; the page may seem to freeze.<br>You may get messages about the page being <br>unresponsive during this process, but please <br>wait and do not exit or kill the page.");
+	updateStatus("Reading file contents of feskills database. Please wait until this message <br>changes before doing anything else on the page; the page may seem to freeze. <br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
 	var reader = new FileReader();
 	reader.onload = function(e) {//event
 		var contents = e.target.result;
@@ -23,7 +23,7 @@ function readInfoFile(e) {
 	 	return;
 	}
 	//console.log("reading contents");
-	updateStatus("Reading file contents of feskills database. Please wait until this message changes before doing anything else on the page; the page may seem to freeze.<br>You may get messages about the page being <br>unresponsive during this process, but please <br>wait and do not exit or kill the page.");
+	updateStatus("Reading file contents of info database. Please wait until this message <br>changes before doing anything else on the page; the page may seem to freeze. <br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
 	var reader = new FileReader();
 	reader.onload = function(e) {//event
 		var contents = e.target.result;
@@ -287,10 +287,14 @@ function printArray(arr, brackets){
 		else if(arr[i] instanceof Object) text += JSON.stringify(arr[i]); //most likely a JSON object
 		else text += arr[i];
 
-		if(i + 1 < arr.length) text += ",";
+		if(i + 1 < arr.length){
+			text += ",";
+		}
 	}
 
-	if(brackets) text += "]";
+	if(brackets){
+		text += "]";
+	}
 	return text;
 }
 
@@ -362,8 +366,8 @@ function printBurst(burst){
 //print info about hit counts
 function printHitCounts(numHits, frameArr, dropChecks){
 	var text = numHits + ((numHits == 1) ? " hit (" : " hits (") + dropChecks + 
-		" BC/hit, max " + (dropChecks * numHits) + " BC generated) in " + 
-		frameArr[frameArr.length - 1] + " frames  \n";
+		" BC/hit, max " + (dropChecks * numHits) + " BC generated)  \n";// in " + 
+		//frameArr[frameArr.length - 1] + " frames  \n";
 	return text;
 }
 
@@ -424,7 +428,9 @@ function loadUnitArt(unitID){
 
 	var currURL = "";
 	for(u in urls){
-		currURL = urls[u] + "unit_ills_full_" + unitID + ".png";
+		if(u < 2 || unitID > 700000){
+			currURL = urls[u] + "unit_ills_full_" + unitID + ".png";
+		}
 		if(checkImage(currURL) == true){
 			break;
 		}
