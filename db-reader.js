@@ -34,21 +34,96 @@ function readInfoFile(e) {
 	reader.readAsText(file);
 }
 
+function loadInfo(url){
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("file-content").innerHTML = this.responseText;
+			//fileLoadedFunction();
+		}
+	};
+  	xhttp.open("GET", url, true);
+  	xhttp.send();	
+}
+
+function loadSkills(url){
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("sp-content").innerHTML = this.responseText;
+			//fileLoadedFunction();
+		}
+	};
+  	//xhttp.open("GET", "https://bluuarc.github.io/BFDBReader-js/feskills-gl-small.json", true);
+  	xhttp.open("GET", url, true);
+  	xhttp.send();	
+}
+
+function loadFiles() {
+	var url = {
+		info: document.getElementById("server-info-url").href,
+		sp: document.getElementById("server-skill-url").href,
+	};
+	document.getElementById("file-content").oninput = function(){ fileLoadedFunction() };
+	document.getElementById("sp-content").oninput = function(){ fileLoadedFunction() };
+	updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before pressing 'Refresh Status.'<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
+ 	loadInfo(url.info);
+ 	if(url.sp != "" && url.sp != "None"){
+	 	updateStatus("Reading file contents of info and feskills databases. Please wait until the <br>file contents text area below is filled before pressing 'Refresh Status'.<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
+	 	loadSkills(url.sp);
+	 }
+}
+
+function loadURL(){
+	var server = document.getElementById("server-name").value;
+	var url = {info:"", sp:""};
+	switch(server){
+		case "Global":
+			url.info = "https://raw.githubusercontent.com/Deathmax/bravefrontier_data/master/info.json";
+			url.sp = "https://raw.githubusercontent.com/Deathmax/bravefrontier_data/master/feskills.json";
+			break;
+		case "Japan":
+			url.info = "https://raw.githubusercontent.com/Deathmax/bravefrontier_data/master/jp/info.json";
+			url.sp = "https://raw.githubusercontent.com/Deathmax/bravefrontier_data/master/jp/feskills.json";
+			break;
+		case "Europe":
+			url.info = "https://raw.githubusercontent.com/Deathmax/bravefrontier_data/master/eu/info.json";
+			url.sp = "None";
+			break;
+		default:
+			url.info = "https://bluuarc.github.io/BFDBReader-js/info-gl-small.json";
+			url.sp = "https://bluuarc.github.io/BFDBReader-js/feskills-gl-small.json";
+	}	
+
+	document.getElementById("server-info-url").innerHTML = document.getElementById("server-info-url").href = url.info;
+	document.getElementById("server-skill-url").innerHTML = url.sp;
+	if(url.sp != "None"){
+		document.getElementById("server-skill-url").href = url.sp;
+	}
+	document.getElementById("sample-button").disabled = false;
+}
+
 function fileLoadedFunction(){
 	var infoLoaded = document.getElementById("file-content").innerHTML != "Info input from file will be output here.";
 	var spLoaded = document.getElementById("sp-content").innerHTML != "SP input from file will be output here.";
 	if(!infoLoaded && !spLoaded){
-		updateStatus("Waiting for file(s) to be chosen. <br>Put desired info.json in top/left most file element and <br>(optional) put desired feskills.json in remaining file element.");
-		document.getElementById("file-button").disabled = true;
+		updateStatus("Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs above.");
+		document.getElementById("parse-button").disabled = true;
 	}else if(!infoLoaded){
 		updateStatus("Please choose an info.json file.");
-		document.getElementById("file-button").disabled = true;
+		document.getElementById("parse-button").disabled = true;
+		document.getElementById("print-button").disabled = true;
 	}else if(!spLoaded){
-		updateStatus("Click the 'Parse File' button to parse the contents of the file, or choose a feskills.json file then click the button.");
-		document.getElementById("file-button").disabled = false;
+		updateStatus("Click the 'Parse File' button to parse the contents of the file, or choose a feskills.json file manually then click the button.");
+		document.getElementById("parse-button").disabled = false;
+		document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px;";
+		document.getElementById("print-button").disabled = true;
+		document.getElementById("unit-names").options[0].innerHTML = "Please press the 'Parse File(s)' button."
 	}else{
 		updateStatus("Click the 'Parse File' button to parse the contents of the files.");
-		document.getElementById("file-button").disabled = false;
+		document.getElementById("parse-button").disabled = false;
+		document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px;";
+		document.getElementById("print-button").disabled = true;
 	}
 }
 
@@ -63,6 +138,7 @@ function displayContents() {
 	//printUnits(json_obj, output, notes);
 	updateStatus("Populating dropdown menu with unit names. Please wait.");
 	populateList(json_obj);
+	document.getElementById("print-button").disabled = false;
 	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.");
 	//console.log("please allow some time for page to update for large JSON files");
 }
@@ -108,7 +184,7 @@ function searchList(){
 function printUnitClick(){
 	try{
 		updateStatus("Getting unit info. Please wait.")
-		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif";
+		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
 		var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
 		var index = document.getElementById("unit-names").selectedIndex;
 		var output = document.getElementById("unit-info");
@@ -122,7 +198,7 @@ function printUnitClick(){
 		console.log(err);
 	}
 
-	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.<br>Note that the search is case sensitive.");
+	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.");
 }
 
 function printUnit(json_obj,index,formattedOutput,rawOutput){

@@ -46,24 +46,54 @@
 	 				<!-- Source for FileReader example: http://stackoverflow.com/questions/3582671/how-to-open-a-local-disk-file-with-javascript -->
 					<h1 style="text-align: left;">BFDBReader-js</h1>
 
-				 	Info JSON: <input type="file" id="file-input" />
-				 	SP/feskills JSON: <input type="file" id="sp-input" />
-				 	<button id="file-button" disabled="disable">Parse File(s)</button>
-				 	<br>
-				 	<a href="https://github.com/Deathmax/bravefrontier_data/">Don't have any files? Choose an info.json and feskills.json here.</a>
-					<br>
+					<!-- file input area -->
+					<div class="boxed-content-sub">
+						<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#auto-input">Automatic</a></li>
+								<li><a data-toggle="tab" href="#manual-input">Manual</a></li>
+						</ul>
 
-				 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Put desired info.json in top/left most file element and <br>(optional) put desired feskills.json in remaining file element.
-				 	</pre>
+						<div class="tab-content">
+							<div id="auto-input" class="tab-pane fade in active">
+								<div class="boxed-content-sub2">
+									Server: 
+									<select id="server-name">
+										<option>Global</option>
+										<option>Japan</option>
+										<option>Europe</option>
+										<option>Sample (quick)</option>
+									</select>
+									<button id="server-url-button" onclick="loadURL()">Load URLs</button>
+									<button id="sample-button" onclick="loadFiles()" disabled="disable">Load Files</button>
+									<br>
+									Info JSON: <a id="server-info-url" target="_blank"></a><br>
+									SP/feskills JSON: <a id="server-skill-url" target="_blank"></a><br>
 
-					<input type="text" id="search-box" onkeyup="searchList()" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box.">
-					<select id="unit-names">4
-						<option>Please pick a JSON file to use.</option>
-					</select>
+									Loading these files will take some time due to their size, so please be patient and do not exit the page while they're loading. Refer to the status messages below for the current progress.
+									<br>
+									<button id="status-refresh" style="margin-bottom: 10px; margin-top: 10px;" onclick="fileLoadedFunction()">Refresh Status</button>
+								</div>
+							</div>
+							<div id="manual-input" class="tab-pane fade">
+								<div class="boxed-content-sub2">
+									Info JSON: <input type="file" id="file-input" />
+								 	SP/feskills JSON: <input type="file" id="sp-input" />
+								 	<a href="https://github.com/Deathmax/bravefrontier_data/" target="_blank">Don't have any files? Choose an info.json and feskills.json here.</a>
+							 	</div>
+							</div>
+						</div>
+					 	<button id="parse-button" disabled="disable" style="margin-bottom: 10px; margin-top: 10px; display: none;">Parse File(s)</button>
+						<br>
+					 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs above.</pre>
 
-					<button id="print-button">Print Info</button>
+						<input type="text" id="search-box" onkeyup="searchList()" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box.">
+						<select id="unit-names">
+							<option>Please pick a JSON file to use.</option>
+						</select>
 
-					<br><br>
+						<button id="print-button" disabled="disable">Print Info</button>
+
+					</div>
 
 					<!--Unit area-->
 					<div class="boxed-content-sub">
@@ -71,6 +101,7 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a data-toggle="tab" href="#formatted-md">Formatted</a></li>
 							<li><a data-toggle="tab" href="#markdown">Markdown</a></li>
+							<li><a data-toggle="tab" href="#html">HTML</a></li>
 							<li><a data-toggle="tab" href="#json">JSON</a></li>
 							<li><a data-toggle="tab" href="#unit-art">Unit Art</a></li>
 							<li><a data-toggle="tab" href="#unit-links">Related Links</a></li>
@@ -83,10 +114,13 @@
 Formatted unit info will be output here.
 									</xmp>
 								</div>
-								Markdown converted with <a href="https://github.com/chjj/marked/">marked</a>.
+								Markdown converted with <a href="https://github.com/chjj/marked/" target="_blank">marked</a>.
 							</div>
 							<div id="markdown" class="tab-pane fade">
 						    	<textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
+							</div>
+							<div id="html" class="tab-pane fade">
+						    	<textarea readonly rows="10" cols="100" id="unit-info-html">Unit info will be output here.</textarea>
 							</div>
 						    <div id="json" class="tab-pane fade">
 								<textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
@@ -99,18 +133,16 @@ Formatted unit info will be output here.
 						    </div>
 						    <div id="unit-links" class="tab-pane fade">
 						    	<div class="boxed-content-sub2">
-						    		<a href="https://markdowntohtml.com/#converter">Markdown to HTML Converter</a><br>
-						    		<a href="https://jsonformatter.curiousconcept.com/">JSON formatter</a>
+						    		<a href="https://markdowntohtml.com/#converter" target="_blank">Markdown to HTML Converter</a><br>
+						    		<a href="https://jsonformatter.curiousconcept.com/" target="_blank">JSON formatter</a>
 						    	</div>
 						    </div>
 					  	</div>		
 				  	</div>
-
-				  	<br>
 					
 					<!--file area-->
 				  	<div class="boxed-content-sub">
-						<h3>Contents of the file:</h3>
+						<h3>File Contents:</h3>
 						<ul class="nav nav-tabs">
 							<li class="active"><a data-toggle="tab" href="#info-tab">Info JSON</a></li>
 							<li><a data-toggle="tab" href="#feskills-tab">SP JSON</a></li>
@@ -124,22 +156,28 @@ Formatted unit info will be output here.
 								<textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
 							</div>
 						</div>
-						<script type="text/javascript">
-
-							document.getElementById('file-input').addEventListener('change', readInfoFile, false);
-							document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
-
-							document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML);});
-							document.getElementById("file-button").addEventListener('click', displayContents);
-
-							document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
-							document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
-						</script>
 					</div>
 					<br>
 				</div>
 			</div>
 		</div><!-- /.container -->
+
+		<script type="text/javascript">
+			//auto file input
+			//document.getElementById('server-name').addEventListener('mouseclick', alert('change'));
+
+			//manual file input
+			document.getElementById('file-input').addEventListener('change', readInfoFile, false);
+			document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
+
+			//unit input
+			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML) + "Markdown converted with <a href='https://github.com/chjj/marked/'>marked</a>."; document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});
+			document.getElementById("parse-button").addEventListener('click', displayContents);
+
+			//file output
+			document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
+			document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
+		</script>
 
 		<script>
 			printFooter();
