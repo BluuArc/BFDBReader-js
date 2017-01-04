@@ -287,10 +287,10 @@ function printArray(arr, brackets){
 		else if(arr[i] instanceof Object) text += JSON.stringify(arr[i]); //most likely a JSON object
 		else text += arr[i];
 
-		if(i + 1 < arr.length){
-			text += ",";
-		}
+		text += ",";	
 	}
+
+	text = text.substring(0, text.length - 1);
 
 	if(brackets){
 		text += "]";
