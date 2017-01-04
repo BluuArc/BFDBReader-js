@@ -6,7 +6,7 @@ function readSkillsFile(e){
 	 	return;
 	}
 	//console.log("reading contents");
-	updateStatus("Reading file contents of feskills database. Please wait.<br>You may get messages about the page being <br>unresponsive during this process, but please <br>wait and do not exit or kill the page.");
+	updateStatus("Reading file contents of feskills database. Please wait until this message changes before doing anything else on the page; the page may seem to freeze.<br>You may get messages about the page being <br>unresponsive during this process, but please <br>wait and do not exit or kill the page.");
 	var reader = new FileReader();
 	reader.onload = function(e) {//event
 		var contents = e.target.result;
@@ -23,7 +23,7 @@ function readInfoFile(e) {
 	 	return;
 	}
 	//console.log("reading contents");
-	updateStatus("Reading file contents of info database. Please wait.<br>You may get messages about the page being <br>unresponsive during this process, but please <br>wait and do not exit or kill the page.");
+	updateStatus("Reading file contents of feskills database. Please wait until this message changes before doing anything else on the page; the page may seem to freeze.<br>You may get messages about the page being <br>unresponsive during this process, but please <br>wait and do not exit or kill the page.");
 	var reader = new FileReader();
 	reader.onload = function(e) {//event
 		var contents = e.target.result;
