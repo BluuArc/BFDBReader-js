@@ -75,7 +75,9 @@ function updateStatus(msg) {
 
 function populateList(json_obj){
 	var list = document.getElementById("unit-names");
-	while(list.length > 0) list.remove(0); //clear old list
+	while(list.length > 0){
+	 list.remove(0); //clear old list
+	}
 	for(x in json_obj){
 		console.log(x);
 		var option = document.createElement("option");
@@ -86,8 +88,9 @@ function populateList(json_obj){
 
 function searchList(){
 	var query = document.getElementById("search-box").value;
-	if(query == "") displayContents(); //reset list
-	else{
+	if(query == ""){
+		displayContents(); //reset list
+	}else{
 		var options = document.getElementById("unit-names").options;
 		for(o in options){
 			if(options[o].innerHTML.search(query) == -1){
@@ -106,6 +109,9 @@ function printUnitClick(){
 		var output = document.getElementById("unit-info");
 		var rawOutput = document.getElementById("unit-info-raw");
 		printUnit(json_obj,index,output,rawOutput);
+
+		//print unit to formmated element
+		//document.getElementById("unit-info-formatted").innerHTML =  document.getElementById("unit-info").innerHTML;
 	}catch(err){
 		alert("Error has occured. \n" + err);
 		console.log(err);
@@ -272,7 +278,9 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 //recursively print an array into a string
 function printArray(arr, brackets){
 	var text = "";
-	if(brackets) text = "[";
+	if(brackets){
+		text = "[";
+	}
 	for(i in arr){
 		if(arr[i] instanceof Array) text += printArray(arr[i], brackets);
 		else if(arr[i] instanceof Object) text += JSON.stringify(arr[i]); //most likely a JSON object
@@ -322,10 +330,13 @@ function printAtkPattern(timeArr,distrArr){
 		text += ":---: | ";
 	}
 
+	//print frame times
 	text += "\n| Frame Time | ";
 	for(t in timeArr){
 		text += timeArr[t] + " | ";
 	}
+
+	//print damage distribution
 	text += "\n| Damage% Distribution | ";
 	for(d in distrArr){
 		text += distrArr[d] + " | ";

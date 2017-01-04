@@ -37,3 +37,8 @@ textarea {
 .h1, .h2, .h3, h1, h2, h3{
 	margin-top: 10px;
 }
+
+td{
+	padding-left: 5px;
+	padding-right: 5px;
+}

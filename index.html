@@ -31,6 +31,10 @@
 		<script type="text/javascript" src="js/bacc-page.js"></script>
 
 		<script type="text/javascript" src="db-reader.js"></script>
+
+		<script src="marked.js"></script>
+
+		</script>
 	</head>
 	<body>
 		<script>
@@ -43,8 +47,8 @@
 	 				<!-- Source for FileReader example: http://stackoverflow.com/questions/3582671/how-to-open-a-local-disk-file-with-javascript -->
 					<h1 style="text-align: left;">BFDBReader-js</h1>
 
-				 	<input type="file" id="file-input" />
-				 	<input type="file" id="sp-input" />
+				 	Info JSON: <input type="file" id="file-input" />
+				 	SP/feskills JSON: <input type="file" id="sp-input" />
 				 	<button id="file-button" disabled="disable">Parse File(s)</button>
 				 	<br>
 				 	<a href="https://github.com/Deathmax/bravefrontier_data/">Don't have any files? Choose an info.json and feskills.json here.</a>
@@ -53,7 +57,7 @@
 				 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Put desired info.json in top/left most file element and <br>(optional) put desired feskills.json in remaining file element.
 				 	</pre>
 
-					<input type="text" id="search-box" onkeyup="searchList()">
+					<input type="text" id="search-box" onkeyup="searchList()" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box.">
 					<select id="unit-names">4
 						<option>Please pick a JSON file to use.</option>
 					</select>
@@ -66,13 +70,22 @@
 					<div class="boxed-content-sub">
 						<h3>Unit Info:</h3>
 						<ul class="nav nav-tabs">
-							<li class="active"><a data-toggle="tab" href="#markdown">Markdown</a></li>
+							<li class="active"><a data-toggle="tab" href="#formatted-md">Formatted</a></li>
+							<li><a data-toggle="tab" href="#markdown">Markdown</a></li>
 							<li><a data-toggle="tab" href="#json">JSON</a></li>
 							<li><a data-toggle="tab" href="#unit-links">Related Links</a></li>
 						</ul>
 
 						<div class="tab-content">
-							<div id="markdown" class="tab-pane fade in active">
+							<div id="formatted-md" class="tab-pane fade in active">
+								<div class="boxed-content-sub2">
+									<xmp id="unit-info-formatted" style="display:none;">
+Formatted unit info will be output here.
+									</xmp>
+								</div>
+								Markdown converted with <a href="https://github.com/chjj/marked/">marked</a>.
+							</div>
+							<div id="markdown" class="tab-pane fade">
 						    	<textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
 							</div>
 						    <div id="json" class="tab-pane fade">
@@ -106,10 +119,11 @@
 							</div>
 						</div>
 						<script type="text/javascript">
+
 							document.getElementById('file-input').addEventListener('change', readInfoFile, false);
 							document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
 
-							document.getElementById("print-button").addEventListener('click', printUnitClick);
+							document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML);});
 							document.getElementById("file-button").addEventListener('click', displayContents);
 
 							document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
