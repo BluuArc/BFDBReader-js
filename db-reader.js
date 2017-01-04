@@ -63,7 +63,7 @@ function displayContents() {
 	//printUnits(json_obj, output, notes);
 	updateStatus("Populating dropdown menu with unit names. Please wait.");
 	populateList(json_obj);
-	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.<br>Note that the search is case sensitive.");
+	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.");
 	//console.log("please allow some time for page to update for large JSON files");
 }
 
@@ -93,8 +93,12 @@ function searchList(){
 	}else{
 		var options = document.getElementById("unit-names").options;
 		for(o in options){
-			if(options[o].innerHTML.search(query) == -1){
-				options[o].innerHTML = "-";
+			try{
+				if(options[o].innerHTML.toLowerCase().search(query.toLowerCase()) == -1){
+					options[o].innerHTML = "-";
+				}
+			}catch(err){
+				//do nothing, as this is to catch the error of searching an empty option
 			}
 		}
 	}
