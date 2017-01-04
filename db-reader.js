@@ -34,29 +34,15 @@ function readInfoFile(e) {
 	reader.readAsText(file);
 }
 
-function loadInfo(url){
+function loadFile(url, destID){
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("file-content").innerHTML = this.responseText;
-			//fileLoadedFunction();
+			document.getElementById(destID).innerHTML = this.responseText;
 		}
 	};
   	xhttp.open("GET", url, true);
-  	xhttp.send();	
-}
-
-function loadSkills(url){
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("sp-content").innerHTML = this.responseText;
-			//fileLoadedFunction();
-		}
-	};
-  	//xhttp.open("GET", "https://bluuarc.github.io/BFDBReader-js/feskills-gl-small.json", true);
-  	xhttp.open("GET", url, true);
-  	xhttp.send();	
+  	xhttp.send();		
 }
 
 function loadFiles() {
@@ -67,10 +53,12 @@ function loadFiles() {
 	document.getElementById("file-content").oninput = function(){ fileLoadedFunction() };
 	document.getElementById("sp-content").oninput = function(){ fileLoadedFunction() };
 	updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before pressing 'Refresh Status.'<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
- 	loadInfo(url.info);
+ 	//loadInfo(url.info);
+ 	loadFile(url.info, "file-content");
  	if(url.sp != "" && url.sp != "None"){
 	 	updateStatus("Reading file contents of info and feskills databases. Please wait until the <br>file contents text area below is filled before pressing 'Refresh Status'.<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
-	 	loadSkills(url.sp);
+	 	//loadSkills(url.sp);
+	 	loadFile(url.sp, "sp-content");
 	 }
 }
 
@@ -124,6 +112,7 @@ function fileLoadedFunction(){
 		document.getElementById("parse-button").disabled = false;
 		document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px;";
 		document.getElementById("print-button").disabled = true;
+		document.getElementById("unit-names").options[0].innerHTML = "Please press the 'Parse File(s)' button."
 	}
 }
 
@@ -139,6 +128,7 @@ function displayContents() {
 	updateStatus("Populating dropdown menu with unit names. Please wait.");
 	populateList(json_obj);
 	document.getElementById("print-button").disabled = false;
+	document.getElementById("search-box").disabled = false;
 	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.");
 	//console.log("please allow some time for page to update for large JSON files");
 }
