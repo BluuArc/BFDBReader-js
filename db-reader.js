@@ -50,6 +50,7 @@ function loadFiles() {
 		info: document.getElementById("server-info-url").href,
 		sp: document.getElementById("server-skill-url").href,
 	};
+	document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
 	document.getElementById("file-content").oninput = function(){ fileLoadedFunction() };
 	document.getElementById("sp-content").oninput = function(){ fileLoadedFunction() };
 	updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before pressing 'Refresh Status.'<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
