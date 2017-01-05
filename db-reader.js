@@ -50,6 +50,7 @@ function loadFiles() {
 		info: document.getElementById("server-info-url").href,
 		sp: document.getElementById("server-skill-url").href,
 	};
+	document.getElementById("sample-button").style = "display: none";
 	document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
 	document.getElementById("file-content").oninput = function(){ fileLoadedFunction() };
 	document.getElementById("sp-content").oninput = function(){ fileLoadedFunction() };
@@ -90,6 +91,7 @@ function loadURL(){
 		document.getElementById("server-skill-url").href = url.sp;
 	}
 	document.getElementById("sample-button").disabled = false;
+	document.getElementById("sample-button").style = "display: float;";
 }
 
 function fileLoadedFunction(){

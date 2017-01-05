@@ -65,7 +65,7 @@
 										<option>Sample (quick)</option>
 									</select>
 									<button id="server-url-button" onclick="loadURL()">Load URLs</button>
-									<button id="sample-button" onclick="loadFiles()" disabled="disable">Load Files</button>
+									<button id="sample-button" onclick="loadFiles()" disabled="disable" style="display: none">Load Files</button>
 									<br>
 									Info JSON: <a id="server-info-url" target="_blank"></a><br>
 									SP/feskills JSON: <a id="server-skill-url" target="_blank"></a><br>
@@ -117,7 +117,7 @@
 							<div id="formatted-md-tab" class="tab-pane fade in active" style="overflow-x: scroll;">
 								<div class="boxed-content-sub2">
 									<div id="formatted-md" style="padding: 10px">
-Formatted unit info will be output here.
+										Formatted unit info will be output here.
 									</div>
 								</div>
 								Markdown converted to HTML with <a href="https://github.com/chjj/marked/" target="_blank">marked</a>.
@@ -179,7 +179,7 @@ Formatted unit info will be output here.
 
 			//unit input
 			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});
-			document.getElementById("parse-button").addEventListener('click', displayContents);
+			document.getElementById("parse-button").addEventListener('click', function(){displayContents(); document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;";});
 
 			//file output
 			document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
