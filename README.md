@@ -19,7 +19,6 @@ Web page to read data from a specific set of JSON files
   * **NOTE:** In the 'File Contents' area, clicking the SP JSON tab and back to the Info JSON tab may cause the page to seemingly freeze. Please do not exit the page until the text area loads; the freezing is due to having to reload the large amount of text data.
 2. Find your desired unit and press the 'Print Info' button to display information about that unit across the various tabs.
   * The search works by replacing all the options that do not contain your search query with an arrow in the direction of the result(s), making it easier to see your search results while scrolling.
-3. View the info of your unit using the tabs in the 'Unit Info' area.
 
 # Any Issues?
 Be sure to let me know on the [issues page of this GitHub project](https://github.com/BluuArc/BFDBReader-js/issues).
