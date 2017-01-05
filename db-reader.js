@@ -91,7 +91,7 @@ function loadURL(){
 		document.getElementById("server-skill-url").href = url.sp;
 	}
 	document.getElementById("sample-button").disabled = false;
-	document.getElementById("sample-button").style = "display: float;";
+	document.getElementById("sample-button").style = "display: inline;";
 }
 
 function fileLoadedFunction(){
@@ -158,9 +158,10 @@ function populateList(json_obj){
 function searchList(){
 	var query = document.getElementById("search-box").value;
 	var status = document.getElementById("search-info-text");
+	displayContents(); //reset list
 	if(query == ""){
-		displayContents(); //reset list
-		status.innerHTML = "List reset";
+		return;
+		//status.innerHTML = "List reset";
 	}else{
 		var options = document.getElementById("unit-names").options;
 		var resultIndices = [];

@@ -94,19 +94,22 @@
 						<!-- status message area -->
 					 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs above.</pre>
 
-					 	<!-- unit search area -->
-						<input type="text" id="search-box" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box." disabled="disable">
-						<select id="unit-names">
-							<option>Please pick a JSON file to use.</option>
-						</select>
-
-						<button id="print-button" disabled="disable">Print Info</button> <p style="display: inline;"> </p><p id="search-info-text" style="display: inline;"></p>
-						<p id="search-key"></p>
-
 					</div>
 
+					 	<!-- unit search area -->
+					 	<div class="boxed-content-sub" id="unit-search-area" style="display: none">
+							<input type="text" id="search-box" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box." disabled="disable">
+							<button id="search-button" style="display: inline;" onclick="searchList()">Search</button>
+							<select id="unit-names">
+								<option>Please pick a JSON file to use.</option>
+							</select>
+
+							<button id="print-button" disabled="disable">Print Info</button> <p style="display: inline;"> </p><p id="search-info-text" style="display: inline;"></p>
+							<p id="search-key"></p>
+						</div>
+
 					<!--Unit info output area-->
-					<div class="boxed-content-sub">
+					<div class="boxed-content-sub" id="unit-info-area" style="display: none">
 						<h3>Unit Info:</h3>
 						<ul class="nav nav-tabs">
 							<li class="active"><a data-toggle="tab" href="#formatted-md-tab">Formatted</a></li>
@@ -184,9 +187,14 @@
 			document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
 
 			//unit input
-			document.getElementById("search-box").addEventListener('keyup',searchList);
+			//uncomment line below to enable auto-search
+			//document.getElementById("search-box").addEventListener('keyup',searchList);
 			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});
-			document.getElementById("parse-button").addEventListener('click', function(){displayContents(); document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;";});
+			document.getElementById("parse-button").addEventListener('click', function(){
+				displayContents(); 
+				document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;"; 
+				document.getElementById("unit-search-area").style = document.getElementById("unit-info-area").style = "display: block";
+			});
 
 			//file output
 			document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
