@@ -23,7 +23,7 @@ body {
 .boxed-content-sub2 {
 	/*padding: 15px;*/
 	background-color: #e4e4e4;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 }
 
 .tab-content>.active{
@@ -35,7 +35,7 @@ textarea {
 }
 
 .h1, .h2, .h3, h1, h2, h3{
-	margin-top: 10px;
+	margin-top: 0px;
 }
 
 td{

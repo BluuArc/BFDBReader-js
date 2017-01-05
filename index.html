@@ -54,7 +54,7 @@
 								<li><a data-toggle="tab" href="#readme-tab" id="clickable-readme-tab">Readme</a></li>
 						</ul>
 
-						<div class="tab-content">
+						<div class="tab-content" style="overflow-x: scroll; margin-top: 0px">
 							<div id="auto-input" class="tab-pane fade in active">
 								<div class="boxed-content-sub2">
 									Server: 
@@ -90,18 +90,22 @@
 						</div>
 					 	<button id="parse-button" disabled="disable" style="margin-bottom: 10px; margin-top: 10px; display: none;">Parse File(s)</button>
 						<br>
+
+						<!-- status message area -->
 					 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs above.</pre>
 
-						<input type="text" id="search-box" onkeyup="searchList()" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box." disabled="disable">
+					 	<!-- unit search area -->
+						<input type="text" id="search-box" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box." disabled="disable">
 						<select id="unit-names">
 							<option>Please pick a JSON file to use.</option>
 						</select>
 
-						<button id="print-button" disabled="disable">Print Info</button>
+						<button id="print-button" disabled="disable">Print Info</button> <p style="display: inline;"> </p><p id="search-info-text" style="display: inline;"></p>
+						<p id="search-key"></p>
 
 					</div>
 
-					<!--Unit area-->
+					<!--Unit info output area-->
 					<div class="boxed-content-sub">
 						<h3>Unit Info:</h3>
 						<ul class="nav nav-tabs">
@@ -146,7 +150,7 @@
 					  	</div>		
 				  	</div>
 					
-					<!--file area-->
+					<!--file content area-->
 				  	<div class="boxed-content-sub">
 						<h3>File Contents:</h3>
 						<ul class="nav nav-tabs">
@@ -168,8 +172,10 @@
 			</div>
 		</div><!-- /.container -->
 
-		<div id="temp" style="display: none;"></div>
+		<textarea id="temp" style="display: none;"></textarea>
 		<script type="text/javascript">
+			document.getElementById("temp").innerHTML = "| Key:  | `v` | `^` | `v^` |\n|:---:|:---:|:---:|:---:|\n |  | Results are below this option | Results are above this option | Results are above and below this option |"
+			document.getElementById("search-key").innerHTML = marked(document.getElementById("temp").innerHTML);
 			loadFile("https://bluuarc.github.io/BFDBReader-js/README.md", "temp");
 			document.getElementById("clickable-readme-tab").addEventListener('click', function(){ document.getElementById("readme-contents").innerHTML = marked(document.getElementById("temp").innerHTML)});
 
@@ -178,6 +184,7 @@
 			document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
 
 			//unit input
+			document.getElementById("search-box").addEventListener('keyup',searchList);
 			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});
 			document.getElementById("parse-button").addEventListener('click', function(){displayContents(); document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;";});
 

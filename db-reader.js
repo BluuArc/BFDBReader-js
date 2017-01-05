@@ -51,7 +51,6 @@ function loadFiles() {
 		sp: document.getElementById("server-skill-url").href,
 	};
 	document.getElementById("sample-button").style = "display: none";
-	document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
 	document.getElementById("file-content").oninput = function(){ fileLoadedFunction() };
 	document.getElementById("sp-content").oninput = function(){ fileLoadedFunction() };
 	updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before pressing 'Refresh Status.'<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
@@ -62,6 +61,7 @@ function loadFiles() {
 	 	//loadSkills(url.sp);
 	 	loadFile(url.sp, "sp-content");
 	 }
+	document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
 }
 
 function loadURL(){
@@ -157,19 +157,55 @@ function populateList(json_obj){
 
 function searchList(){
 	var query = document.getElementById("search-box").value;
+	var status = document.getElementById("search-info-text");
 	if(query == ""){
 		displayContents(); //reset list
+		status.innerHTML = "List reset";
 	}else{
 		var options = document.getElementById("unit-names").options;
+		var resultIndices = [];
 		for(o in options){
-			try{
-				if(options[o].innerHTML.toLowerCase().search(query.toLowerCase()) == -1){
-					options[o].innerHTML = "-";
+			if(!isNaN(parseInt(o))){
+				//console.log("Checking " + o);
+				try{
+					if(options[o].innerHTML.toLowerCase().search(query.toLowerCase()) == -1){
+						options[o].innerHTML = "-";
+					}else{
+						resultIndices.push(parseInt(o)); //result found
+					}
+				}catch(err){
+					console.log("Error at " + o + "\n" + err);
 				}
-			}catch(err){
-				//do nothing, as this is to catch the error of searching an empty option
 			}
-		}
+		}//end for each option
+
+		var length = resultIndices.length;
+		status.innerHTML = length + " results found."
+		if(length > 0){
+			for(o in options){
+				if(!isNaN(parseInt(o))){
+					var curIndex = parseInt(o);
+					if(options[o].innerHTML.length < 3){//focus only on non-results
+						if(curIndex < resultIndices[0]){
+							options[o].innerHTML = "v";//results are under this index
+						}else if(curIndex > resultIndices[length-1]){
+							options[o].innerHTML = "^";//results are above this index
+						}else{
+							options[o].innerHTML = "v^";//results above and below this index
+						}
+					}
+
+					//console.log("Checking " + o);
+					// try{
+					// 	if(options[o].innerHTML.length < 3){
+					// 		options[o].innerHTML = getPositionChars(parseInt(o), resultIndices);
+					// 	}
+					// }catch(err){
+					// 	console.log("Error at " + o + "\n" + err);
+					// }
+				}
+			}
+		}//end if length
 	}
 }
 
