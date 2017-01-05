@@ -15,10 +15,11 @@ Web page to read data from a specific set of JSON files
     * Order of the files you choose don't matter as long as you use the correct file button for the info JSON and feskills/SP JSON files.
     * **NOTE:** This process may take a while before it finishes loading the data, especially for the info JSON. Do not exit the page or click on anything until the text area in the 'Info JSON' page is filled.
     * The status messages for this tab should update automatically.
-2. Once you verify that the files have been loaded, click the 'Parse File(s)' button to fill the dropdown with unit names
+  3. Once you verify that the files have been loaded, click the 'Parse File(s)' button to fill the dropdown with unit names
   * **NOTE:** In the 'File Contents' area, clicking the SP JSON tab and back to the Info JSON tab may cause the page to seemingly freeze. Please do not exit the page until the text area loads; the freezing is due to having to reload the large amount of text data.
-3. Find your desired unit and press the 'Print Info' button to display information about that unit across the various tabs.
-  * The search works by replacing all the options that do not contain your search query with a dash, making it easier to see your search results while scrolling. To reset the drop down, simply clear the contents of the search box.
+2. Find your desired unit and press the 'Print Info' button to display information about that unit across the various tabs.
+  * The search works by replacing all the options that do not contain your search query with an arrow in the direction of the result(s), making it easier to see your search results while scrolling.
+3. View the info of your unit using the tabs in the 'Unit Info' area.
 
 # Any Issues?
 Be sure to let me know on the [issues page of this GitHub project](https://github.com/BluuArc/BFDBReader-js/issues).
