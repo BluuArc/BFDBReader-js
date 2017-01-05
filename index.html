@@ -189,8 +189,8 @@
 					              </div>
 					              <div id="unit-art" class="tab-pane fade">
 					                <div class="boxed-content-sub2">
-					                  <img src="" alt="unit-full-img" id="unit-full-img" style="display: block; margin: auto; text-align: center; max-height: 100%; max-width: 100%;">
-					                  <p style="text-align: center;">All Brave Frontier images are owned by Gumi.</p>
+					                  <img src="http://i.imgur.com/6vQObKW.png" alt="unit-full-img" id="unit-full-img" style="display: block; margin: auto; text-align: center; max-height: 100%; max-width: 100%;">
+					                  <p style="text-align: center;" id="unit-full-img-text">No unit loaded.<br>All Brave Frontier images are owned by Gumi.</p>
 					                </div>
 					              </div>
 					              <div id="unit-links" class="tab-pane fade">
@@ -235,12 +235,24 @@
 					searchButton.disabled = false;
 				//}
 			});
+
+			//source: http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
+			document.getElementById("search-box")
+			    .addEventListener("keyup", function(event) {
+			    event.preventDefault();
+			    if (event.keyCode == 13) {
+			        document.getElementById("search-button").click();
+			    }
+			});
+
 			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});
 			document.getElementById("parse-button").addEventListener('click', function(){
 				displayContents(); 
 				document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;"; 
 				document.getElementById("unit-search-area").style = document.getElementById("unit-info-area").style = "display: block";
 			});
+
+			document.getElementById("unit-full-img").addEventListener('error', loadUnitArt);
 
 			//file output
 			document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);

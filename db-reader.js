@@ -214,7 +214,6 @@ function searchList(){
 function printUnitClick(){
 	try{
 		updateStatus("Getting unit info. Please wait.")
-		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
 		var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
 		var index = document.getElementById("unit-names").selectedIndex;
 		var output = document.getElementById("unit-info");
@@ -222,7 +221,9 @@ function printUnitClick(){
 		var unitID = printUnit(json_obj,index,output,rawOutput);
 		//print unit to formmated element
 		//document.getElementById("unit-info-formatted").innerHTML =  document.getElementById("unit-info").innerHTML;
-		loadUnitArt(unitID);
+		document.getElementById("unit-full-img").alt = unitID;
+		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
+		loadUnitArt();
 	}catch(err){
 		alert("Error has occured. \n" + err);
 		console.log(err);
@@ -529,24 +530,31 @@ function getSPCategory(num){
 	}
 }
 
-function loadUnitArt(unitID){
+function loadUnitArt(){
 	var urls = [
-		"http://dlc.bfglobal.gumi.sg/content/unit/img/",
 		"http://cdn.android.brave.a-lim.jp/unit/img/",
+		"http://dlc.bfglobal.gumi.sg/content/unit/img/",
 		"http://static-bravefrontier.gumi-europe.net/content/unit/img/"
 	];
 
-	var currURL = "";
-	for(u in urls){
-		if(u < 2 || unitID > 700000){
-			currURL = urls[u] + "unit_ills_full_" + unitID + ".png";
-		}
-		if(checkImage(currURL) == true){
-			break;
-		}
+	var img = document.getElementById("unit-full-img");
+	var currURL = img.src;
+	var id = img.alt;
+
+	if(currURL == "http://i.imgur.com/6vQObKW.png" || currURL == "http://i.imgur.com/LHkoVqZ.gif"){//try JP first
+		currURL = urls[0];
+	}else if(currURL.search("a-lim.jp") > -1){//try global next
+		currURL = urls[1];
+	}else if(currURL.search("bfglobal") > -1){//try EU next
+		currURL = urls[2];
+	}else{ //image is not found on any server
+		document.getElementById("unit-full-img").src = "http://i.imgur.com/y1rE5ve.png";
+		document.getElementById("unit-full-img-text").innerHTML = "Unit Art not found.<br>All Brave Frontier images are owned by Gumi.";
+		return;
 	}
 
-	document.getElementById("unit-full-img").src = currURL;
+	document.getElementById("unit-full-img").src = currURL + "unit_ills_full_" + id + ".png";
+	document.getElementById("unit-full-img-text").innerHTML = "All Brave Frontier images are owned by Gumi.";
 }
 
 //source: http://stackoverflow.com/questions/5678899/change-image-source-if-file-exists
