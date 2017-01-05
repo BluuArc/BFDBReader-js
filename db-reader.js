@@ -98,20 +98,20 @@ function fileLoadedFunction(){
 	var infoLoaded = document.getElementById("file-content").innerHTML != "Info input from file will be output here.";
 	var spLoaded = document.getElementById("sp-content").innerHTML != "SP input from file will be output here.";
 	if(!infoLoaded && !spLoaded){
-		updateStatus("Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs above.");
+		updateStatus("Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs in the File Loader area.");
 		document.getElementById("parse-button").disabled = true;
 	}else if(!infoLoaded){
 		updateStatus("Please choose an info.json file.");
 		document.getElementById("parse-button").disabled = true;
 		document.getElementById("print-button").disabled = true;
 	}else if(!spLoaded){
-		updateStatus("Click the 'Parse File' button to parse the contents of the file, or choose a feskills.json file manually then click the button.");
+		updateStatus("Click the 'Parse File(s)' button to parse the contents of the file, or choose a feskills.json file manually then click the button.");
 		document.getElementById("parse-button").disabled = false;
 		document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px;";
 		document.getElementById("print-button").disabled = true;
 		document.getElementById("unit-names").options[0].innerHTML = "Please press the 'Parse File(s)' button."
 	}else{
-		updateStatus("Click the 'Parse File' button to parse the contents of the files.");
+		updateStatus("Click the 'Parse File(s)' button to parse the contents of the files.");
 		document.getElementById("parse-button").disabled = false;
 		document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px;";
 		document.getElementById("print-button").disabled = true;
@@ -132,7 +132,7 @@ function displayContents() {
 	populateList(json_obj);
 	document.getElementById("print-button").disabled = false;
 	document.getElementById("search-box").disabled = false;
-	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.");
+	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
 	//console.log("please allow some time for page to update for large JSON files");
 }
 
@@ -160,8 +160,8 @@ function searchList(){
 	var status = document.getElementById("search-info-text");
 	displayContents(); //reset list
 	if(query == ""){
+		status.innerHTML = "List reset";
 		return;
-		//status.innerHTML = "List reset";
 	}else{
 		var options = document.getElementById("unit-names").options;
 		var resultIndices = [];
@@ -181,7 +181,7 @@ function searchList(){
 		}//end for each option
 
 		var length = resultIndices.length;
-		status.innerHTML = length + " results found."
+		status.innerHTML = length + ((length == 1) ? (" result found.") : (" results found."));
 		if(length > 0){
 			for(o in options){
 				if(!isNaN(parseInt(o))){
@@ -228,7 +228,7 @@ function printUnitClick(){
 		console.log(err);
 	}
 
-	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box above the dropdown. Clear all text in the box to reset the list.");
+	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
 }
 
 function printUnit(json_obj,index,formattedOutput,rawOutput){

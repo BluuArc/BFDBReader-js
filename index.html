@@ -46,129 +46,167 @@
 	 				<!-- Source for FileReader example: http://stackoverflow.com/questions/3582671/how-to-open-a-local-disk-file-with-javascript -->
 					<h1 style="text-align: left;">BFDBReader-js</h1>
 
-					<!-- file input area -->
-					<div class="boxed-content-sub">
-						<ul class="nav nav-tabs">
-								<li class="active"><a data-toggle="tab" href="#auto-input">Automatic</a></li>
-								<li><a data-toggle="tab" href="#manual-input">Manual</a></li>
-								<li><a data-toggle="tab" href="#readme-tab" id="clickable-readme-tab">Readme</a></li>
-						</ul>
+					<!-- status message area -->
+				 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs in the File Loader area.</pre>
 
-						<div class="tab-content" style="overflow-x: scroll; margin-top: 0px">
-							<div id="auto-input" class="tab-pane fade in active">
-								<div class="boxed-content-sub2">
-									Server: 
-									<select id="server-name">
-										<option>Global</option>
-										<option>Japan</option>
-										<option>Europe</option>
-										<option>Sample (quick)</option>
-									</select>
-									<button id="server-url-button" onclick="loadURL()">Load URLs</button>
-									<button id="sample-button" onclick="loadFiles()" disabled="disable" style="display: none">Load Files</button>
-									<br>
-									Info JSON: <a id="server-info-url" target="_blank"></a><br>
-									SP/feskills JSON: <a id="server-skill-url" target="_blank"></a><br>
+					<div class="panel-group" id="accordion">
+					  <div class="panel panel-default clickable-readme-tab">
+					    <div class="panel-heading">
+					      <h4 class="panel-title">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse0">
+					        0. Description and Instructions</a>
+					      </h4>
+					    </div>
+					    <div id="collapse0" class="panel-collapse collapse">
+					      <div class="panel-body">
+					        <div class="boxed-content-sub2" id="readme-contents">
+					          Readme info is here.
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+					        1. File Loader</a>
+					      </h4>
+					    </div>
+					    <div id="collapse1" class="panel-collapse collapse">
+					      <div class="panel-body">
+					        <!-- file input area -->
+					        <div class="boxed-content-sub">
+					          <ul class="nav nav-tabs">
+					              <li class="active"><a data-toggle="tab" href="#auto-input">Automatic</a></li>
+					              <li><a data-toggle="tab" href="#manual-input">Manual</a></li>
+					          </ul>
 
-									Loading these files will take some time due to their size, so please be patient and do not exit the page while they're loading. Refer to the status messages below for the current progress.
-									<br>
-									<button id="status-refresh" style="margin-bottom: 10px; margin-top: 10px; display: none;" onclick="fileLoadedFunction()">Refresh Status</button>
-								</div>
-							</div>
-							<div id="manual-input" class="tab-pane fade">
-								<div class="boxed-content-sub2">
-									Info JSON: <input type="file" id="file-input" />
-								 	SP/feskills JSON: <input type="file" id="sp-input" />
-								 	<a href="https://github.com/Deathmax/bravefrontier_data/" target="_blank">Don't have any files? Choose an info.json and feskills.json here.</a>
-							 	</div>
-							</div>
-							<div id="readme-tab" class="tab-pane fade">
-								<div class="boxed-content-sub2" id="readme-contents">
-									Readme info is here.
-								</div>
-							</div>
-						</div>
-					 	<button id="parse-button" disabled="disable" style="margin-bottom: 10px; margin-top: 10px; display: none;">Parse File(s)</button>
-						<br>
+					          <div class="tab-content" style="overflow-x: scroll; margin-top: 0px">
+					            <div id="auto-input" class="tab-pane fade in active">
+					              <div class="boxed-content-sub2">
+					                Server: 
+					                <select id="server-name">
+					                  <option>Global</option>
+					                  <option>Japan</option>
+					                  <option>Europe</option>
+					                  <option>Sample (quick)</option>
+					                </select>
+					                <button id="server-url-button" onclick="loadURL()">Load URLs</button>
+					                <button id="sample-button" onclick="loadFiles()" disabled="disable" style="display: none">Load Files</button>
+					                <br>
+					                Info JSON: <a id="server-info-url" target="_blank"></a><br>
+					                SP/feskills JSON: <a id="server-skill-url" target="_blank"></a><br>
 
-						<!-- status message area -->
-					 	<pre id="status">Status: Waiting for file(s) to be chosen. <br>Choose your files using the 'Automatic' or 'Manual' tabs above.</pre>
+					                Loading these files will take some time due to their size, so please be patient and do not exit the page while they're loading. Refer to the status messages above for the current progress.
+					                <br>
+					                <button id="status-refresh" style="margin-bottom: 10px; margin-top: 10px; display: none;" onclick="fileLoadedFunction()">Refresh Status</button>
+					              </div>
+					            </div>
+					            <div id="manual-input" class="tab-pane fade">
+					              <div class="boxed-content-sub2">
+					                Info JSON: <input type="file" id="file-input" />
+					                SP/feskills JSON: <input type="file" id="sp-input" />
+					                <a href="https://github.com/Deathmax/bravefrontier_data/" target="_blank">Don't have any files? Choose an info.json and feskills.json here.</a>
+					              </div>
+					            </div>
+					          </div>
+					          <button id="parse-button" disabled="disable" style="margin-bottom: 10px; margin-top: 10px; display: none;">Parse File(s)</button>
+					          <br>
+					        </div>
 
-					</div>
+					        
+					          <!--file content area-->
+					        <div class="boxed-content-sub" id="file-content-area">
+					          <h3>File Contents:</h3>
+					          <ul class="nav nav-tabs">
+					            <li class="active"><a data-toggle="tab" href="#info-tab">Info JSON</a></li>
+					            <li><a data-toggle="tab" href="#feskills-tab">SP JSON</a></li>
+					          </ul>
 
-					 	<!-- unit search area -->
-					 	<div class="boxed-content-sub" id="unit-search-area" style="display: none">
-							<input type="text" id="search-box" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box." disabled="disable">
-							<button id="search-button" style="display: inline;" onclick="searchList()">Search</button>
-							<select id="unit-names">
-								<option>Please pick a JSON file to use.</option>
-							</select>
+					          <div class="tab-content">
+					            <div id="info-tab" class="tab-pane fade in active">
+					              <textarea readonly rows="10" cols="100" id="file-content">Info input from file will be output here.</textarea>
+					            </div>
+					            <div id="feskills-tab" class="tab-pane fade">
+					              <textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
+					            </div>
+					          </div>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+					        2. Unit Search and Unit Info</a>
+					      </h4>
+					    </div>
+					    <div id="collapse2" class="panel-collapse collapse">
+					      <div class="panel-body">
+					        <!-- Unit Search area -->
+					        <div class="boxed-content-sub" id="unit-search-area">
+					          <input type="text" id="search-box" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box." disabled="disable">
+					          <button id="search-button" style="display: inline;" onclick="searchList()" disabled="disable">Search</button>
+					          <select id="unit-names">
+					            <option>Please pick a JSON file to use.</option>
+					          </select>
 
-							<button id="print-button" disabled="disable">Print Info</button> <p style="display: inline;"> </p><p id="search-info-text" style="display: inline;"></p>
-							<p id="search-key"></p>
-						</div>
+					          <button id="print-button" disabled="disable">Print Info</button> <p style="display: inline;"> </p><p id="search-info-text" style="display: inline;"></p>
+					          <p id="search-key"></p>
+					        </div>
 
-					<!--Unit info output area-->
-					<div class="boxed-content-sub" id="unit-info-area" style="display: none">
-						<h3>Unit Info:</h3>
-						<ul class="nav nav-tabs">
-							<li class="active"><a data-toggle="tab" href="#formatted-md-tab">Formatted</a></li>
-							<li><a data-toggle="tab" href="#markdown">Markdown</a></li>
-							<li><a data-toggle="tab" href="#html">HTML</a></li>
-							<li><a data-toggle="tab" href="#json">JSON</a></li>
-							<li><a data-toggle="tab" href="#unit-art">Unit Art</a></li>
-							<li><a data-toggle="tab" href="#unit-links">Related Links</a></li>
-						</ul>
 
-						<div class="tab-content">
-							<div id="formatted-md-tab" class="tab-pane fade in active" style="overflow-x: scroll;">
-								<div class="boxed-content-sub2">
-									<div id="formatted-md" style="padding: 10px">
-										Formatted unit info will be output here.
-									</div>
-								</div>
-								Markdown converted to HTML with <a href="https://github.com/chjj/marked/" target="_blank">marked</a>.
-							</div>
-							<div id="markdown" class="tab-pane fade">
-						    	<textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
-							</div>
-							<div id="html" class="tab-pane fade">
-						    	<textarea readonly rows="10" cols="100" id="unit-info-html">Unit info will be output here.</textarea>
-							</div>
-						    <div id="json" class="tab-pane fade">
-								<textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
-						    </div>
-						    <div id="unit-art" class="tab-pane fade">
-						    	<div class="boxed-content-sub2">
-						    		<img src="" alt="unit-full-img" id="unit-full-img" style="display: block; margin: auto; text-align: center; max-height: 100%; max-width: 100%;">
-						    		<p style="text-align: center;">All Brave Frontier images are owned by Gumi.</p>
-						    	</div>
-						    </div>
-						    <div id="unit-links" class="tab-pane fade">
-						    	<div class="boxed-content-sub2">
-						    		<a href="https://markdowntohtml.com/#converter" target="_blank">Markdown to HTML Converter</a><br>
-						    		<a href="https://jsonformatter.curiousconcept.com/" target="_blank">JSON formatter</a>
-						    	</div>
-						    </div>
-					  	</div>		
-				  	</div>
-					
-					<!--file content area-->
-				  	<div class="boxed-content-sub">
-						<h3>File Contents:</h3>
-						<ul class="nav nav-tabs">
-							<li class="active"><a data-toggle="tab" href="#info-tab">Info JSON</a></li>
-							<li><a data-toggle="tab" href="#feskills-tab">SP JSON</a></li>
-						</ul>
+					        <!--Unit info output area-->
+					        <div class="boxed-content-sub" id="unit-info-area">
+					          <h3>Unit Info:</h3>
+					          <ul class="nav nav-tabs">
+					            <li class="active"><a data-toggle="tab" href="#formatted-md-tab">Formatted</a></li>
+					            <li><a data-toggle="tab" href="#markdown">Markdown</a></li>
+					            <li><a data-toggle="tab" href="#html">HTML</a></li>
+					            <li><a data-toggle="tab" href="#json">JSON</a></li>
+					            <li><a data-toggle="tab" href="#unit-art">Unit Art</a></li>
+					            <li><a data-toggle="tab" href="#unit-links">Related Links</a></li>
+					          </ul>
 
-						<div class="tab-content">
-							<div id="info-tab" class="tab-pane fade in active">
-								<textarea readonly rows="10" cols="100" id="file-content">Info input from file will be output here.</textarea>
-							</div>
-							<div id="feskills-tab" class="tab-pane fade">
-								<textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
-							</div>
-						</div>
+					          <div class="tab-content">
+					            <div id="formatted-md-tab" class="tab-pane fade in active" style="overflow-x: scroll;">
+					              <div class="boxed-content-sub2">
+					                <div id="formatted-md" style="padding: 10px">
+					                  Formatted unit info will be output here.
+					                </div>
+					              </div>
+					              Markdown converted to HTML with <a href="https://github.com/chjj/marked/" target="_blank">marked</a>.
+					            </div>
+					            <div id="markdown" class="tab-pane fade">
+					                <textarea readonly rows="10" cols="100" id="unit-info">Unit info will be output here.</textarea>
+					            </div>
+					            <div id="html" class="tab-pane fade">
+					                <textarea readonly rows="10" cols="100" id="unit-info-html">Unit info will be output here.</textarea>
+					            </div>
+					              <div id="json" class="tab-pane fade">
+					              <textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
+					              </div>
+					              <div id="unit-art" class="tab-pane fade">
+					                <div class="boxed-content-sub2">
+					                  <img src="" alt="unit-full-img" id="unit-full-img" style="display: block; margin: auto; text-align: center; max-height: 100%; max-width: 100%;">
+					                  <p style="text-align: center;">All Brave Frontier images are owned by Gumi.</p>
+					                </div>
+					              </div>
+					              <div id="unit-links" class="tab-pane fade">
+					                <div class="boxed-content-sub2">
+					                  <a href="https://markdowntohtml.com/#converter" target="_blank">Markdown to HTML Converter</a><br>
+					                  <a href="https://jsonformatter.curiousconcept.com/" target="_blank">JSON formatter</a>
+					                </div>
+					              </div>
+					            </div>    
+					          </div>
+
+
+					        </div>
+					      </div>
+					    </div>
+					  </div>
 					</div>
 					<br>
 				</div>
@@ -180,7 +218,7 @@
 			document.getElementById("temp").innerHTML = "| Key:  | `v` | `^` | `v^` |\n|:---:|:---:|:---:|:---:|\n |  | Results are below this option | Results are above this option | Results are above and below this option |"
 			document.getElementById("search-key").innerHTML = marked(document.getElementById("temp").innerHTML);
 			loadFile("https://bluuarc.github.io/BFDBReader-js/README.md", "temp");
-			document.getElementById("clickable-readme-tab").addEventListener('click', function(){ document.getElementById("readme-contents").innerHTML = marked(document.getElementById("temp").innerHTML)});
+			window.onload = function(){ document.getElementById("readme-contents").innerHTML = marked(document.getElementById("temp").innerHTML)};
 
 			//manual file input
 			document.getElementById('file-input').addEventListener('change', readInfoFile, false);
@@ -189,6 +227,14 @@
 			//unit input
 			//uncomment line below to enable auto-search
 			//document.getElementById("search-box").addEventListener('keyup',searchList);
+			document.getElementById("search-box").addEventListener('keyup', function(){
+				var searchButton = document.getElementById("search-button");
+				//if(document.getElementById("search-box").value == ""){
+				//	searchButton.disabled = true;
+				//}else{
+					searchButton.disabled = false;
+				//}
+			});
 			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});
 			document.getElementById("parse-button").addEventListener('click', function(){
 				displayContents(); 
