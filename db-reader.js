@@ -641,14 +641,13 @@ function getSparkList(type){
 	}catch(err){
 		document.getElementById("temp").innerHTML = "This unit does not have a " + type.toUpperCase();
 		return;
-	}finally{
-		//check for non-attacking burst
-		var proc = mainUnit[type]["damage frames"][0]["proc id"];
-		if(proc == "2" || proc == "5" || proc == "51" ||
-			proc == "18" || proc == "3" || proc == "38"){
-			document.getElementById("temp").innerHTML = "This unit does not have an attacking " + type.toUpperCase();
-			return;
-		}
+	}
+	//check for non-attacking burst
+	var proc = mainUnit[type]["damage frames"][0]["proc id"];
+	if(proc == "2" || proc == "5" || proc == "51" ||
+		proc == "18" || proc == "3" || proc == "38"){
+		document.getElementById("temp").innerHTML = "This unit does not have an attacking " + type.toUpperCase();
+		return;
 	}
 
 	//cycle through every units BB/SBB/UBB if they have the same move speed

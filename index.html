@@ -270,7 +270,11 @@
 				document.getElementById('burst-results').innerHTML = marked(document.getElementById('temp').innerHTML);
 			});
 
-			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});
+			document.getElementById("print-button").addEventListener('click', function(){
+				printUnitClick(); 
+				document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); 
+				document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;
+			});
 			document.getElementById("parse-button").addEventListener('click', function(){
 				displayContents(); 
 				document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;"; 
