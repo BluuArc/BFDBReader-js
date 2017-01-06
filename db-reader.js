@@ -391,7 +391,7 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 function printArray(arr, brackets){
 	var text = "";
 	if(brackets){
-		text = "[";
+		text += "[";
 	}
 	for(i in arr){
 		if(arr[i] instanceof Array) text += printArray(arr[i], brackets);
@@ -401,7 +401,9 @@ function printArray(arr, brackets){
 		text += ",";	
 	}
 
-	text = text.substring(0, text.length - 1);
+	if(text.length > 1){
+		text = text.substring(0, text.length - 1); //remove last comma
+	}
 
 	if(brackets){
 		text += "]";
@@ -464,13 +466,28 @@ function printAtkPattern(timeArr,distrArr){
 //print all info related to a brave burst
 function printBurst(burst){
 	var endBBLevel = burst["levels"][burst["levels"].length - 1];
+	var i = 1;
 	var text = "*" + burst["name"] + "* - (BC Cost: " + endBBLevel["bc cost"] + ") " + burst["desc"] + "\n\n";
 	text += " * " + printHitCounts(burst["damage frames"][0]["hits"], burst["damage frames"][0]["frame times"],
 		burst["drop check count"]);
+
 	for(e in endBBLevel["effects"]){
 		text += printEffects(endBBLevel["effects"][e]);
 	}
 	text += printAtkPattern(burst["damage frames"][0]["frame times"],burst["damage frames"][0]["hit dmg% distribution"]);
+	//print tables for bursts with multiple attacks
+	try{
+		for(i = 1; i < burst["damage frames"].length; ++i){
+			var proc = burst["damage frames"][i]["proc id"];
+			if(proc == "1" || proc == "64" || proc == "47" ||
+				proc == "13" || proc == "14"){
+				text += printAtkPattern(burst["damage frames"][i]["frame times"],burst["damage frames"][i]["hit dmg% distribution"]);
+			}
+		}
+	}catch(err){
+		console.log(err);
+	}
+
 	return text;
 }
 
