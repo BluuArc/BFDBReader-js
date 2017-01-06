@@ -166,6 +166,7 @@
 					            <li><a data-toggle="tab" href="#html">HTML</a></li>
 					            <li><a data-toggle="tab" href="#json">JSON</a></li>
 					            <li><a data-toggle="tab" href="#unit-art">Unit Art</a></li>
+					            <li><a data-toggle="tab" href="#unit-spark">Sparkable Units</a></li>
 					            <li><a data-toggle="tab" href="#unit-links">Related Links</a></li>
 					          </ul>
 
@@ -184,11 +185,20 @@
 					            <div id="html" class="tab-pane fade">
 					                <textarea readonly rows="10" cols="100" id="unit-info-html">Unit info will be output here.</textarea>
 					            </div>
-					              <div id="json" class="tab-pane fade">
+				              	<div id="json" class="tab-pane fade">
 					              <textarea readonly rows="10" cols="100" id="unit-info-raw">Raw JSON data of unit info will be output here.</textarea>
-					              </div>
-					              <div id="unit-art" class="tab-pane fade">
-					                <div class="boxed-content-sub2">
+				              	</div>
+				              	<div id="unit-spark" class="tab-pane fade">
+				              		Search for units that can spark with this unit's: 
+				              		<button id="bb-button" style="display: inline;">BB</button>
+				              		<button id="sbb-button" style="display: inline;">SBB</button>
+				              		<button id="ubb-button" style="display: inline;">UBB</button>
+				              		<div class="boxed-content-sub2">
+				              			<p id="burst-results"></p>
+			              			</div>
+				              	</div>
+				              	<div id="unit-art" class="tab-pane fade">
+				                	<div class="boxed-content-sub2">
 					                  <img src="http://i.imgur.com/6vQObKW.png" alt="unit-full-img" id="unit-full-img" style="display: block; margin: auto; text-align: center; max-height: 100%; max-width: 100%;">
 					                  <p style="text-align: center;" id="unit-full-img-text">No unit loaded.<br>All Brave Frontier images are owned by Gumi.</p>
 					                </div>
@@ -245,6 +255,19 @@
 			    if (event.keyCode == 13) {
 			        document.getElementById("search-button").click();
 			    }
+			});
+
+			document.getElementById("bb-button").addEventListener('click', function(){
+				getSparkList('bb'); 
+				document.getElementById('burst-results').innerHTML = marked(document.getElementById('temp').innerHTML);
+			});
+			document.getElementById("sbb-button").addEventListener('click', function(){
+				getSparkList('sbb'); 
+				document.getElementById('burst-results').innerHTML = marked(document.getElementById('temp').innerHTML);
+			});
+			document.getElementById("ubb-button").addEventListener('click', function(){
+				getSparkList('ubb'); 
+				document.getElementById('burst-results').innerHTML = marked(document.getElementById('temp').innerHTML);
 			});
 
 			document.getElementById("print-button").addEventListener('click', function(){printUnitClick(); document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;});

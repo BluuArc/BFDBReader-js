@@ -232,14 +232,18 @@ function printUnitClick(){
 	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
 }
 
-function printUnit(json_obj,index,formattedOutput,rawOutput){
+function getUnitFromIndex(json_obj, index){
 	var count = 0;
 	var unitID;
 	for(unitID in json_obj){ //"search" for unit by getting correct index number
 		if(count == index) 	break;
 		else				++count;
 	}
-	var unit = json_obj[unitID];
+	return json_obj[unitID];
+}
+
+function printUnit(json_obj,index,formattedOutput,rawOutput){
+	var unit = getUnitFromIndex(json_obj,index);
 	console.log(unit["id"]);
 	rawOutput.innerHTML = JSON.stringify(unit);
 	//console.log(unit.constructor.toString());
@@ -259,7 +263,7 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 	formattedOutput.innerHTML += printHitCounts(unit["damage frames"]["hits"], unit["damage frames"]["frame times"], unit["drop check count"]);
 
 	formattedOutput.innerHTML += "**Move Speed Type for attack/skill:** " + unit["movement"]["attack"]["move speed type"] + "/" + 
-		unit["movement"]["skill"]["move speed type"]+ "  \n";
+		unit["movement"]["skill"]["move speed type"] + "  \n";
 
 	//formattedOutput.innerHTML += "**Attack Pattern:** `[" + unit["damage frames"]["frame times"] + "]`  \n";
 	//formattedOutput.innerHTML += "**Damage Distribution:** `[" + unit["damage frames"]["hit dmg% distribution"] + "]`  \n";
@@ -467,25 +471,38 @@ function printAtkPattern(timeArr,distrArr){
 function printBurst(burst){
 	var endBBLevel = burst["levels"][burst["levels"].length - 1];
 	var i = 1;
+	var proc = burst["damage frames"][0]["proc id"];
+
 	var text = "*" + burst["name"] + "* - (BC Cost: " + endBBLevel["bc cost"] + ") " + burst["desc"] + "\n\n";
-	text += " * " + printHitCounts(burst["damage frames"][0]["hits"], burst["damage frames"][0]["frame times"],
-		burst["drop check count"]);
+	
+	if(!(proc == "2" || proc == "5" || proc == "51" ||
+		proc == "18" || proc == "3" || proc == "38")){
+		text += " * " + printHitCounts(burst["damage frames"][0]["hits"], burst["damage frames"][0]["frame times"],
+			burst["drop check count"]);
+	}else{
+		text += " * " + printHitCounts(0, burst["damage frames"][0]["frame times"],
+			burst["drop check count"]);
+	}
 
 	for(e in endBBLevel["effects"]){
 		text += printEffects(endBBLevel["effects"][e]);
 	}
-	text += printAtkPattern(burst["damage frames"][0]["frame times"],burst["damage frames"][0]["hit dmg% distribution"]);
-	//print tables for bursts with multiple attacks
-	try{
-		for(i = 1; i < burst["damage frames"].length; ++i){
-			var proc = burst["damage frames"][i]["proc id"];
-			if(proc == "1" || proc == "64" || proc == "47" ||
-				proc == "13" || proc == "14"){
-				text += printAtkPattern(burst["damage frames"][i]["frame times"],burst["damage frames"][i]["hit dmg% distribution"]);
+	//check for non-attacking bursts
+	if(!(proc == "2" || proc == "5" || proc == "51" ||
+		proc == "18" || proc == "3" || proc == "38")){
+		text += printAtkPattern(burst["damage frames"][0]["frame times"],burst["damage frames"][0]["hit dmg% distribution"]);
+		//print tables for bursts with multiple attacks
+		try{
+			for(i = 1; i < burst["damage frames"].length; ++i){
+				proc = burst["damage frames"][i]["proc id"];
+				if(proc == "1" || proc == "64" || proc == "47" ||
+					proc == "13" || proc == "14"){
+					text += printAtkPattern(burst["damage frames"][i]["frame times"],burst["damage frames"][i]["hit dmg% distribution"]);
+				}
 			}
+		}catch(err){
+			console.log(err);
 		}
-	}catch(err){
-		console.log(err);
 	}
 
 	return text;
@@ -574,15 +591,202 @@ function loadUnitArt(){
 	document.getElementById("unit-full-img-text").innerHTML = "All Brave Frontier images are owned by Gumi.";
 }
 
-//source: http://stackoverflow.com/questions/5678899/change-image-source-if-file-exists
-function checkImage(src) {
-	var img = new Image();
-	img.onload = function() {
-		return true;
-	};
-	img.onerror = function() {
-		return false;
- 	};
+function getBurstFrameTimes(unit, type){
+	var frames = [];
 
- 	img.src = src; // fires off loading of image
+	//try{
+		frames.push(unit[type]["damage frames"][0]["frame times"]);
+	// }catch(err){
+		// console.log(err);
+		// return frames; //return empty list if no burst is available
+	// }finally{
+		//check for non-attacking burst
+		var proc = unit[type]["damage frames"][0]["proc id"];
+		if(proc == "2" || proc == "5" || proc == "51" ||
+			proc == "18" || proc == "3" || proc == "38"){
+			if(frames.length != 0){
+				frames.pop();
+			}
+			return frames;
+		}
+	// }
+
+	//check for multiple attacks
+	try{
+		for(i = 1; i < unit[type]["damage frames"].length; ++i){
+			var proc = unit[type]["damage frames"][i]["proc id"];
+			if((proc == "1" || proc == "64" || proc == "47" ||
+				proc == "13" || proc == "14")){
+				frames.push(unit[type]["damage frames"][i]["frame times"]);
+			}
+		}
+	}catch(err){
+		console.log(err);
+	}
+	return frames;
 }
+
+//type of main unit = bb, sbb, ubb
+function getSparkList(type){
+	var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
+	//var index = document.getElementById("unit-names").selectedIndex;
+	var unitID = document.getElementById("unit-full-img").alt;
+	var mainUnit = json_obj[unitID];
+	var output = document.getElementById("temp");
+	var types = ["bb", "sbb", "ubb"];
+	var speedType = mainUnit["movement"]["skill"]["move speed type"];
+	var results = [];
+	try{
+		var mainFrames = getBurstFrameTimes(mainUnit,type);
+	}catch(err){
+		document.getElementById("temp").innerHTML = "This unit does not have a " + type.toUpperCase();
+		return;
+	}finally{
+		//check for non-attacking burst
+		var proc = mainUnit[type]["damage frames"][0]["proc id"];
+		if(proc == "2" || proc == "5" || proc == "51" ||
+			proc == "18" || proc == "3" || proc == "38"){
+			document.getElementById("temp").innerHTML = "This unit does not have an attacking " + type.toUpperCase();
+			return;
+		}
+	}
+
+	//cycle through every units BB/SBB/UBB if they have the same move speed
+	for(unitID in json_obj){//for every unit
+		var otherUnit = json_obj[unitID];
+		if(otherUnit["movement"]["skill"]["move speed type"] == speedType){
+			// console.log(otherUnit["id"]);
+			//check bb
+			try{
+				var otherFrames = getBurstFrameTimes(otherUnit, types[0]);
+				if(otherFrames.length > 0){
+					for(f in mainFrames){//for every attack in burst of main unit
+						for(f2 in otherFrames){//for every attack in burst of other unit
+							var tempResult = getSparkability(otherFrames[f2],mainFrames[f]);
+							if(tempResult.sparks > 0){
+								results.push({
+									sparkResult: tempResult,
+									unitID: unitID,
+									burstType: types[0],
+									burstIndex: f2,
+									burstIndexMain: f,
+								});
+							}
+						}//end for every atk in other
+					}//end for every atk in main
+				}else{
+					console.log("Error at " + unitID);
+				}
+			}catch(err){
+				console.log(otherUnit["id"] + " & " + types[0] + "\n" + err);
+			}
+
+			//check sbb
+			if(otherUnit["rarity"] > 5){
+				try{
+					var otherFrames = getBurstFrameTimes(otherUnit, types[1]);
+					if(otherFrames.length > 0){
+						for(f in mainFrames){//for every attack in burst of main unit
+							for(f2 in otherFrames){//for every attack in burst of other unit
+								var tempResult = getSparkability(otherFrames[f2],mainFrames[f]);
+								if(tempResult.sparks > 0){
+									results.push({
+										sparkResult: tempResult,
+										unitID: unitID,
+										burstType: types[1],
+										burstIndex: f2,
+										burstIndexMain: f,
+									});
+								}
+							}//end for every atk in other
+						}//end for every atk in main
+					}else{
+						console.log("Error at " + unitID);
+					}
+				}catch(err){
+					console.log(otherUnit["id"] + " & " + types[1] + "\n" + err);
+				}
+			}//end if bb/sbb/ubb and rarity
+
+			//check ubb
+			if(otherUnit["rarity"] > 6){
+				try{
+					var otherFrames = getBurstFrameTimes(otherUnit, types[2]);
+					if(otherFrames.length > 0){
+						for(f in mainFrames){//for every attack in burst of main unit
+							for(f2 in otherFrames){//for every attack in burst of other unit
+								var tempResult = getSparkability(otherFrames[f2],mainFrames[f]);
+								if(tempResult.sparks > 0){
+									results.push({
+										sparkResult: tempResult,
+										unitID: unitID,
+										burstType: types[2],
+										burstIndex: f2,
+										burstIndexMain: f,
+									});
+								}
+							}//end for every atk in other
+						}//end for every atk in main
+					}else{
+						console.log("Arr Length = 0 at " + unitID);
+					}
+				}catch(err){
+					console.log(otherUnit["id"] + " & " + types[2] + "\n" + err);
+				}
+			}//end if bb/sbb/ubb and rarity
+		}//end if same move speed
+	}//end for every unit
+
+	var formattedResults = "**Notes:** \n* The results are units of the same movespeed (" + speedType + ") that spark at least 1 of their hits with " + mainUnit["guide_id"] + ": " + mainUnit["name"] + " (" + mainUnit["id"] + ")\n";
+	formattedResults +="* The results do not take into account whether or not a unit teleports/doesn't move before attacking.\n";
+	formattedResults += "* MU = main unit (unit being compared to); OU = other unit\n"
+	formattedResults += "* This is still a work in progress. IF there are any issues or suggestions you have, you can contact me via the Issues page (link found in the `Description` tab\n\n"
+	formattedResults += "\n| Other Unit (OU) | OU's Sparked Hits | OU's Spark Percentage | OU's Burst Type[index] | MU's Sparked Hits | MU's Spark Percentage | MU's Burst Type[index] |\n";
+	formattedResults += "|:--:|:--:|:--:|:--:|:--:|:--:|:--:|\n";
+	//option.text = json_obj[x]["guide_id"] + ": " + json_obj[x]["name"] + " (" + json_obj[x]["id"] + ")";
+	//{{other}} sparks ##/## of its hits on {{BB|SBB|UBB}}[{{index of burst}}] with ##/## of {{main}}'s hits on {{BB|SBB|UBB}}[{{index of burst}}]
+	for(r in results){
+		var currUnit = json_obj[results[r].unitID]
+		var currResult = results[r].sparkResult;
+		formattedResults += "| " + currUnit["guide_id"] + ": " + currUnit["name"] + " (" + currUnit["id"] + ")" + " | ";
+		formattedResults += currResult.otherSparks.split(" ")[0] + " | " + currResult.otherSparks.split(" ")[1] + " | " + results[r].burstType + "[" + results[r].burstIndex + "] | ";
+		formattedResults += currResult.mainSparks.split(" ")[0] + " | " + currResult.mainSparks.split(" ")[1] + " | " + type + "[" + results[r].burstIndexMain + "] |\n";
+		// formattedResults += "{" + currUnit["guide_id"] + ": " + currUnit["name"] + " (" + currUnit["id"] + ")} ";
+		// formattedResults += "sparks " + results[r].sparkResult.otherSparks + " of its hits on " + results[r].burstType + "[" + results[r].burstIndex + "] ";
+		// formattedResults += "with " + results[r].sparkResult.mainSparks + " of ";
+		// formattedResults += "{" + mainUnit["guide_id"] + ": " + mainUnit["name"] + " (" + mainUnit["id"] + ")}'s' hits on ";
+		// formattedResults += type + "[" + results[r].burstIndexMain + "]<br>";
+	}
+	formattedResults += "\n";
+
+	document.getElementById("temp").innerHTML = formattedResults;
+}
+
+//count the number of matching frame counts
+//other = other unit, main = main unit you're comparing
+//{{other}} sparks ##/## of its hits on {{BB|SBB|UBB}}[{{index of burst}}] with ##/## of {{main}}'s hits on {{BB|SBB|UBB}}[{{index of burst}}]
+function getSparkability(otherFrames, mainFrames){
+	var sparkedHits = 0;
+	var totalHits = [otherFrames.length, mainFrames.length];
+
+	var i = 0; j = 0;
+	for(i = 0; i < totalHits[1]; ++i){//for every frame of the main unit
+		for(j = 0; j < totalHits[0]; ++j){//for every frame of the other unit
+			if(otherFrames[j] >= mainFrames[i]){
+				if(otherFrames[j] == mainFrames[i]){
+					sparkedHits++;
+				}
+				break; //stop checking once at or past current frame number
+			}//end if >=
+		}//end for j
+	}//end for i
+
+	var result = {
+		sparks: sparkedHits,
+		otherSparks: sparkedHits + "/" + totalHits[0] + " " + ((sparkedHits / totalHits[0])*100).toFixed(2) + "%",
+		mainSparks: sparkedHits + "/" + totalHits[1]  + " " + ((sparkedHits / totalHits[1])*100).toFixed(2) + "%",
+	};
+
+	return result;
+}
+
