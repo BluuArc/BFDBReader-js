@@ -89,7 +89,7 @@
 					                  <option>Global</option>
 					                  <option>Japan</option>
 					                  <option>Europe</option>
-					                  <option>Sample (quick)</option>
+					                  <option>Sample</option>
 					                </select>
 					                <button id="server-url-button" onclick="loadURL()">Load URLs</button>
 					                <button id="sample-button" onclick="loadFiles()" disabled="disable" style="display: none">Load Files</button>
@@ -144,9 +144,10 @@
 					    </div>
 					    <div id="collapse2" class="panel-collapse collapse">
 					      <div class="panel-body">
+
 					        <!-- Unit Search area -->
 					        <div class="boxed-content-sub" id="unit-search-area">
-					          <input type="text" id="search-box" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box." disabled="disable">
+					          <input type="text" id="search-box" title="Search for units here, and the dropdown on the right will update with results. To reset the dropdown, clear the contents of this text box and press the search button." disabled="disable">
 					          <button id="search-button" style="display: inline;" onclick="searchList()" disabled="disable">Search</button>
 					          <select id="unit-names">
 					            <option>Please pick a JSON file to use.</option>
@@ -228,7 +229,7 @@
 		<textarea id="temp" style="display: none;"></textarea>
 		<script type="text/javascript">
 			//print search key
-			document.getElementById("temp").innerHTML = "| Key:  | `v` | `^` | `v^` |\n|:---:|:---:|:---:|:---:|\n |  | Results are below this option | Results are above this option | Results are above and below this option |"
+			document.getElementById("temp").innerHTML = "| Key:  | `v` | `^` | `v^` |\n|:---:|:---:|:---:|:---:|\n |  | Results are below this option | Results are above this option | Results are above and below this option |\n\nYou can reset the list by searching with an empty search box.";
 			document.getElementById("search-key").innerHTML = marked(document.getElementById("temp").innerHTML);
 
 			//print readme contents
