@@ -465,6 +465,16 @@ function printAtkPattern(timeArr,distrArr){
 		text += timeArr[t] + " | ";
 	}
 
+	//print frame differences
+	text += "\n| Frame Diffs | ";
+	for(t in timeArr){
+		if(t != 0){
+			text += (timeArr[t] - timeArr[t-1]) + " | ";
+		}else{
+			text += "0 | ";
+		}
+	}
+
 	//print damage distribution
 	text += "\n| Damage% Distribution | ";
 	for(d in distrArr){
