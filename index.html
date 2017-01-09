@@ -227,12 +227,15 @@
 
 		<textarea id="temp" style="display: none;"></textarea>
 		<script type="text/javascript">
+			//print search key
 			document.getElementById("temp").innerHTML = "| Key:  | `v` | `^` | `v^` |\n|:---:|:---:|:---:|:---:|\n |  | Results are below this option | Results are above this option | Results are above and below this option |"
 			document.getElementById("search-key").innerHTML = marked(document.getElementById("temp").innerHTML);
+
+			//print readme contents
 			loadFile("https://bluuarc.github.io/BFDBReader-js/README.md", "temp");
 			window.onload = function(){ document.getElementById("readme-contents").innerHTML = marked(document.getElementById("temp").innerHTML)};
 
-			//manual file input
+			//manual file input listeners
 			document.getElementById('file-input').addEventListener('change', readInfoFile, false);
 			document.getElementById('sp-input').addEventListener('change', readSkillsFile, false);
 
@@ -240,14 +243,10 @@
 			//uncomment line below to enable auto-search
 			//document.getElementById("search-box").addEventListener('keyup',searchList);
 			document.getElementById("search-box").addEventListener('keyup', function(){
-				var searchButton = document.getElementById("search-button");
-				//if(document.getElementById("search-box").value == ""){
-				//	searchButton.disabled = true;
-				//}else{
-					searchButton.disabled = false;
-				//}
+				document.getElementById("search-button").disabled = false;
 			});
 
+			//search when 'Enter' key is pressed
 			//source: http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
 			document.getElementById("search-box")
 			    .addEventListener("keyup", function(event) {
@@ -257,6 +256,7 @@
 			    }
 			});
 
+			//search for sparkable units when button is pressed
 			document.getElementById("bb-button").addEventListener('click', function(){
 				getSparkList('bb'); 
 				document.getElementById('burst-results').innerHTML = marked(document.getElementById('temp').innerHTML);
@@ -270,20 +270,25 @@
 				document.getElementById('burst-results').innerHTML = marked(document.getElementById('temp').innerHTML);
 			});
 
+			//print unit data when print button is pressed
 			document.getElementById("print-button").addEventListener('click', function(){
 				printUnitClick(); 
 				document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML); 
+				document.getElementById("formatted-md").innerHTML += marked("Data parsed using [BFDBReader-js](https://bluuarc.github.io/BFDBReader-js/).\n");
 				document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;
 			});
+
+			//hide parse button after being pressed
 			document.getElementById("parse-button").addEventListener('click', function(){
 				displayContents(); 
 				document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;"; 
 				document.getElementById("unit-search-area").style = document.getElementById("unit-info-area").style = "display: block";
 			});
 
+			//try urls for unit art
 			document.getElementById("unit-full-img").addEventListener('error', loadUnitArt);
 
-			//file output
+			//file output text area listeners
 			document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
 			document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
 		</script>

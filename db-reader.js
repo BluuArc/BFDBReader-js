@@ -1,5 +1,6 @@
 //to be used with DBReader (js version) web page
 
+//read uploaded skills file to a text box
 function readSkillsFile(e){
 	var file = e.target.files[0];
 	if (!file) {
@@ -17,6 +18,7 @@ function readSkillsFile(e){
 	reader.readAsText(file);
 }
 
+//read uploaded info file to text box
 function readInfoFile(e) {
 	var file = e.target.files[0];
 	if (!file) {
@@ -34,6 +36,7 @@ function readInfoFile(e) {
 	reader.readAsText(file);
 }
 
+//load remote file to element with id=destID
 function loadFile(url, destID){
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -45,6 +48,7 @@ function loadFile(url, destID){
   	xhttp.send();		
 }
 
+//function for loading files in auto tab
 function loadFiles() {
 	var url = {
 		info: document.getElementById("server-info-url").href,
@@ -64,6 +68,7 @@ function loadFiles() {
 	document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
 }
 
+//function to get different URLs based on dropdown value
 function loadURL(){
 	var server = document.getElementById("server-name").value;
 	var url = {info:"", sp:""};
@@ -94,6 +99,7 @@ function loadURL(){
 	document.getElementById("sample-button").style = "display: inline;";
 }
 
+//function to update status message based on data in text boxes
 function fileLoadedFunction(){
 	var infoLoaded = document.getElementById("file-content").innerHTML != "Info input from file will be output here.";
 	var spLoaded = document.getElementById("sp-content").innerHTML != "SP input from file will be output here.";
@@ -119,6 +125,7 @@ function fileLoadedFunction(){
 	}
 }
 
+//function to display the names of the info db to the dropdown and updata status
 function displayContents() {
 	//var notes = document.getElementById('notes');
 	//console.log("parsing contents");
@@ -136,12 +143,14 @@ function displayContents() {
 	//console.log("please allow some time for page to update for large JSON files");
 }
 
+//function to update status
 function updateStatus(msg) {
 	console.log(msg);
 	document.getElementById("status").innerHTML = "Status: " + msg;
 	//postscribe("#status","<p>Status: " + msg + "</p>");
 }
 
+//main function to parse unit names into dropdown
 function populateList(json_obj){
 	var list = document.getElementById("unit-names");
 	while(list.length > 0){
@@ -155,6 +164,7 @@ function populateList(json_obj){
 	}
 }
 
+//search function
 function searchList(){
 	var query = document.getElementById("search-box").value;
 	var status = document.getElementById("search-info-text");
@@ -180,7 +190,11 @@ function searchList(){
 			}
 		}//end for each option
 
+
 		var length = resultIndices.length;
+		if(length > 0){
+			document.getElementById("unit-names").selectedIndex = resultIndices[0];//set selected index to first result
+		}
 		status.innerHTML = length + ((length == 1) ? (" result found.") : (" results found."));
 		if(length > 0){
 			for(o in options){
@@ -193,24 +207,16 @@ function searchList(){
 							options[o].innerHTML = "^";//results are above this index
 						}else{
 							options[o].innerHTML = "v^";//results above and below this index
-						}
-					}
-
-					//console.log("Checking " + o);
-					// try{
-					// 	if(options[o].innerHTML.length < 3){
-					// 		options[o].innerHTML = getPositionChars(parseInt(o), resultIndices);
-					// 	}
-					// }catch(err){
-					// 	console.log("Error at " + o + "\n" + err);
-					// }
-				}
-			}
+						}//end if-else result checks
+					}//end if non-result
+				}//end if !NaN
+			}//end for each option
 		}//end if length
-	}
+	}//end if-else query check
 }
 
-//unit functions
+/* unit functions */
+//function to print unit info once button is clicked
 function printUnitClick(){
 	try{
 		updateStatus("Getting unit info. Please wait.")
@@ -219,12 +225,10 @@ function printUnitClick(){
 		var output = document.getElementById("unit-info");
 		var rawOutput = document.getElementById("unit-info-raw");
 		var unitID = printUnit(json_obj,index,output,rawOutput);
-		//print unit to formmated element
-		//document.getElementById("unit-info-formatted").innerHTML =  document.getElementById("unit-info").innerHTML;
 		document.getElementById("unit-full-img").alt = unitID;
 		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
 		loadUnitArt();
-	}catch(err){
+	}catch(err){ //shouldn't happen
 		alert("Error has occured. \n" + err);
 		console.log(err);
 	}
@@ -232,6 +236,7 @@ function printUnitClick(){
 	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
 }
 
+//get unit in json_obj via its index
 function getUnitFromIndex(json_obj, index){
 	var count = 0;
 	var unitID;
@@ -242,11 +247,13 @@ function getUnitFromIndex(json_obj, index){
 	return json_obj[unitID];
 }
 
+//print unit based on its index in json_obj
 function printUnit(json_obj,index,formattedOutput,rawOutput){
 	var unit = getUnitFromIndex(json_obj,index);
 	console.log(unit["id"]);
 	rawOutput.innerHTML = JSON.stringify(unit);
 	//console.log(unit.constructor.toString());
+	//unit name
 	formattedOutput.innerHTML = "### " + unit["guide_id"] + ": " + unit["name"] + " (" + unit["id"]+")  \n";
 
 	//print rarity, element, and cost
@@ -265,10 +272,10 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 	formattedOutput.innerHTML += "**Move Speed Type for attack/skill:** " + unit["movement"]["attack"]["move speed type"] + "/" + 
 		unit["movement"]["skill"]["move speed type"] + "  \n";
 
-	//formattedOutput.innerHTML += "**Attack Pattern:** `[" + unit["damage frames"]["frame times"] + "]`  \n";
-	//formattedOutput.innerHTML += "**Damage Distribution:** `[" + unit["damage frames"]["hit dmg% distribution"] + "]`  \n";
+	//print atk pattern table
 	formattedOutput.innerHTML += printAtkPattern(unit["damage frames"]["frame times"],unit["damage frames"]["hit dmg% distribution"]);
 
+	//print merity type
 	formattedOutput.innerHTML += "**Merit Type:** " + unit["getting type"] + "  \n";
 
 	//print stat info
@@ -277,7 +284,6 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 	formattedOutput.innerHTML += "    ATK: " + unit["stats"]["_lord"]["atk"] + " (" + unit["imp"]["max atk"] + ")\n";
 	formattedOutput.innerHTML += "    DEF: " + unit["stats"]["_lord"]["def"] + " (" + unit["imp"]["max def"] + ")\n";
 	formattedOutput.innerHTML += "    REC: " + unit["stats"]["_lord"]["rec"] + " (" + unit["imp"]["max rec"] + ")\n";
-
 	formattedOutput.innerHTML += "\n";
 	
 	//print leader skill info
@@ -334,7 +340,7 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 		text += printBurst(sbb);
 		formattedOutput.innerHTML += text;
 	}catch(err){
-		if(unit["rarity"] > 5){ 
+		if(unit["rarity"] > 5){ //print none if rarity > 5 since it's supposed to exist for 6+* units, but may exist for prev units
 			formattedOutput.innerHTML += "**SBB:** None\n";
 			console.log(err);
 		}
@@ -351,7 +357,7 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 		text += printBurst(ubb);
 		formattedOutput.innerHTML += text;
 	}catch(err){
-		if(unit["rarity"] > 6) {
+		if(unit["rarity"] > 6) { //print none if rarity > 6 since it's supposed to exist for 7+* units 
 			formattedOutput.innerHTML += "**SBB:** None\n";
 			console.log(err);
 		}
@@ -428,8 +434,9 @@ function printEffects(effects){
 		}
 	}
 
+	//save parsed data
 	var i = 0;
-	for(i = 0; i < effectArr.length; ++i){//save parsed data
+	for(i = 0; i < effectArr.length; ++i){
 		text += effectArr[i];
 		if(i + 1 != effectArr.length) text += " / ";
 	}
@@ -473,8 +480,10 @@ function printBurst(burst){
 	var i = 1;
 	var proc = burst["damage frames"][0]["proc id"];
 
+	//print name, BC cost, and desc
 	var text = "*" + burst["name"] + "* - (BC Cost: " + endBBLevel["bc cost"] + ") " + burst["desc"] + "\n\n";
 	
+	//print hit count based on if it's not a non-attacking burst
 	if(!(proc == "2" || proc == "5" || proc == "51" ||
 		proc == "18" || proc == "3" || proc == "38")){
 		text += " * " + printHitCounts(burst["damage frames"][0]["hits"], burst["damage frames"][0]["frame times"],
@@ -484,10 +493,11 @@ function printBurst(burst){
 			burst["drop check count"]);
 	}
 
+	//print effects of burst
 	for(e in endBBLevel["effects"]){
 		text += printEffects(endBBLevel["effects"][e]);
 	}
-	//check for non-attacking bursts
+	//print atk pattern if not non-attacking burst
 	if(!(proc == "2" || proc == "5" || proc == "51" ||
 		proc == "18" || proc == "3" || proc == "38")){
 		text += printAtkPattern(burst["damage frames"][0]["frame times"],burst["damage frames"][0]["hit dmg% distribution"]);
@@ -511,23 +521,26 @@ function printBurst(burst){
 //print info about hit counts
 function printHitCounts(numHits, frameArr, dropChecks){
 	var text = numHits + ((numHits == 1) ? " hit (" : " hits (") + dropChecks + 
-		" BC/hit, max " + (dropChecks * numHits) + " BC generated)  \n";// in " + 
-		//frameArr[frameArr.length - 1] + " frames  \n";
+		" BC/hit, max " + (dropChecks * numHits) + " BC generated)  \n";
 	return text;
 }
 
 //print sp enhancements
 function printSP(id){
+	//check if SP file is loaded
 	if(document.getElementById("sp-content").innerHTML != "SP input from file will be output here."){
 		var text = "";
 		var json_obj = JSON.parse(document.getElementById("sp-content").innerHTML);
 		var unitSkills = json_obj[id]["skills"];
+		//print each sp option
 		for(s in unitSkills){
 			var curSkill = unitSkills[s]["skill"];
+			//print desc and ID
 			text += " * " + curSkill["desc"] + " (" + curSkill["id"] + ")\n";
-			//text += "  * **Type:** " + getSPCategory(unitSkills[s]["category"]) + "\n";
+			text += "  * **Type:** " + getSPCategory(unitSkills[s]["category"]) + "\n";
 			text += "  * **Cost:** " + curSkill["bp"] + "\n";
 			text += "  * **Dependency:** " + ((unitSkills[s]["dependency"] == "") ? "None\n" : (unitSkills[s]["dependency"] + "\n"));
+			//print sp effects
 			for(e in curSkill["effects"])
 				if(curSkill["effects"][e] instanceof Array){
 					text += "  * " + printArray(curSkill["effects"][e], false) + "\n";
@@ -564,6 +577,7 @@ function getSPCategory(num){
 	}
 }
 
+//try to load unit art
 function loadUnitArt(){
 	var urls = [
 		"http://cdn.android.brave.a-lim.jp/unit/img/",
@@ -591,25 +605,20 @@ function loadUnitArt(){
 	document.getElementById("unit-full-img-text").innerHTML = "All Brave Frontier images are owned by Gumi.";
 }
 
+//get the burst frame times of a unit
 function getBurstFrameTimes(unit, type){
 	var frames = [];
 
-	//try{
-		frames.push(unit[type]["damage frames"][0]["frame times"]);
-	// }catch(err){
-		// console.log(err);
-		// return frames; //return empty list if no burst is available
-	// }finally{
-		//check for non-attacking burst
-		var proc = unit[type]["damage frames"][0]["proc id"];
-		if(proc == "2" || proc == "5" || proc == "51" ||
-			proc == "18" || proc == "3" || proc == "38"){
-			if(frames.length != 0){
-				frames.pop();
-			}
-			return frames;
+	frames.push(unit[type]["damage frames"][0]["frame times"]);
+	var proc = unit[type]["damage frames"][0]["proc id"];
+	//return empty array if burst is non-attacking
+	if(proc == "2" || proc == "5" || proc == "51" ||
+		proc == "18" || proc == "3" || proc == "38"){
+		if(frames.length != 0){
+			frames.pop();
 		}
-	// }
+		return frames;
+	}
 
 	//check for multiple attacks
 	try{
@@ -626,16 +635,17 @@ function getBurstFrameTimes(unit, type){
 	return frames;
 }
 
+//get list of units that spark at least once with currently loaded unit
 //type of main unit = bb, sbb, ubb
 function getSparkList(type){
 	var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
-	//var index = document.getElementById("unit-names").selectedIndex;
 	var unitID = document.getElementById("unit-full-img").alt;
 	var mainUnit = json_obj[unitID];
 	var output = document.getElementById("temp");
 	var types = ["bb", "sbb", "ubb"];
 	var speedType = mainUnit["movement"]["skill"]["move speed type"];
 	var results = [];
+	//try to load burst, if it exists
 	try{
 		var mainFrames = getBurstFrameTimes(mainUnit,type);
 	}catch(err){
@@ -653,8 +663,8 @@ function getSparkList(type){
 	//cycle through every units BB/SBB/UBB if they have the same move speed
 	for(unitID in json_obj){//for every unit
 		var otherUnit = json_obj[unitID];
+		//only check units of same move speed type
 		if(otherUnit["movement"]["skill"]["move speed type"] == speedType){
-			// console.log(otherUnit["id"]);
 			//check bb
 			try{
 				var otherFrames = getBurstFrameTimes(otherUnit, types[0]);
@@ -736,13 +746,13 @@ function getSparkList(type){
 		}//end if same move speed
 	}//end for every unit
 
+	//print formatted results table
 	var formattedResults = "**Notes:** \n* The results are units of the same movespeed (" + speedType + ") that spark at least 1 of their hits with " + mainUnit["guide_id"] + ": " + mainUnit["name"] + " (" + mainUnit["id"] + ")\n";
 	formattedResults +="* The results do not take into account whether or not a unit teleports/doesn't move before attacking.\n";
 	formattedResults += "* MU = main unit (unit being compared to); OU = other unit\n"
 	formattedResults += "* This is still a work in progress. IF there are any issues or suggestions you have, you can contact me via the Issues page (link found in the `Description` tab\n\n"
 	formattedResults += "\n| Other Unit (OU) | OU's Sparked Hits | OU's Spark Percentage | OU's Burst Type[index] | MU's Sparked Hits | MU's Spark Percentage | MU's Burst Type[index] |\n";
 	formattedResults += "|:--:|:--:|:--:|:--:|:--:|:--:|:--:|\n";
-	//option.text = json_obj[x]["guide_id"] + ": " + json_obj[x]["name"] + " (" + json_obj[x]["id"] + ")";
 	//{{other}} sparks ##/## of its hits on {{BB|SBB|UBB}}[{{index of burst}}] with ##/## of {{main}}'s hits on {{BB|SBB|UBB}}[{{index of burst}}]
 	for(r in results){
 		var currUnit = json_obj[results[r].unitID]
@@ -750,11 +760,6 @@ function getSparkList(type){
 		formattedResults += "| " + currUnit["guide_id"] + ": " + currUnit["name"] + " (" + currUnit["id"] + ")" + " | ";
 		formattedResults += currResult.otherSparks.split(" ")[0] + " | " + currResult.otherSparks.split(" ")[1] + " | " + results[r].burstType + "[" + results[r].burstIndex + "] | ";
 		formattedResults += currResult.mainSparks.split(" ")[0] + " | " + currResult.mainSparks.split(" ")[1] + " | " + type + "[" + results[r].burstIndexMain + "] |\n";
-		// formattedResults += "{" + currUnit["guide_id"] + ": " + currUnit["name"] + " (" + currUnit["id"] + ")} ";
-		// formattedResults += "sparks " + results[r].sparkResult.otherSparks + " of its hits on " + results[r].burstType + "[" + results[r].burstIndex + "] ";
-		// formattedResults += "with " + results[r].sparkResult.mainSparks + " of ";
-		// formattedResults += "{" + mainUnit["guide_id"] + ": " + mainUnit["name"] + " (" + mainUnit["id"] + ")}'s' hits on ";
-		// formattedResults += type + "[" + results[r].burstIndexMain + "]<br>";
 	}
 	formattedResults += "\n";
 
