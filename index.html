@@ -125,10 +125,12 @@
 
 					          <div class="tab-content">
 					            <div id="info-tab" class="tab-pane fade in active">
-					              <textarea readonly rows="10" cols="100" id="file-content">Info input from file will be output here.</textarea>
+					            <textarea readonly rows="10" cols="100" id="file-content-status">Info input from file will be output here.</textarea>
+					             	<textarea readonly rows="10" cols="100" id="file-content" style="display: none;">Info input from file will be output here.</textarea>
 					            </div>
 					            <div id="feskills-tab" class="tab-pane fade">
-					              <textarea readonly rows="10" cols="100" id="sp-content">SP input from file will be output here.</textarea>
+					            	<textarea readonly rows="10" cols="100" id="sp-content-status">SP input from file will be output here.</textarea>
+					              	<textarea readonly rows="10" cols="100" id="sp-content" style="display: none;">SP input from file will be output here.</textarea>
 					            </div>
 					          </div>
 					        </div>
@@ -283,7 +285,9 @@
 			document.getElementById("parse-button").addEventListener('click', function(){
 				displayContents(); 
 				document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;"; 
-				document.getElementById("unit-search-area").style = document.getElementById("unit-info-area").style = "display: block";
+				setIdCookie();
+				getIdLoadText();
+
 			});
 
 			//try urls for unit art

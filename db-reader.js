@@ -11,8 +11,13 @@ function readSkillsFile(e){
 	var reader = new FileReader();
 	reader.onload = function(e) {//event
 		var contents = e.target.result;
-		var output = document.getElementById('sp-content');
-		output.innerHTML = contents;
+		document.getElementById('sp-content').innerHTML = contents;
+		var output = document.getElementById('sp-content-status');
+		output.innerHTML = "";
+		var json_obj = JSON.parse(contents);
+		for(o in json_obj){
+			output.innerHTML += o + "\n";
+		}
 		fileLoadedFunction();
 	};
 	reader.readAsText(file);
@@ -29,19 +34,31 @@ function readInfoFile(e) {
 	var reader = new FileReader();
 	reader.onload = function(e) {//event
 		var contents = e.target.result;
-		var output = document.getElementById('file-content');
-		output.innerHTML = contents;
+		document.getElementById('file-content').innerHTML = contents;
+		var output = document.getElementById('file-content-status');
+		output.innerHTML = "";
+		var json_obj = JSON.parse(contents);
+		for(o in json_obj){
+			output.innerHTML += o + "\n";
+		}
 		fileLoadedFunction();
 	};
 	reader.readAsText(file);
 }
 
 //load remote file to element with id=destID
-function loadFile(url, destID){
+function loadFile(url, destID, statusID){
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById(destID).innerHTML = this.responseText;
+			var output = document.getElementById(statusID);
+			output.innerHTML = "";
+			var json_obj = JSON.parse(this.responseText);
+			for(o in json_obj){
+				output.innerHTML += o + "\n";
+			}
+
 		}
 	};
   	xhttp.open("GET", url, true);
@@ -59,11 +76,11 @@ function loadFiles() {
 	document.getElementById("sp-content").oninput = function(){ fileLoadedFunction() };
 	updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before pressing 'Refresh Status.'<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
  	//loadInfo(url.info);
- 	loadFile(url.info, "file-content");
+ 	loadFile(url.info, "file-content", "file-content-status");
  	if(url.sp != "" && url.sp != "None"){
 	 	updateStatus("Reading file contents of info and feskills databases. Please wait until the <br>file contents text area below is filled before pressing 'Refresh Status'.<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
 	 	//loadSkills(url.sp);
-	 	loadFile(url.sp, "sp-content");
+	 	loadFile(url.sp, "sp-content", "sp-content-status");
 	 }
 	document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
 }
@@ -99,6 +116,120 @@ function loadURL(){
 	document.getElementById("sample-button").style = "display: inline;";
 }
 
+function getIdLoadText(){
+	var serverName = document.getElementById("server-name").value.toLowerCase();
+	if(document.cookie != ""){
+		var curL = getCookie(serverName + "-ids-new");
+		var oldL = getCookie(serverName + "-ids-old");
+		var diff = ((curL == "") ? 0 : parseInt(curL)) - ((oldL == "") ? 0 : parseInt(oldL));
+		var status = document.getElementById("search-info-text");
+		status.innerHTML = curL + " units loaded. " + diff + " new units since last update."
+	}
+}
+
+//source: //based on http://www.w3schools.com/js/js_cookies.asp
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+//save number of unitIDs
+function setIdCookie(){
+	//get data to save
+	var serverName = document.getElementById("server-name").value.toLowerCase();
+	var unitNames = document.getElementById("unit-names").options;
+	// var status = document.getElementById("search-info-text");
+	var idLength = serverName + "-ids-new=" + unitNames.length;
+	var idData = [];
+	//store ids
+	for(var i = 0; i < unitNames.length; ++i){
+		var temp = unitNames[i].innerHTML;
+		var start = temp.indexOf('(');
+		var end = temp.indexOf(')');
+		if(start > -1 && end > -1){
+			idData.push(parseInt(temp.substring(start+1, end)));
+		}
+	}
+
+	//note how many units were loaded
+	// status.innerHTML = unitNames.length + " units loaded."
+
+
+	if(document.cookie == ""){//create new cookie
+		//document.cookie = "path=/;";
+		//document.cookie += idLength;
+		setCookie(serverName + "-ids-new", unitNames.length);
+		//status.innerHTML += unitNames.length + " new units since last update.";
+	}else{
+		//compare old and new data
+		var oldData = getCookie(serverName + "-ids-new");
+		if(parseInt(oldData) != unitNames.length){//save cookie if data has changed
+			//note difference
+			// status.innerHTML += (unitNames.length - parseInt(oldData)) + " new units since last update";
+
+			//save old data
+			updateCookie(serverName + "-ids-old", oldData + ";");
+
+			//set new data
+			updateCookie(serverName + "-ids-new", idData + ";");
+
+			//save id list, if supported
+			//TODO
+
+		}
+	}
+		
+}
+
+//update a single cookie variable
+//based on http://www.w3schools.com/js/js_cookies.asp
+//newData should be in format of '%cookieName%=%newData%'
+function updateCookie(cookieName, newData){
+	var curCookie = document.cookie.split(';');
+	var oldData = ""; //data to carry over
+	cookieName += "=";
+	for(var i = 0; i < curCookie.length; ++i){
+		var c = curCookie[i];
+		//strip leading spaces
+		while(c.charAt(0) == ' '){
+			c = c.substring(1);
+		}
+
+		//get everything except current value of newData
+		if(c.indexOf(cookieName) != 0){
+			oldData += curCookie[i] + ";";
+		}
+	}
+
+	//save old and new data
+	document.cookie = oldData + newData;
+}
+
+//get the value of a cookie variable
+//based on http://www.w3schools.com/js/js_cookies.asp
+function getCookie(cookieName){
+	cookieName += "=";
+	var cookie = document.cookie.split(';');
+	for(var i = 0; i < cookie.length; ++i){
+		var c = cookie[i];
+
+		//strip leading spaces
+		while(c.charAt(0) == ' '){
+			c = c.substring(1);
+		}
+
+		//match, return value
+		if(c.indexOf(cookieName) == 0){
+			return c.substring(name.length, c.length);
+		}
+	}
+
+	//return empty string if nothing found
+	return "";
+}
+
 //function to update status message based on data in text boxes
 function fileLoadedFunction(){
 	var infoLoaded = document.getElementById("file-content").innerHTML != "Info input from file will be output here.";
@@ -115,13 +246,13 @@ function fileLoadedFunction(){
 		document.getElementById("parse-button").disabled = false;
 		document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px;";
 		document.getElementById("print-button").disabled = true;
-		document.getElementById("unit-names").options[0].innerHTML = "Please press the 'Parse File(s)' button."
+		document.getElementById("unit-names").options[0].innerHTML = "Please press the 'Parse File(s)' button.";
 	}else{
 		updateStatus("Click the 'Parse File(s)' button to parse the contents of the files.");
 		document.getElementById("parse-button").disabled = false;
 		document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px;";
 		document.getElementById("print-button").disabled = true;
-		document.getElementById("unit-names").options[0].innerHTML = "Please press the 'Parse File(s)' button."
+		document.getElementById("unit-names").options[0].innerHTML = "Please press the 'Parse File(s)' button.";
 	}
 }
 
@@ -192,13 +323,11 @@ function searchList(){
 
 
 		var length = resultIndices.length;
-		if(length > 0){
-			document.getElementById("unit-names").selectedIndex = resultIndices[0];//set selected index to first result
-		}
 		status.innerHTML = length + ((length == 1) ? (" result found.") : (" results found."));
 		if(length > 0){
+			document.getElementById("unit-names").selectedIndex = resultIndices[0];//set selected index to first result
 			for(o in options){
-				if(!isNaN(parseInt(o))){
+				if(!isNaN(parseInt(o))){//only process ID numbers
 					var curIndex = parseInt(o);
 					if(options[o].innerHTML.length < 3){//focus only on non-results
 						if(curIndex < resultIndices[0]){
@@ -757,17 +886,17 @@ function getSparkList(type){
 	}//end for every unit
 
 	//print formatted results table
-	var formattedResults = "**Notes:** \n* The results are units of the same movespeed (" + speedType + ") that spark at least 1 of their hits with " + mainUnit["guide_id"] + ": " + mainUnit["name"] + " (" + mainUnit["id"] + ")\n";
+	var formattedResults = "**Notes:** \n* The results are units of the [same movespeed (" + speedType + ")](https://www.reddit.com/r/bravefrontier/comments/4sm6ro/how_to_perfect_spark_identical_units_compilation/) that spark at least 1 of their hits with **" + mainUnit["guide_id"] + ": " + mainUnit["name"] + " (" + mainUnit["id"] + ")**\n";
 	formattedResults +="* The results do not take into account whether or not a unit teleports/doesn't move before attacking.\n";
 	formattedResults += "* MU = main unit (unit being compared to); OU = other unit\n"
-	formattedResults += "* This is still a work in progress. IF there are any issues or suggestions you have, you can contact me via the Issues page (link found in the `Description` tab\n\n"
+	formattedResults += "* This is still a work in progress. IF there are any issues or suggestions you have, you can contact me via the Issues page (link found in the `Description` tab)\n\n"
 	formattedResults += "\n| Other Unit (OU) | OU's Sparked Hits | OU's Spark Percentage | OU's Burst Type[index] | MU's Sparked Hits | MU's Spark Percentage | MU's Burst Type[index] |\n";
 	formattedResults += "|:--:|:--:|:--:|:--:|:--:|:--:|:--:|\n";
 	//{{other}} sparks ##/## of its hits on {{BB|SBB|UBB}}[{{index of burst}}] with ##/## of {{main}}'s hits on {{BB|SBB|UBB}}[{{index of burst}}]
 	for(r in results){
 		var currUnit = json_obj[results[r].unitID]
 		var currResult = results[r].sparkResult;
-		formattedResults += "| " + currUnit["guide_id"] + ": " + currUnit["name"] + " (" + currUnit["id"] + ")" + " | ";
+		formattedResults += "| " + currUnit["guide_id"] + ": " + currUnit["name"] + " (" + currUnit["id"] + ") - " + ((currUnit["rarity"] == 8) ? "OE" : (currUnit["rarity"] + "*")) + " | ";
 		formattedResults += currResult.otherSparks.split(" ")[0] + " | " + currResult.otherSparks.split(" ")[1] + " | " + results[r].burstType + "[" + results[r].burstIndex + "] | ";
 		formattedResults += currResult.mainSparks.split(" ")[0] + " | " + currResult.mainSparks.split(" ")[1] + " | " + type + "[" + results[r].burstIndexMain + "] |\n";
 	}
