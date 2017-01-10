@@ -102,3 +102,27 @@ sell caution
 *stats
 
 ubb
+
+---
+
+proc ids
+
+dual attack
+1
+64 (Nyami, Faelan)
+47 (Toki, Gabriela)
+13 (Sonia, Faelan)
+14 (Gabriela)
+
+non-attack
+2 (BB)
+5,51 (SBB)
+18,3 (UBB)
+phoenix UBB
+Lancia
+Soleil
+Rashil
+sargavel ubb
+charla
+eclise bb
+7* zeru ubb
