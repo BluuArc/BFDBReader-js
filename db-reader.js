@@ -18,7 +18,7 @@ function readSkillsFile(e){
 		for(o in json_obj){
 			output.innerHTML += o + "\n";
 		}
-		fileLoadedFunction();
+		updateFileLoadStatus();
 	};
 	reader.readAsText(file);
 }
@@ -41,7 +41,7 @@ function readInfoFile(e) {
 		for(o in json_obj){
 			output.innerHTML += o + "\n";
 		}
-		fileLoadedFunction();
+		updateFileLoadStatus();
 	};
 	reader.readAsText(file);
 }
@@ -52,11 +52,15 @@ function loadFile(url, destID, statusID){
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById(destID).innerHTML = this.responseText;
-			var output = document.getElementById(statusID);
-			output.innerHTML = "";
-			var json_obj = JSON.parse(this.responseText);
-			for(o in json_obj){
-				output.innerHTML += o + "\n";
+			try{
+				var output = document.getElementById(statusID);
+				output.innerHTML = "";
+				var json_obj = JSON.parse(this.responseText);
+				for(o in json_obj){
+					output.innerHTML += o + "\n";
+				}
+			}catch(err){
+				console.log(err);
 			}
 
 		}
@@ -66,14 +70,14 @@ function loadFile(url, destID, statusID){
 }
 
 //function for loading files in auto tab
-function loadFiles() {
+function loadFilesFromURLs() {
 	var url = {
 		info: document.getElementById("server-info-url").href,
 		sp: document.getElementById("server-skill-url").href,
 	};
 	document.getElementById("sample-button").style = "display: none";
-	document.getElementById("file-content").oninput = function(){ fileLoadedFunction() };
-	document.getElementById("sp-content").oninput = function(){ fileLoadedFunction() };
+	document.getElementById("file-content").oninput = function(){ updateFileLoadStatus() };
+	document.getElementById("sp-content").oninput = function(){ updateFileLoadStatus() };
 	updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before pressing 'Refresh Status.'<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
  	//loadInfo(url.info);
  	loadFile(url.info, "file-content", "file-content-status");
@@ -82,11 +86,15 @@ function loadFiles() {
 	 	//loadSkills(url.sp);
 	 	loadFile(url.sp, "sp-content", "sp-content-status");
 	 }
-	document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
+	 
+	 //delay showing of button
+	 setTimeout(function(){
+		document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
+		}, 1000);
 }
 
 //function to get different URLs based on dropdown value
-function loadURL(){
+function loadURLNames(){
 	var server = document.getElementById("server-name").value;
 	var url = {info:"", sp:""};
 	switch(server){
@@ -231,7 +239,7 @@ function getCookie(cookieName){
 }
 
 //function to update status message based on data in text boxes
-function fileLoadedFunction(){
+function updateFileLoadStatus(){
 	var infoLoaded = document.getElementById("file-content").innerHTML != "Info input from file will be output here.";
 	var spLoaded = document.getElementById("sp-content").innerHTML != "SP input from file will be output here.";
 	if(!infoLoaded && !spLoaded){
@@ -257,15 +265,11 @@ function fileLoadedFunction(){
 }
 
 //function to display the names of the info db to the dropdown and updata status
-function displayContents() {
-	//var notes = document.getElementById('notes');
-	//console.log("parsing contents");
+function parseJSON() {
 	var contents = document.getElementById('file-content').innerHTML;
 	updateStatus("Parsing file contents as a JSON object. Please wait.")
 	var json_obj = JSON.parse(contents);
-	//console.log(json_obj.constructor.toString());
-	//analyzeUnits(json_obj, output, notes);
-	//printUnits(json_obj, output, notes);
+	
 	updateStatus("Populating dropdown menu with unit names. Please wait.");
 	populateList(json_obj);
 	document.getElementById("print-button").disabled = false;
@@ -299,7 +303,7 @@ function populateList(json_obj){
 function searchList(){
 	var query = document.getElementById("search-box").value;
 	var status = document.getElementById("search-info-text");
-	displayContents(); //reset list
+	parseJSON(); //reset list
 	if(query == ""){
 		status.innerHTML = "List reset";
 		return;
@@ -376,46 +380,59 @@ function getUnitFromIndex(json_obj, index){
 	return json_obj[unitID];
 }
 
-//print unit based on its index in json_obj
-function printUnit(json_obj,index,formattedOutput,rawOutput){
-	var unit = getUnitFromIndex(json_obj,index);
-	console.log(unit["id"]);
-	rawOutput.innerHTML = JSON.stringify(unit);
-	//console.log(unit.constructor.toString());
-	//unit name
-	formattedOutput.innerHTML = "### " + unit["guide_id"] + ": " + unit["name"] + " (" + unit["id"]+")  \n";
+function getUnitName(unit){
+	var msg = "### " + unit["guide_id"] + ": " + unit["name"] + " (" + unit["id"]+")  \n";
+	return msg;
+}
 
-	//print rarity, element, and cost
-	formattedOutput.innerHTML += "**Rarity/Element/Cost:** " ;
-	if(unit["rarity"] == 8) formattedOutput.innerHTML += "OE/";
-	else					formattedOutput.innerHTML += unit["rarity"] + "\\*/";
-	formattedOutput.innerHTML += unit["element"] + "/";
-	formattedOutput.innerHTML += unit["cost"] + "  \n";
+function getUnitRareElemCostGender(unit){
+	var msg = "";
+	msg += "**Rarity/Element/Cost:** " ;
+	if(unit["rarity"] == 8) msg += "OE/";
+	else					msg += unit["rarity"] + "\\*/";
+	msg += unit["element"] + "/";
+	msg += unit["cost"] + "  \n";
 
-	formattedOutput.innerHTML += "**Gender:** " + unit["gender"] + "  \n";
-	
-	//print hitcount info
-	formattedOutput.innerHTML += "**Hit Count:** "; 
-	formattedOutput.innerHTML += printHitCounts(unit["damage frames"]["hits"], unit["damage frames"]["frame times"], unit["drop check count"]);
+	msg += "**Gender:** " + unit["gender"] + "  \n";
+	return msg;
+}
 
-	formattedOutput.innerHTML += "**Move Speed Type for attack/skill:** " + unit["movement"]["attack"]["move speed type"] + "/" + 
+function getUnitNormalHitCountInfo(unit){
+	var msg = "";
+	msg += "**Hit Count:** "; 
+	msg += printHitCounts(unit["damage frames"]["hits"], unit["damage frames"]["frame times"], unit["drop check count"]);
+	return msg;
+}
+
+function getUnitMoveSpeedInfo(unit){
+	var msg = "**Move Speed Type for attack/skill:** " + unit["movement"]["attack"]["move speed type"] + "/" + 
 		unit["movement"]["skill"]["move speed type"] + "  \n";
+	return msg;
+}
 
-	//print atk pattern table
-	formattedOutput.innerHTML += printAtkPattern(unit["damage frames"]["frame times"],unit["damage frames"]["hit dmg% distribution"]);
+function getNormalHitCountTable(unit){
+	return printAtkPattern(unit["damage frames"]["frame times"],unit["damage frames"]["hit dmg% distribution"]);
+}
 
-	//print merity type
-	formattedOutput.innerHTML += "**Merit Type:** " + unit["getting type"] + "  \n";
+function getUnitMeritType(unit){
+	var msg = "";
+	msg += "**Merit Type:** " + unit["getting type"] + "  \n";
+	return msg;
+}
 
-	//print stat info
-	formattedOutput.innerHTML += "**Lord Stats:**\n\n";
-	formattedOutput.innerHTML += "    HP: " + unit["stats"]["_lord"]["hp"] + " (" + unit["imp"]["max hp"] + ")\n";
-	formattedOutput.innerHTML += "    ATK: " + unit["stats"]["_lord"]["atk"] + " (" + unit["imp"]["max atk"] + ")\n";
-	formattedOutput.innerHTML += "    DEF: " + unit["stats"]["_lord"]["def"] + " (" + unit["imp"]["max def"] + ")\n";
-	formattedOutput.innerHTML += "    REC: " + unit["stats"]["_lord"]["rec"] + " (" + unit["imp"]["max rec"] + ")\n";
-	formattedOutput.innerHTML += "\n";
-	
-	//print leader skill info
+function getUnitLordStats(unit){
+	var msg = "";
+	msg += "**Lord Stats:**\n\n";
+	msg += "    HP: " + unit["stats"]["_lord"]["hp"] + " (" + unit["imp"]["max hp"] + ")\n";
+	msg += "    ATK: " + unit["stats"]["_lord"]["atk"] + " (" + unit["imp"]["max atk"] + ")\n";
+	msg += "    DEF: " + unit["stats"]["_lord"]["def"] + " (" + unit["imp"]["max def"] + ")\n";
+	msg += "    REC: " + unit["stats"]["_lord"]["rec"] + " (" + unit["imp"]["max rec"] + ")\n";
+	msg += "\n";
+	return msg;
+}
+
+function getUnitLeaderSkill(unit){
+	var msg = "";
 	try{
 		var text = "**LS:** ";
 		var leader_skill = unit["leader skill"];
@@ -423,15 +440,17 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 		for(e in leader_skill["effects"]){
 			text += printEffects(leader_skill["effects"][e]);
 		}
-		formattedOutput.innerHTML += text;
+		msg += text;
 	}catch(err){
-		formattedOutput.innerHTML += "**LS:** None\n";
+		msg += "**LS:** None\n";
 		console.log(err);
 	}
+	msg += "  \n";
+	return msg;
+}
 
-	formattedOutput.innerHTML += "  \n";
-
-	//print ES info
+function getUnitExtraSkill(unit){
+	var msg = "";
 	if(unit["rarity"] > 6){
 		try{
 			var text = "**ES:** ";
@@ -441,85 +460,150 @@ function printUnit(json_obj,index,formattedOutput,rawOutput){
 			for(e in extra_skill["effects"]){
 				text += printEffects(extra_skill["effects"][e]);
 			}
-			formattedOutput.innerHTML += text;
+			msg += text;
 		}catch(err){
-			formattedOutput.innerHTML += "**ES:** None\n";
+			msg += "**ES:** None\n";
 			console.log(err);
 		}
-		formattedOutput.innerHTML += "  \n";
+		msg += "  \n";
 	}
+	return msg;
+}
 
-	//print bb info
+function getUnitBBInfo(unit){
+	var msg = "";
 	try{
 		var text = "**BB:** ";
 		var bb = unit["bb"];
 		text += printBurst(bb);
-		formattedOutput.innerHTML += text;
+		msg += text;
 	}catch(err){
-		formattedOutput.innerHTML += "**BB:** None\n";
+		msg += "**BB:** None\n";
 		console.log(err);
 	}
 
-	formattedOutput.innerHTML += "  \n";
+	msg += "  \n";
+	return msg;
+}
 
-	//print sbb info
+function getUnitSuperBBInfo(unit){
+	var msg = "";
 	try{
 		var text = "**SBB:** ";
 		var sbb = unit["sbb"];
 		text += printBurst(sbb);
-		formattedOutput.innerHTML += text;
+		msg += text;
 	}catch(err){
 		if(unit["rarity"] > 5){ //print none if rarity > 5 since it's supposed to exist for 6+* units, but may exist for prev units
-			formattedOutput.innerHTML += "**SBB:** None\n";
+			msg += "**SBB:** None\n";
 			console.log(err);
 		}
 	}
 
 	if(unit["rarity"] > 5){
-		formattedOutput.innerHTML += "  \n";
+		msg += "  \n";
 	}
+	return msg;
+}
 
-	//print ubb info
+function getUnitUltraBBInfo(unit){
+	var msg = "";
 	try{
 		var text = "**UBB:** ";
 		var ubb = unit["ubb"];
 		text += printBurst(ubb);
-		formattedOutput.innerHTML += text;
+		msg += text;
 	}catch(err){
 		if(unit["rarity"] > 6) { //print none if rarity > 6 since it's supposed to exist for 7+* units 
-			formattedOutput.innerHTML += "**SBB:** None\n";
+			msg += "**SBB:** None\n";
 			console.log(err);
 		}
 	}
 
 	if(unit["rarity"] > 6){
-		formattedOutput.innerHTML += "  \n";
+		msg += "  \n";
 	}
+	return msg;
+}
 
-	//print sp info
+function getUnitSPInfo(unit){
+	var msg = "";
 	if(unit["rarity"] > 7){
 		try{
 			var text = "**SP Enhancements:** \n\n";
 			text += printSP(unit["id"]);
-			formattedOutput.innerHTML += text; 
+			msg += text; 
 		}catch(err){
-			formattedOutput.innerHTML += "**SP Enhancements:** None\n";
+			msg += "**SP Enhancements:** None\n";
 		}
-		formattedOutput.innerHTML += "  \n";
+		msg += "  \n";
 	} 
+	return msg;
+}
 
-	//print arena ai
+function getUnitArenaInfo(unit){
+	var msg = "";
 	try{
 		var text = "**Arena AI:** \n\n";
 		var ai = unit["ai"];
+		console.log(ai);
 		for(a in ai){
 			text += printEffects(ai[a]);
 		}
-		formattedOutput.innerHTML += text;
+		msg += text;
 	}catch(err){
-		formattedOutput.innerHTML += "**Arena AI:** None\n";
+		msg += "**Arena AI:** None\n";
+		console.log(err);
 	}
-	formattedOutput.innerHTML += "  \n";
+	msg += "  \n";
+	return msg;
+}
+
+//print unit based on its index in json_obj
+function printUnit(json_obj,index,formattedOutput,rawOutput){
+	var unit = getUnitFromIndex(json_obj,index);
+	console.log(unit["id"]);
+	rawOutput.innerHTML = JSON.stringify(unit);
+	//console.log(unit.constructor.toString());
+	//unit name
+	formattedOutput.innerHTML = getUnitName(unit);
+
+	//print rarity, element, cost, and gender
+	formattedOutput.innerHTML += getUnitRareElemCostGender(unit);
+	
+	//print hitcount info
+	formattedOutput.innerHTML += getUnitNormalHitCountInfo(unit);
+	formattedOutput.innerHTML += getUnitMoveSpeedInfo(unit);
+
+	//print atk pattern table
+	formattedOutput.innerHTML += getNormalHitCountTable(unit);
+
+	//print merity type
+	formattedOutput.innerHTML += getUnitMeritType(unit);
+
+	//print stat info
+	formattedOutput.innerHTML += getUnitLordStats(unit);
+	
+	//print leader skill info
+	formattedOutput.innerHTML += getUnitLeaderSkill(unit);
+
+	//print ES info
+	formattedOutput.innerHTML += getUnitExtraSkill(unit);
+
+	//print bb info
+	formattedOutput.innerHTML += getUnitBBInfo(unit);
+
+	//print sbb info
+	formattedOutput.innerHTML += getUnitSuperBBInfo(unit);
+
+	//print ubb info
+	formattedOutput.innerHTML += getUnitUltraBBInfo(unit);
+
+	//print sp info
+	formattedOutput.innerHTML += getUnitSPInfo(unit);
+
+	//print arena ai
+	formattedOutput.innerHTML += getUnitArenaInfo(unit);
 
 
 	formattedOutput.innerHTML += "---\n";
@@ -721,7 +805,8 @@ function loadUnitArt(){
 	var urls = [
 		"http://cdn.android.brave.a-lim.jp/unit/img/",
 		"http://dlc.bfglobal.gumi.sg/content/unit/img/",
-		"http://static-bravefrontier.gumi-europe.net/content/unit/img/"
+		"http://static-bravefrontier.gumi-europe.net/content/unit/img/",
+		"http://i.imgur.com/y1rE5ve.png"
 	];
 
 	var img = document.getElementById("unit-full-img");
@@ -734,8 +819,12 @@ function loadUnitArt(){
 		currURL = urls[1];
 	}else if(currURL.search("bfglobal") > -1){//try EU next
 		currURL = urls[2];
+	}else if(currURL == "http://i.imgur.com/y1rE5ve.png"){//internet error
+		document.getElementById("unit-full-img").src = "";
+		document.getElementById("unit-full-img-text").innerHTML = "Unit Art not found.<br>All Brave Frontier images are owned by Gumi.";
+		return;
 	}else{ //image is not found on any server
-		document.getElementById("unit-full-img").src = "http://i.imgur.com/y1rE5ve.png";
+		document.getElementById("unit-full-img").src = urls[3];
 		document.getElementById("unit-full-img-text").innerHTML = "Unit Art not found.<br>All Brave Frontier images are owned by Gumi.";
 		return;
 	}

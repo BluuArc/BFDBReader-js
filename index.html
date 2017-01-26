@@ -33,7 +33,6 @@
 		<script type="text/javascript" src="db-reader.js"></script>
 
 		<script src="marked.js"></script>
-
 	</head>
 	<body>
 		<script>
@@ -91,15 +90,15 @@
 					                  <option>Europe</option>
 					                  <option>Sample</option>
 					                </select>
-					                <button id="server-url-button" onclick="loadURL()">Load URLs</button>
-					                <button id="sample-button" onclick="loadFiles()" disabled="disable" style="display: none">Load Files</button>
+					                <button id="server-url-button" onclick="loadURLNames()">Load URLs</button>
+					                <button id="sample-button" onclick="loadFilesFromURLs()" disabled="disable" style="display: none">Load Files</button>
 					                <br>
 					                Info JSON: <a id="server-info-url" target="_blank"></a><br>
 					                SP/feskills JSON: <a id="server-skill-url" target="_blank"></a><br>
 
 					                Loading these files will take some time due to their size, so please be patient and do not exit the page while they're loading. Refer to the status messages above for the current progress.
 					                <br>
-					                <button id="status-refresh" style="margin-bottom: 10px; margin-top: 10px; display: none;" onclick="fileLoadedFunction()">Refresh Status</button>
+					                <button id="status-refresh" style="margin-bottom: 10px; margin-top: 10px; display: none;" onclick="updateFileLoadStatus()">Refresh Status</button>
 					              </div>
 					            </div>
 					            <div id="manual-input" class="tab-pane fade">
@@ -283,7 +282,7 @@
 
 			//hide parse button after being pressed
 			document.getElementById("parse-button").addEventListener('click', function(){
-				displayContents(); 
+				parseJSON(); 
 				document.getElementById("status-refresh").style = document.getElementById("parse-button").style = "margin-bottom: 10px; margin-top: 10px; display: none;"; 
 				//setIdCookie();
 				//getIdLoadText();
@@ -294,8 +293,8 @@
 			document.getElementById("unit-full-img").addEventListener('error', loadUnitArt);
 
 			//file output text area listeners
-			document.getElementById('file-content').addEventListener('change', fileLoadedFunction, false);
-			document.getElementById('sp-content').addEventListener('change', fileLoadedFunction, false);
+			document.getElementById('file-content').addEventListener('change', updateFileLoadStatus, false);
+			document.getElementById('sp-content').addEventListener('change', updateFileLoadStatus, false);
 		</script>
 
 		<script>
