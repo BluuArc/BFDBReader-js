@@ -56,7 +56,7 @@ function loadFile(url, destID, statusID){
 				var output = document.getElementById(statusID);
 				output.innerHTML = "";
 				var json_obj = JSON.parse(this.responseText);
-				for(o in json_obj){
+				for(o in json_obj){ // output JSON object names to statusID object
 					output.innerHTML += o + "\n";
 				}
 			}catch(err){
@@ -188,7 +188,42 @@ function setIdCookie(){
 
 		}
 	}
-		
+}
+
+//save number of unitIDs to localStorage
+function saveIDLength(){
+	//get data to save
+	var serverName = document.getElementById("server-name").value.toLowerCase();
+	var unitNames = document.getElementById("unit-names").options;
+	var status = document.getElementById("search-info-text");
+	var oldDataVarName = "old-load-" + serverName;
+	var newDataVarName = "new-load-" + serverName;
+	var lastUpdateVarName = "last-update-" + serverName;
+
+	//onoy try to access data if localStorage is supported
+	if(typeof(Storage) !== "undefined"){
+		var curDate = new Date();
+		var oldData = localStorage.getItem(newDataVarName); //access last saved data
+		if(oldData == null){//create new data if not initialized yet
+			localStorage.setItem(newDataVarName, unitNames.length);
+			localStorage.setItem(oldDataVarName, 0);
+			localStorage.setItem(lastUpdateVarName, curDate);
+		}else{
+			//compare old and new data
+			if(oldData != unitNames.length){//save cookie if data has changed
+				//save old data
+				localStorage.setItem(oldDataVarName, oldData);
+
+				//set new data
+				localStorage.setItem(newDataVarName, unitNames.length);
+				localStorage.setItem(lastUpdateVarName, curDate);
+			}
+		}
+		//print difference
+		var diff = unitNames.length - oldData;
+		var lastUpdateDate = localStorage.getItem(lastUpdateVarName);
+		status.innerHTML = "<br>" + diff + " new units since last update on " + lastUpdateDate + ". (Total: " + localStorage.getItem(newDataVarName) + ")";
+	}
 }
 
 //update a single cookie variable
