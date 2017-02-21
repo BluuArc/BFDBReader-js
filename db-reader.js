@@ -124,72 +124,6 @@ function loadURLNames(){
 	document.getElementById("sample-button").style = "display: inline;";
 }
 
-function getIdLoadText(){
-	var serverName = document.getElementById("server-name").value.toLowerCase();
-	if(document.cookie != ""){
-		var curL = getCookie(serverName + "-ids-new");
-		var oldL = getCookie(serverName + "-ids-old");
-		var diff = ((curL == "") ? 0 : parseInt(curL)) - ((oldL == "") ? 0 : parseInt(oldL));
-		var status = document.getElementById("search-info-text");
-		status.innerHTML = curL + " units loaded. " + diff + " new units since last update."
-	}
-}
-
-//source: //based on http://www.w3schools.com/js/js_cookies.asp
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-//save number of unitIDs
-function setIdCookie(){
-	//get data to save
-	var serverName = document.getElementById("server-name").value.toLowerCase();
-	var unitNames = document.getElementById("unit-names").options;
-	// var status = document.getElementById("search-info-text");
-	var idLength = serverName + "-ids-new=" + unitNames.length;
-	var idData = [];
-	//store ids
-	for(var i = 0; i < unitNames.length; ++i){
-		var temp = unitNames[i].innerHTML;
-		var start = temp.indexOf('(');
-		var end = temp.indexOf(')');
-		if(start > -1 && end > -1){
-			idData.push(parseInt(temp.substring(start+1, end)));
-		}
-	}
-
-	//note how many units were loaded
-	// status.innerHTML = unitNames.length + " units loaded."
-
-
-	if(document.cookie == ""){//create new cookie
-		//document.cookie = "path=/;";
-		//document.cookie += idLength;
-		setCookie(serverName + "-ids-new", unitNames.length);
-		//status.innerHTML += unitNames.length + " new units since last update.";
-	}else{
-		//compare old and new data
-		var oldData = getCookie(serverName + "-ids-new");
-		if(parseInt(oldData) != unitNames.length){//save cookie if data has changed
-			//note difference
-			// status.innerHTML += (unitNames.length - parseInt(oldData)) + " new units since last update";
-
-			//save old data
-			updateCookie(serverName + "-ids-old", oldData + ";");
-
-			//set new data
-			updateCookie(serverName + "-ids-new", idData + ";");
-
-			//save id list, if supported
-			//TODO
-
-		}
-	}
-}
-
 //save number of unitIDs to localStorage
 function saveIDLength(){
 	//get data to save
@@ -226,52 +160,6 @@ function saveIDLength(){
 	}
 }
 
-//update a single cookie variable
-//based on http://www.w3schools.com/js/js_cookies.asp
-//newData should be in format of '%cookieName%=%newData%'
-function updateCookie(cookieName, newData){
-	var curCookie = document.cookie.split(';');
-	var oldData = ""; //data to carry over
-	cookieName += "=";
-	for(var i = 0; i < curCookie.length; ++i){
-		var c = curCookie[i];
-		//strip leading spaces
-		while(c.charAt(0) == ' '){
-			c = c.substring(1);
-		}
-
-		//get everything except current value of newData
-		if(c.indexOf(cookieName) != 0){
-			oldData += curCookie[i] + ";";
-		}
-	}
-
-	//save old and new data
-	document.cookie = oldData + newData;
-}
-
-//get the value of a cookie variable
-//based on http://www.w3schools.com/js/js_cookies.asp
-function getCookie(cookieName){
-	cookieName += "=";
-	var cookie = document.cookie.split(';');
-	for(var i = 0; i < cookie.length; ++i){
-		var c = cookie[i];
-
-		//strip leading spaces
-		while(c.charAt(0) == ' '){
-			c = c.substring(1);
-		}
-
-		//match, return value
-		if(c.indexOf(cookieName) == 0){
-			return c.substring(name.length, c.length);
-		}
-	}
-
-	//return empty string if nothing found
-	return "";
-}
 
 //function to update status message based on data in text boxes
 function updateFileLoadStatus(){
@@ -854,12 +742,12 @@ function loadUnitArt(){
 		currURL = urls[1];
 	}else if(currURL.search("bfglobal") > -1){//try EU next
 		currURL = urls[2];
-	}else if(currURL == "http://i.imgur.com/y1rE5ve.png"){//internet error
-		document.getElementById("unit-full-img").src = "";
+	}else if(currURL.search("gumi-europe") > -1){ //image is not found on any server
+		document.getElementById("unit-full-img").src = urls[3];
 		document.getElementById("unit-full-img-text").innerHTML = "Unit Art not found.<br>All Brave Frontier images are owned by Gumi.";
 		return;
-	}else{ //image is not found on any server
-		document.getElementById("unit-full-img").src = urls[3];
+	}else{//internet error
+		document.getElementById("unit-full-img").src = "index.html";
 		document.getElementById("unit-full-img-text").innerHTML = "Unit Art not found.<br>All Brave Frontier images are owned by Gumi.";
 		return;
 	}
