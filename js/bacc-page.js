@@ -1,12 +1,12 @@
 //to be used on pages for bluuarc.github.io
 
-//print code requried at header of every page
+//print code required at header of every page
 function printHeader(activeTab){
-  //var header = document.getElementById("header-page");
-  document.write('<!--Begin Header Code-->');
+  var header = document.getElementById("bacc-header");
+  var msg = '<!--Begin Header Code-->';
 
   //print top nav stuff
-  document.write('<nav class="navbar navbar-inverse navbar-fixed-top"> \
+  msg += '<nav class="navbar navbar-inverse navbar-fixed-top"> \
       <div class="container"> \
         <div class="navbar-header"> \
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> \
@@ -18,7 +18,7 @@ function printHeader(activeTab){
           <a class="navbar-brand" href="http://bluuarc.github.io" title="BluuArc\'s Code Compendium">BACC</a> \
         </div> \
         <div id="navbar" class="collapse navbar-collapse"> \
-          <ul class="nav navbar-nav"> ');
+          <ul class="nav navbar-nav"> ';
 
   //print links
   var list = [
@@ -30,23 +30,25 @@ function printHeader(activeTab){
   var i = 0;
   for(i = 0; i < list.length; i = i + 2){
     if(activeTab == list[i])
-      document.write('<li class="active"><a href="' + list[i+1] + '">' + list[i] + '</a></li>');
+      msg += ('<li class="active"><a href="' + list[i+1] + '">' + list[i] + '</a></li>');
     else
-      document.write('<li><a href="' + list[i+1] + '">' + list[i] + '</a></li>');
+      msg += ('<li><a href="' + list[i+1] + '">' + list[i] + '</a></li>');
   }
   //print closing tags
-  document.write('</ul></div><!--/.nav-collapse --></div></nav>');
+  msg += ('</ul></div><!--/.nav-collapse --></div></nav>');
 
-  document.write('<!--End Header Code-->');
+  msg += ('<!--End Header Code-->');
+
+  header.innerHTML = msg;
 }
 
 //print code required at footer of every page
 function printFooter(){
-  //var footer = document.getElementById("footer-page");
-  document.write('<!--Begin Footer Code-->');
+  var footer = document.getElementById("bacc-footer");
+  var msg = ('<!--Begin Footer Code-->');
 
   //print Bootstrap
-  document.write('<!-- Bootstrap core JavaScript \
+  msg += ('<!-- Bootstrap core JavaScript \
     ================================================== --> \
     <!-- Placed at the end of the document so the pages load faster --> \
     <!-- jQuery (necessary for Bootstrap\'s JavaScript plugins) --> \
@@ -57,7 +59,7 @@ function printFooter(){
     <script src="js/ie10-viewport-bug-workaround.js"></script>');
 
   //print StatCounter
-  document.write('<!-- Start of StatCounter Code for Default Guide --> \
+  msg += ('<!-- Start of StatCounter Code for Default Guide --> \
     <script type="text/javascript"> \
     var sc_project=11034084; \
     var sc_invisible=1; \
@@ -75,7 +77,9 @@ function printFooter(){
     alt="shopify site analytics"></a></div></noscript> \
     <!-- End of StatCounter Code for Default Guide -->');
 
-  document.write('<!--End Footer Code-->');
+  msg += ('<!--End Footer Code-->');
+
+  footer.innerHTML = msg;
 }
 
 function printFormattedLinks(list){
