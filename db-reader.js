@@ -39,7 +39,9 @@ function readInfoFile(e) {
 		output.innerHTML = "";
 		var json_obj = JSON.parse(contents);
 		for(o in json_obj){
-			output.innerHTML += o + "\n";
+			var curUnit = json_obj[o];
+			output.innerHTML += o + "," + curUnit["guide_id"] + "," + curUnit["name"] + "\n";
+			// output.innerHTML += o + "\n";
 		}
 		updateFileLoadStatus();
 	};
@@ -49,6 +51,7 @@ function readInfoFile(e) {
 //load remote file to element with id=destID
 function loadFile(url, destID, statusID){
 	var xhttp = new XMLHttpRequest();
+	var isUnit = true;
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById(destID).innerHTML = this.responseText;
@@ -57,7 +60,18 @@ function loadFile(url, destID, statusID){
 				output.innerHTML = "";
 				var json_obj = JSON.parse(this.responseText);
 				for(o in json_obj){ // output JSON object names to statusID object
-					output.innerHTML += o + "\n";
+					if(isUnit){
+						try{
+							var curUnit = json_obj[o];
+							var msg = o + "," + curUnit["guide_id"] + "," + curUnit["name"] + "\n";
+							output.innerHTML += msg;
+						}catch(err){
+							output.innerHTML += o + "\n";
+							isUnit = false;		
+						}
+					}else{
+						output.innerHTML += o + "\n";
+					}
 				}
 			}catch(err){
 				console.log(err);
@@ -303,234 +317,239 @@ function getUnitFromIndex(json_obj, index){
 	return json_obj[unitID];
 }
 
-function getUnitName(unit){
-	var msg = "### " + unit["guide_id"] + ": " + unit["name"] + " (" + unit["id"]+")  \n";
-	return msg;
-}
-
-function getUnitRareElemCostGender(unit){
-	var msg = "";
-	msg += "**Rarity/Element/Cost:** " ;
-	if(unit["rarity"] == 8) msg += "OE/";
-	else					msg += unit["rarity"] + "\\*/";
-	msg += unit["element"] + "/";
-	msg += unit["cost"] + "  \n";
-
-	msg += "**Gender:** " + unit["gender"] + "  \n";
-	return msg;
-}
-
-function getUnitNormalHitCountInfo(unit){
-	var msg = "";
-	msg += "**Hit Count:** "; 
-	msg += printHitCounts(unit["damage frames"]["hits"], unit["damage frames"]["frame times"], unit["drop check count"]);
-	return msg;
-}
-
-function getUnitMoveSpeedInfo(unit){
-	var msg = "**Move Speed Type for attack/skill:** " + unit["movement"]["attack"]["move speed type"] + "/" + 
-		unit["movement"]["skill"]["move speed type"] + "  \n";
-	return msg;
-}
-
-function getNormalHitCountTable(unit){
-	return printAtkPattern(unit["damage frames"]["frame times"],unit["damage frames"]["hit dmg% distribution"]);
-}
-
-function getUnitMeritType(unit){
-	var msg = "";
-	msg += "**Merit Type:** " + unit["getting type"] + "  \n";
-	return msg;
-}
-
-function getUnitLordStats(unit){
-	var msg = "";
-	msg += "**Lord Stats:**\n\n";
-	msg += "    HP: " + unit["stats"]["_lord"]["hp"] + " (" + unit["imp"]["max hp"] + ")\n";
-	msg += "    ATK: " + unit["stats"]["_lord"]["atk"] + " (" + unit["imp"]["max atk"] + ")\n";
-	msg += "    DEF: " + unit["stats"]["_lord"]["def"] + " (" + unit["imp"]["max def"] + ")\n";
-	msg += "    REC: " + unit["stats"]["_lord"]["rec"] + " (" + unit["imp"]["max rec"] + ")\n";
-	msg += "\n";
-	return msg;
-}
-
-function getUnitLeaderSkill(unit){
-	var msg = "";
-	try{
-		var text = "**LS:** ";
-		var leader_skill = unit["leader skill"];
-		text += "*" + leader_skill["name"] + "* - " + leader_skill["desc"] + "\n\n";
-		for(e in leader_skill["effects"]){
-			text += printEffects(leader_skill["effects"][e]);
-		}
-		msg += text;
-	}catch(err){
-		msg += "**LS:** None\n";
-		console.log(err);
+//unit object
+//input: json_obj and index of unit in json_obj
+function unit_obj(json_obj, index){
+	this.data = getUnitFromIndex(json_obj,index);
+	this.getName = function(){
+		return "### " + this.data["guide_id"] + ": " + this.data["name"] + " (" + this.data["id"]+")  \n";
 	}
-	msg += "  \n";
-	return msg;
-}
 
-function getUnitExtraSkill(unit){
-	var msg = "";
-	if(unit["rarity"] > 6){
+	this.getRareElemCostGender = function(){
+		var msg = "";
+		msg += "**Rarity/Element/Cost:** " ;
+		if(this.data["rarity"] == 8) msg += "OE/";
+		else					msg += this.data["rarity"] + "\\*/";
+		msg += this.data["element"] + "/";
+		msg += this.data["cost"] + "  \n";
+
+		msg += "**Gender:** " + this.data["gender"] + "  \n";
+		return msg;
+	}
+
+	this.getNormalHitCountInfo = function(){
+		var msg = "";
+		msg += "**Hit Count:** "; 
+		msg += printHitCounts(this.data["damage frames"]["hits"], this.data["damage frames"]["frame times"], this.data["drop check count"]);
+		return msg;
+	}
+
+	this.getMoveSpeedInfo = function(){
+		var msg = "**Move Speed Type for attack/skill:** " + this.data["movement"]["attack"]["move speed type"] + "/" + 
+			this.data["movement"]["skill"]["move speed type"] + "  \n";
+		return msg;
+	}
+
+	this.getNormalHitCountTable = function(){
+		return printAtkPattern(this.data["damage frames"]["frame times"],this.data["damage frames"]["hit dmg% distribution"]);
+	}
+
+	this.getMeritType = function(){
+		var msg = "";
+		msg += "**Merit Type:** " + this.data["getting type"] + "  \n";
+		return msg;
+	}
+
+	this.getLordStats = function(){
+		var msg = "";
+		msg += "**Lord Stats:**\n\n";
+		msg += "    HP: " + this.data["stats"]["_lord"]["hp"] + " (" + this.data["imp"]["max hp"] + ")\n";
+		msg += "    ATK: " + this.data["stats"]["_lord"]["atk"] + " (" + this.data["imp"]["max atk"] + ")\n";
+		msg += "    DEF: " + this.data["stats"]["_lord"]["def"] + " (" + this.data["imp"]["max def"] + ")\n";
+		msg += "    REC: " + this.data["stats"]["_lord"]["rec"] + " (" + this.data["imp"]["max rec"] + ")\n";
+		msg += "\n";
+		return msg;
+	}
+
+	this.getLeaderSkill = function(){
+		var msg = "";
 		try{
-			var text = "**ES:** ";
-			var extra_skill = unit["extra skill"];
-			text += "*" + extra_skill["name"] + "* - " + extra_skill["desc"] + "\n\n";
-			text += " * *target:* " + extra_skill["target"] + "\n";
-			for(e in extra_skill["effects"]){
-				text += printEffects(extra_skill["effects"][e]);
+			var text = "**LS:** ";
+			var leader_skill = this.data["leader skill"];
+			text += "*" + leader_skill["name"] + "* - " + leader_skill["desc"] + "\n\n";
+			for(e in leader_skill["effects"]){
+				text += printEffects(leader_skill["effects"][e]);
 			}
 			msg += text;
 		}catch(err){
-			msg += "**ES:** None\n";
+			msg += "**LS:** None\n";
 			console.log(err);
 		}
 		msg += "  \n";
-	}
-	return msg;
-}
-
-function getUnitBBInfo(unit){
-	var msg = "";
-	try{
-		var text = "**BB:** ";
-		var bb = unit["bb"];
-		text += printBurst(bb);
-		msg += text;
-	}catch(err){
-		msg += "**BB:** None\n";
-		console.log(err);
+		return msg;
 	}
 
-	msg += "  \n";
-	return msg;
-}
-
-function getUnitSuperBBInfo(unit){
-	var msg = "";
-	try{
-		var text = "**SBB:** ";
-		var sbb = unit["sbb"];
-		text += printBurst(sbb);
-		msg += text;
-	}catch(err){
-		if(unit["rarity"] > 5){ //print none if rarity > 5 since it's supposed to exist for 6+* units, but may exist for prev units
-			msg += "**SBB:** None\n";
-			console.log(err);
+	this.getExtraSkill = function(){
+		var msg = "";
+		if(this.data["rarity"] > 6){
+			try{
+				var text = "**ES:** ";
+				var extra_skill = this.data["extra skill"];
+				text += "*" + extra_skill["name"] + "* - " + extra_skill["desc"] + "\n\n";
+				text += " * *target:* " + extra_skill["target"] + "\n";
+				for(e in extra_skill["effects"]){
+					text += printEffects(extra_skill["effects"][e]);
+				}
+				msg += text;
+			}catch(err){
+				msg += "**ES:** None\n";
+				console.log(err);
+			}
+			msg += "  \n";
 		}
+		return msg;
 	}
 
-	if(unit["rarity"] > 5){
-		msg += "  \n";
-	}
-	return msg;
-}
-
-function getUnitUltraBBInfo(unit){
-	var msg = "";
-	try{
-		var text = "**UBB:** ";
-		var ubb = unit["ubb"];
-		text += printBurst(ubb);
-		msg += text;
-	}catch(err){
-		if(unit["rarity"] > 6) { //print none if rarity > 6 since it's supposed to exist for 7+* units 
-			msg += "**SBB:** None\n";
-			console.log(err);
-		}
-	}
-
-	if(unit["rarity"] > 6){
-		msg += "  \n";
-	}
-	return msg;
-}
-
-function getUnitSPInfo(unit){
-	var msg = "";
-	if(unit["rarity"] > 7){
+	this.getBBInfo = function(){
+		var msg = "";
 		try{
-			var text = "**SP Enhancements:** \n\n";
-			text += printSP(unit["id"]);
-			msg += text; 
+			var text = "**BB:** ";
+			var bb = this.data["bb"];
+			text += printBurst(bb);
+			msg += text;
 		}catch(err){
-			msg += "**SP Enhancements:** None\n";
+			msg += "**BB:** None\n";
+			console.log(err);
+		}
+
+		msg += "  \n";
+		return msg;
+	}
+
+	this.getSBBInfo = function(){
+		var msg = "";
+		try{
+			var text = "**SBB:** ";
+			var sbb = this.data["sbb"];
+			text += printBurst(sbb);
+			msg += text;
+		}catch(err){
+			if(this.data["rarity"] > 5){ //print none if rarity > 5 since it's supposed to exist for 6+* units, but may exist for prev units
+				msg += "**SBB:** None\n";
+				console.log(err);
+			}
+		}
+
+		if(this.data["rarity"] > 5){
+			msg += "  \n";
+		}
+		return msg;
+	}
+
+	this.getUBBInfo = function(){
+		var msg = "";
+		try{
+			var text = "**UBB:** ";
+			var ubb = this.data["ubb"];
+			text += printBurst(ubb);
+			msg += text;
+		}catch(err){
+			if(this.data["rarity"] > 6) { //print none if rarity > 6 since it's supposed to exist for 7+* units 
+				msg += "**SBB:** None\n";
+				console.log(err);
+			}
+		}
+
+		if(this.data["rarity"] > 6){
+			msg += "  \n";
+		}
+		return msg;
+	}
+
+	this.getSPInfo = function(){
+		var msg = "";
+		if(this.data["rarity"] > 7){
+			try{
+				var text = "**SP Enhancements:** \n\n";
+				text += printSP(this.data["id"]);
+				msg += text; 
+			}catch(err){
+				msg += "**SP Enhancements:** None\n";
+			}
+			msg += "  \n";
+		} 
+		return msg;
+	}
+
+	this.getArenaInfo = function(){
+		var msg = "";
+		try{
+			var text = "**Arena AI:** \n\n";
+			var ai = this.data["ai"];
+			console.log(ai);
+			for(a in ai){
+				text += printEffects(ai[a]);
+			}
+			msg += text;
+		}catch(err){
+			msg += "**Arena AI:** None\n";
+			console.log(err);
 		}
 		msg += "  \n";
-	} 
-	return msg;
-}
-
-function getUnitArenaInfo(unit){
-	var msg = "";
-	try{
-		var text = "**Arena AI:** \n\n";
-		var ai = unit["ai"];
-		console.log(ai);
-		for(a in ai){
-			text += printEffects(ai[a]);
-		}
-		msg += text;
-	}catch(err){
-		msg += "**Arena AI:** None\n";
-		console.log(err);
+		return msg;
 	}
-	msg += "  \n";
-	return msg;
+
 }
 
 //print unit based on its index in json_obj
 function printUnit(json_obj,index,formattedOutput,rawOutput){
-	var unit = getUnitFromIndex(json_obj,index);
-	console.log(unit["id"]);
-	rawOutput.innerHTML = JSON.stringify(unit);
+	var unit = new unit_obj(json_obj,index);
+	console.log(unit.data["id"]);
+	rawOutput.innerHTML = JSON.stringify(unit.data);
 	//console.log(unit.constructor.toString());
 	//unit name
-	formattedOutput.innerHTML = getUnitName(unit);
+	formattedOutput.innerHTML = unit.getName();
 
 	//print rarity, element, cost, and gender
-	formattedOutput.innerHTML += getUnitRareElemCostGender(unit);
+	formattedOutput.innerHTML += unit.getRareElemCostGender();
 	
 	//print hitcount info
-	formattedOutput.innerHTML += getUnitNormalHitCountInfo(unit);
-	formattedOutput.innerHTML += getUnitMoveSpeedInfo(unit);
+	formattedOutput.innerHTML += unit.getNormalHitCountInfo();
+	formattedOutput.innerHTML += unit.getMoveSpeedInfo();
 
 	//print atk pattern table
-	formattedOutput.innerHTML += getNormalHitCountTable(unit);
+	formattedOutput.innerHTML += unit.getNormalHitCountTable();
 
-	//print merity type
-	formattedOutput.innerHTML += getUnitMeritType(unit);
+	//print merit type
+	formattedOutput.innerHTML += unit.getMeritType();
 
 	//print stat info
-	formattedOutput.innerHTML += getUnitLordStats(unit);
+	formattedOutput.innerHTML += unit.getLordStats();
 	
 	//print leader skill info
-	formattedOutput.innerHTML += getUnitLeaderSkill(unit);
+	formattedOutput.innerHTML += unit.getLeaderSkill();
 
 	//print ES info
-	formattedOutput.innerHTML += getUnitExtraSkill(unit);
+	formattedOutput.innerHTML += unit.getExtraSkill();
 
 	//print bb info
-	formattedOutput.innerHTML += getUnitBBInfo(unit);
+	formattedOutput.innerHTML += unit.getBBInfo();
 
 	//print sbb info
-	formattedOutput.innerHTML += getUnitSuperBBInfo(unit);
+	formattedOutput.innerHTML += unit.getSBBInfo();
 
 	//print ubb info
-	formattedOutput.innerHTML += getUnitUltraBBInfo(unit);
+	formattedOutput.innerHTML += unit.getUBBInfo();
 
 	//print sp info
-	formattedOutput.innerHTML += getUnitSPInfo(unit);
+	formattedOutput.innerHTML += unit.getSPInfo();
 
 	//print arena ai
-	formattedOutput.innerHTML += getUnitArenaInfo(unit);
+	formattedOutput.innerHTML += unit.getArenaInfo();
 
 
 	formattedOutput.innerHTML += "---\n";
-	return unit["id"];
+	return unit.data["id"];
 }
 
 //recursively print an array into a string
