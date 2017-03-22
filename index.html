@@ -91,7 +91,7 @@
 					                  <option>Sample</option>
 					                </select>
 					                <button id="server-url-button" onclick="loadURLNames()">Load URLs</button>
-					                <button id="sample-button" onclick="loadFilesFromURLs()" disabled="disable" style="display: none">Load Files</button>
+					                <button id="url-file-load-button" onclick="loadFilesFromURLs()" disabled="disable" style="display: none">Load Files</button>
 					                <br>
 					                Info JSON: <a id="server-info-url" target="_blank"></a><br>
 					                SP/feskills JSON: <a id="server-skill-url" target="_blank"></a><br>
@@ -291,10 +291,6 @@
 
 			//try urls for unit art
 			document.getElementById("unit-full-img").addEventListener('error', loadUnitArt);
-
-			//file output text area listeners
-			document.getElementById('file-content').addEventListener('change', updateFileLoadStatus, false);
-			document.getElementById('sp-content').addEventListener('change', updateFileLoadStatus, false);
 		</script>
 
 		<script>

@@ -41,7 +41,6 @@ function readInfoFile(e) {
 		for(o in json_obj){
 			var curUnit = json_obj[o];
 			output.innerHTML += o + "," + curUnit["guide_id"] + "," + curUnit["name"] + "\n";
-			// output.innerHTML += o + "\n";
 		}
 		updateFileLoadStatus();
 	};
@@ -49,21 +48,21 @@ function readInfoFile(e) {
 }
 
 //load remote file to element with id=destID
-function loadFile(url, destID, statusID){
+function loadFile(url, destID, statusElement, callbackFn){
 	var xhttp = new XMLHttpRequest();
 	var isUnit = true;
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
+		if (this.readyState == 4 && this.status == 200) {//load file
 			document.getElementById(destID).innerHTML = this.responseText;
 			try{
-				var output = document.getElementById(statusID);
+				var output = document.getElementById(statusElement);
 				output.innerHTML = "";
 				var json_obj = JSON.parse(this.responseText);
-				for(o in json_obj){ // output JSON object names to statusID object
-					if(isUnit){
+				for(o in json_obj){ // output JSON object names to statusElement object
+					if(isUnit){ //print names if valid
 						try{
 							var curUnit = json_obj[o];
-							var msg = o + "," + curUnit["guide_id"] + "," + curUnit["name"] + "\n";
+							var msg = o + "," + curUnit["guide_id"] + "," + curUnit["name"] + "\n"; //print <id>,<guide_id>,<name>
 							output.innerHTML += msg;
 						}catch(err){
 							output.innerHTML += o + "\n";
@@ -73,6 +72,8 @@ function loadFile(url, destID, statusID){
 						output.innerHTML += o + "\n";
 					}
 				}
+				// updateFileLoadStatus();
+				callbackFn();
 			}catch(err){
 				console.log(err);
 			}
@@ -89,22 +90,24 @@ function loadFilesFromURLs() {
 		info: document.getElementById("server-info-url").href,
 		sp: document.getElementById("server-skill-url").href,
 	};
-	document.getElementById("sample-button").style = "display: none";
-	document.getElementById("file-content").oninput = function(){ updateFileLoadStatus() };
-	document.getElementById("sp-content").oninput = function(){ updateFileLoadStatus() };
-	updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before pressing 'Refresh Status.'<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
- 	//loadInfo(url.info);
- 	loadFile(url.info, "file-content", "file-content-status");
+	document.getElementById("url-file-load-button").style = "display: none";
+
+	//load SP and info files
  	if(url.sp != "" && url.sp != "None"){
-	 	updateStatus("Reading file contents of info and feskills databases. Please wait until the <br>file contents text area below is filled before pressing 'Refresh Status'.<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
+	 	updateStatus("Reading file contents of info and feskills databases. Please wait until the <br>file contents text area below is filled before continuing.<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
 	 	//loadSkills(url.sp);
-	 	loadFile(url.sp, "sp-content", "sp-content-status");
+ 		loadFile(url.info, "file-content", "file-content-status", function() {
+			 loadFile(url.sp, "sp-content", "sp-content-status", function () {
+			 	updateFileLoadStatus();
+			 });
+		});
+	 }else{ //load info file only
+		updateStatus("Reading file contents of info database. Please wait until the file contents text area below is filled before continuing.<br>You may get messages about the page being unresponsive during this process, <br>but please wait and do not exit or kill the page.");
+		loadFile(url.info, "file-content", "file-content-status", function () {
+			updateFileLoadStatus();
+		});
 	 }
 	 
-	 //delay showing of button
-	 setTimeout(function(){
-		document.getElementById("status-refresh").style = "margin-bottom: 10px; margin-top: 10px;";
-		}, 1000);
 }
 
 //function to get different URLs based on dropdown value
@@ -134,8 +137,8 @@ function loadURLNames(){
 	if(url.sp != "None"){
 		document.getElementById("server-skill-url").href = url.sp;
 	}
-	document.getElementById("sample-button").disabled = false;
-	document.getElementById("sample-button").style = "display: inline;";
+	document.getElementById("url-file-load-button").disabled = false;
+	document.getElementById("url-file-load-button").style = "display: inline;";
 }
 
 //save number of unitIDs to localStorage
@@ -148,7 +151,7 @@ function saveIDLength(){
 	var newDataVarName = "new-load-" + serverName;
 	var lastUpdateVarName = "last-update-" + serverName;
 
-	//onoy try to access data if localStorage is supported
+	//only try to access data if localStorage is supported
 	if(typeof(Storage) !== "undefined"){
 		var curDate = new Date();
 		var oldData = localStorage.getItem(newDataVarName); //access last saved data
@@ -212,14 +215,12 @@ function parseJSON() {
 	document.getElementById("print-button").disabled = false;
 	document.getElementById("search-box").disabled = false;
 	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
-	//console.log("please allow some time for page to update for large JSON files");
 }
 
 //function to update status
 function updateStatus(msg) {
-	console.log(msg);
+	console.log(msg.replace("<br>","\n"));
 	document.getElementById("status").innerHTML = "Status: " + msg;
-	//postscribe("#status","<p>Status: " + msg + "</p>");
 }
 
 //main function to parse unit names into dropdown
@@ -241,8 +242,8 @@ function searchList(){
 	var query = document.getElementById("search-box").value;
 	var status = document.getElementById("search-info-text");
 	var list = document.getElementById("unit-names");
+	parseJSON(); //reset list
 	if(query == ""){
-		parseJSON(); //reset list
 		status.innerHTML = "List reset";
 		return;
 	}else{
