@@ -240,13 +240,14 @@ function populateList(json_obj){
 function searchList(){
 	var query = document.getElementById("search-box").value;
 	var status = document.getElementById("search-info-text");
-	parseJSON(); //reset list
+	var list = document.getElementById("unit-names");
 	if(query == ""){
+		parseJSON(); //reset list
 		status.innerHTML = "List reset";
 		return;
 	}else{
-		var options = document.getElementById("unit-names").options;
-		var resultIndices = [];
+		var options = list.options;
+		var results = [];
 		for(o in options){
 			if(!isNaN(parseInt(o))){
 				//console.log("Checking " + o);
@@ -254,7 +255,7 @@ function searchList(){
 					if(options[o].innerHTML.toLowerCase().search(query.toLowerCase()) == -1){
 						options[o].innerHTML = "-";
 					}else{
-						resultIndices.push(parseInt(o)); //result found
+						results.push(options[o].innerHTML); //result found
 					}
 				}catch(err){
 					console.log("Error at " + o + "\n" + err);
@@ -262,25 +263,20 @@ function searchList(){
 			}
 		}//end for each option
 
+		//clear old list
+		while(list.length > 0){
+			list.remove(0);
+		}
 
-		var length = resultIndices.length;
+		//add results to dropdown
+		var length = results.length;
 		status.innerHTML = length + ((length == 1) ? (" result found.") : (" results found."));
 		if(length > 0){
-			document.getElementById("unit-names").selectedIndex = resultIndices[0];//set selected index to first result
-			for(o in options){
-				if(!isNaN(parseInt(o))){//only process ID numbers
-					var curIndex = parseInt(o);
-					if(options[o].innerHTML.length < 3){//focus only on non-results
-						if(curIndex < resultIndices[0]){
-							options[o].innerHTML = "v";//results are under this index
-						}else if(curIndex > resultIndices[length-1]){
-							options[o].innerHTML = "^";//results are above this index
-						}else{
-							options[o].innerHTML = "v^";//results above and below this index
-						}//end if-else result checks
-					}//end if non-result
-				}//end if !NaN
-			}//end for each option
+			for(r in results){
+				var option = document.createElement("option");
+				option.text = results[r];
+				list.add(option);
+			}
 		}//end if length
 	}//end if-else query check
 }
@@ -294,9 +290,13 @@ function getUnitID(optionString){
 //function to print unit info once button is clicked
 function printUnitClick(){
 	try{
-		updateStatus("Getting unit info. Please wait.")
+		var dropdownValue = document.getElementById("unit-names").value;
+		if(dropdownValue.length == 0){ //only print if vlaue isn't 0
+			return;
+		}
+		updateStatus("Getting unit info. Please wait.");
 		var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
-		var id = getUnitID(document.getElementById("unit-names").value);
+		var id = getUnitID(dropdownValue);
 		var output = document.getElementById("unit-info");
 		var rawOutput = document.getElementById("unit-info-raw");
 		var unitID = printUnit(json_obj,id,output,rawOutput);
