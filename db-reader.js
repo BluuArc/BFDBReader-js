@@ -286,15 +286,20 @@ function searchList(){
 }
 
 /* unit functions */
+//format of optionString: <guide_id>: <name> (<unit_id>)
+function getUnitID(optionString){
+	return optionString.split('(')[1].split(')')[0];
+}
+
 //function to print unit info once button is clicked
 function printUnitClick(){
 	try{
 		updateStatus("Getting unit info. Please wait.")
 		var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
-		var index = document.getElementById("unit-names").selectedIndex;
+		var id = getUnitID(document.getElementById("unit-names").value);
 		var output = document.getElementById("unit-info");
 		var rawOutput = document.getElementById("unit-info-raw");
-		var unitID = printUnit(json_obj,index,output,rawOutput);
+		var unitID = printUnit(json_obj,id,output,rawOutput);
 		document.getElementById("unit-full-img").alt = unitID;
 		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
 		loadUnitArt();
@@ -306,21 +311,10 @@ function printUnitClick(){
 	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
 }
 
-//get unit in json_obj via its index
-function getUnitFromIndex(json_obj, index){
-	var count = 0;
-	var unitID;
-	for(unitID in json_obj){ //"search" for unit by getting correct index number
-		if(count == index) 	break;
-		else				++count;
-	}
-	return json_obj[unitID];
-}
-
 //unit object
 //input: json_obj and index of unit in json_obj
-function unit_obj(json_obj, index){
-	this.data = getUnitFromIndex(json_obj,index);
+function unit_obj(json_obj, id){
+	this.data = json_obj[id];
 	this.getName = function(){
 		return "### " + this.data["guide_id"] + ": " + this.data["name"] + " (" + this.data["id"]+")  \n";
 	}
@@ -502,8 +496,8 @@ function unit_obj(json_obj, index){
 }
 
 //print unit based on its index in json_obj
-function printUnit(json_obj,index,formattedOutput,rawOutput){
-	var unit = new unit_obj(json_obj,index);
+function printUnit(json_obj,id,formattedOutput,rawOutput){
+	var unit = new unit_obj(json_obj,id);
 	console.log(unit.data["id"]);
 	rawOutput.innerHTML = JSON.stringify(unit.data);
 	//console.log(unit.constructor.toString());
