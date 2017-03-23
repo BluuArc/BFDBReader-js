@@ -343,12 +343,12 @@ function printUnitClick(){
 			document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
 			loadUnitArt();
 		}else{
-			loadFile(server + "/unit/" + id,'temp',null,function(){
+			loadFile(server + "/unit/" + id,'file-content',null,function(){
 				var id = getUnitID(dropdownValue);
 				var output = document.getElementById("unit-info");
 				var rawOutput = document.getElementById("unit-info-raw");
 				var json_obj = {};
-				json_obj[id] = JSON.parse(document.getElementById('temp').innerHTML);
+				json_obj[id] = JSON.parse(document.getElementById('file-content').innerHTML);
 				var unitID = printUnit(json_obj, id, output, rawOutput);
 				document.getElementById("unit-full-img").alt = unitID;
 				document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
@@ -524,6 +524,7 @@ function unit_obj(json_obj, id){
 				text += printSP(this.data["id"]);
 				msg += text; 
 			}catch(err){
+				console.log(err);
 				msg += "**SP Enhancements:** None\n";
 			}
 			msg += "  \n";
@@ -743,10 +744,17 @@ function printHitCounts(numHits, frameArr, dropChecks){
 //print sp enhancements
 function printSP(id){
 	//check if SP file is loaded
-	if(document.getElementById("sp-content").innerHTML != "SP input from file will be output here."){
+	var server = document.getElementById('url-box').value;
+	console.log(server);
+	if(server.length != 0 || document.getElementById("sp-content").innerHTML != "SP input from file will be output here."){
 		var text = "";
-		var json_obj = JSON.parse(document.getElementById("sp-content").innerHTML);
-		var unitSkills = json_obj[id]["skills"];
+		if(server.length == 0){
+			var json_obj = JSON.parse(document.getElementById("sp-content").innerHTML);
+			var unitSkills = json_obj[id]["skills"];
+		}else{
+			var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
+			var unitSkills = json_obj["skills"];
+		}
 		//print each sp option
 		for(s in unitSkills){
 			var curSkill = unitSkills[s]["skill"];
