@@ -66,17 +66,17 @@ function loadFile(url, destID, statusElement, callbackFn){
 							output.innerHTML += msg;
 						}catch(err){
 							output.innerHTML += o + "\n";
-							isUnit = false;		
+							isUnit = false;
 						}
 					}else{
 						output.innerHTML += o + "\n";
 					}
 				}
 				// updateFileLoadStatus();
-				callbackFn();
 			}catch(err){
 				console.log(err);
 			}
+			callbackFn();
 
 		}
 	};
@@ -204,17 +204,40 @@ function updateFileLoadStatus(){
 	}
 }
 
-//function to display the names of the info db to the dropdown and updata status
+//function to display the names of the info db to the dropdown and update status
 function parseJSON() {
-	var contents = document.getElementById('file-content').innerHTML;
-	updateStatus("Parsing file contents as a JSON object. Please wait.")
-	var json_obj = JSON.parse(contents);
-	
-	updateStatus("Populating dropdown menu with unit names. Please wait.");
-	populateList(json_obj);
-	document.getElementById("print-button").disabled = false;
-	document.getElementById("search-box").disabled = false;
-	updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
+	var server = document.getElementById('url-box').value;
+	console.log(server);
+	if(server.length == 0){
+		var contents = document.getElementById('file-content').innerHTML;
+		updateStatus("Parsing file contents as a JSON object. Please wait.")
+		var json_obj = JSON.parse(contents);
+		
+		updateStatus("Populating dropdown menu with unit names. Please wait.");
+		populateList(json_obj);
+		document.getElementById("print-button").disabled = false;
+		document.getElementById("search-box").disabled = false;
+		updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
+	}else{
+		try{
+			var option = (document.getElementById("unit_id").checked) ? "unit_id" : "guide_id";
+			loadFile(server + "/list/units?type=" + option + "&list_type=range",'temp','file-content-status',
+			function(){
+				document.getElementById('file-content').innerHTML = document.getElementById('file-content-status').innerHTML;
+				document.getElementById('sp-content').innerHTML = document.getElementById('file-content').innerHTML;
+				document.getElementById('sp-content-status').innerHTML = document.getElementById('file-content-status').innerHTML;
+				// updateFileLoadStatus();
+				var arr = JSON.parse(document.getElementById('temp').innerHTML);
+				populateListFromArray(arr);
+				document.getElementById("print-button").disabled = false;
+				document.getElementById("search-box").disabled = false;
+				updateStatus("Ready! Pick a unit from the dropdown and press the 'Print Info' button to print the info for that unit.<br>Alternatively, you can use the search box next to the dropdown. Clear all text in the box to reset the list.");
+			});
+		}catch(err){
+			console.log(err);
+			alert("Error: Invalid server entered. Please clear the Server Input box or input another URL.")
+		}
+	}
 }
 
 //function to update status
@@ -223,6 +246,17 @@ function updateStatus(msg) {
 	document.getElementById("status").innerHTML = "Status: " + msg;
 }
 
+function populateListFromArray(arr){
+	var list = document.getElementById("unit-names");
+	while (list.length > 0) {
+		list.remove(0); //clear old list
+	}
+	for(x in arr){
+		var option = document.createElement("option");
+		option.text = arr[x];
+		list.add(option);
+	}
+}
 //main function to parse unit names into dropdown
 function populateList(json_obj){
 	var list = document.getElementById("unit-names");
@@ -230,7 +264,7 @@ function populateList(json_obj){
 	 list.remove(0); //clear old list
 	}
 	for(x in json_obj){
-		console.log(x);
+		// console.log(x);
 		var option = document.createElement("option");
 		option.text = json_obj[x]["guide_id"] + ": " + json_obj[x]["name"] + " (" + json_obj[x]["id"] + ")";
 		list.add(option);
@@ -242,8 +276,8 @@ function searchList(){
 	var query = document.getElementById("search-box").value;
 	var status = document.getElementById("search-info-text");
 	var list = document.getElementById("unit-names");
-	parseJSON(); //reset list
 	if(query == ""){
+		parseJSON(); //reset list
 		status.innerHTML = "List reset";
 		return;
 	}else{
@@ -296,14 +330,33 @@ function printUnitClick(){
 			return;
 		}
 		updateStatus("Getting unit info. Please wait.");
-		var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
 		var id = getUnitID(dropdownValue);
-		var output = document.getElementById("unit-info");
-		var rawOutput = document.getElementById("unit-info-raw");
-		var unitID = printUnit(json_obj,id,output,rawOutput);
-		document.getElementById("unit-full-img").alt = unitID;
-		document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
-		loadUnitArt();
+		var server = document.getElementById('url-box').value;
+		if (server.length == 0) {
+			var output = document.getElementById("unit-info");
+			var rawOutput = document.getElementById("unit-info-raw");
+			var json_obj = JSON.parse(document.getElementById("file-content").innerHTML);
+			var unitID = printUnit(json_obj,id,output,rawOutput);
+			document.getElementById("unit-full-img").alt = unitID;
+			document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
+			loadUnitArt();
+		}else{
+			loadFile(server + "/unit/" + id,'temp',null,function(){
+				var id = getUnitID(dropdownValue);
+				var output = document.getElementById("unit-info");
+				var rawOutput = document.getElementById("unit-info-raw");
+				var json_obj = {};
+				json_obj[id] = JSON.parse(document.getElementById('temp').innerHTML);
+				var unitID = printUnit(json_obj, id, output, rawOutput);
+				document.getElementById("unit-full-img").alt = unitID;
+				document.getElementById("unit-full-img").src = "http://i.imgur.com/LHkoVqZ.gif"; //loading GIF
+				loadUnitArt();		
+
+				document.getElementById("formatted-md").innerHTML = marked(document.getElementById("unit-info").innerHTML);
+				document.getElementById("formatted-md").innerHTML += marked("Data parsed using [BFDBReader-js](https://bluuarc.github.io/BFDBReader-js/).\n");
+				document.getElementById("unit-info-html").innerHTML = document.getElementById("formatted-md").innerHTML;
+			});
+		}
 	}catch(err){ //shouldn't happen
 		alert("Error has occured. \n" + err);
 		console.log(err);

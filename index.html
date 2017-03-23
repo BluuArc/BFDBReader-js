@@ -78,6 +78,7 @@
 					          <ul class="nav nav-tabs">
 					              <li class="active"><a data-toggle="tab" href="#auto-input">Automatic</a></li>
 					              <li><a data-toggle="tab" href="#manual-input">Manual</a></li>
+												<li><a data-toggle="tab" href="#server-input">Server</a></li>
 					          </ul>
 
 					          <div class="tab-content" style="overflow-x: scroll; margin-top: 0px">
@@ -108,6 +109,18 @@
 					                <a href="https://github.com/Deathmax/bravefrontier_data/" target="_blank">Don't have any files? Choose an info.json and feskills.json here.</a>
 					              </div>
 					            </div>
+											<div id="server-input" class="tab-pane fade">
+												<div class="boxed-content-sub2">
+													Do you know the URL of a site hosting a version of my <a href="https://github.com/BluuArc/BFDBReader-node" target="_blank">BFDBReader-node project</a>? Enter it below for quicker loading.<br>
+													<input type="text" id="url-box" title="e.g. http://someserver.com">
+													<button id="url-use-button" style="display: inline;" onclick="parseJSON()">Use This Server</button><br>
+													Order By: 
+													<form>
+														<input type="radio" name="order" value="unit_id" id="unit_id" checked>Unit ID<br>
+														<input type="radio" name="order" value="guide_id" id="guide_id">Guide ID<br>
+													</form>
+												</div>
+											</div>
 					          </div>
 					          <button id="parse-button" disabled="disable" style="margin-bottom: 10px; margin-top: 10px; display: none;">Parse File(s)</button>
 					          <br>
