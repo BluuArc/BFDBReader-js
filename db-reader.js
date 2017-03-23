@@ -78,6 +78,8 @@ function loadFile(url, destID, statusElement, callbackFn){
 			}
 			callbackFn();
 
+		}else{
+			console.log("Error: Can't reach " + url);
 		}
 	};
   	xhttp.open("GET", url, true);
